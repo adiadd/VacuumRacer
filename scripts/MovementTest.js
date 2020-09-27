@@ -47,20 +47,16 @@ class MovementTest extends Phaser.Scene{
         //creates the platforms for the player to stand on
         platforms = this.physics.add.staticGroup();
 
-<<<<<<< HEAD
         platforms.create(50, 600, 'ground_lr').setScale(0.05).refreshBody();
         platforms.create(200, 470, 'ground_lr').setScale(.025).refreshBody();
         platforms.create(200, 465, 'ground_lr').setScale(.025).refreshBody();
         platforms.create(200, 485, 'ground_lr').setScale(.025).refreshBody();
         platforms.create(200, 500, 'ground_lr').setScale(.025).refreshBody();
         platforms.create(400, 600, 'ground_lr').setScale(.025).refreshBody();
-=======
         platforms.create(50, 600, 'ground_lr').setScale(0.1).refreshBody();
         platforms.create(200, 500, 'ground_p').setScale(.025).refreshBody();
         platforms.create(300, 400, 'ground_db').setScale(.05).refreshBody();
         platforms.create(400,400,'ground_p').setScale(.05).refreshBody();
->>>>>>> b7be0d5cafc796c016d3c43bf3e135ac5c721c43
-
         checkpoint = this.physics.add.staticGroup();
 
         checkpoint.create(400,100, 'dust_bunny').setScale(.25).refreshBody();
@@ -69,14 +65,11 @@ class MovementTest extends Phaser.Scene{
 
         this.physics.add.collider(player, platforms);
         this.physics.add.overlap(player, checkpoint, function(){
-<<<<<<< HEAD
             this.scene.start("next_level");
-=======
             this.registry.destroy(); // destroy registry
             this.events.off(); // disable all active events
             this.scene.restart(); // restart current scene
             console.log('you win!');
->>>>>>> b7be0d5cafc796c016d3c43bf3e135ac5c721c43
         }, null, this);
 
         //Creating portal that makes player restart level
