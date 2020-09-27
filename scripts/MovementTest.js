@@ -43,8 +43,12 @@ class MovementTest extends Phaser.Scene{
         //creates the platforms for the player to stand on
         platforms = this.physics.add.staticGroup();
 
-        platforms.create(50, 600, 'ground_lr').setScale(0.1).refreshBody();
+        platforms.create(50, 600, 'ground_lr').setScale(0.05).refreshBody();
+        platforms.create(200, 470, 'ground_lr').setScale(.025).refreshBody();
+        platforms.create(200, 465, 'ground_lr').setScale(.025).refreshBody();
+        platforms.create(200, 485, 'ground_lr').setScale(.025).refreshBody();
         platforms.create(200, 500, 'ground_lr').setScale(.025).refreshBody();
+        platforms.create(400, 600, 'ground_lr').setScale(.025).refreshBody();
 
         checkpoint = this.physics.add.staticGroup();
 
@@ -55,7 +59,7 @@ class MovementTest extends Phaser.Scene{
 
         this.physics.add.collider(player, platforms);
         this.physics.add.overlap(player, checkpoint, function(){
-            this.scene.start("win_scene");
+            this.scene.start("next_level");
         }, null, this);
 
     }
@@ -77,11 +81,15 @@ class MovementTest extends Phaser.Scene{
             player.setVelocityX(0);
 
         }
-
+        if(cursors.space.isDown && player.body.touching.right){
+            stickmechanic();
+            
+        }
         if (cursors.up.isDown && player.body.touching.down)
         {
             player.setVelocityY(-320);
         }
+       
 
     }
 }

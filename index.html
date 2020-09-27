@@ -17,7 +17,7 @@
             physics: {
                 default: 'arcade',
                 arcade: {
-                    gravity: { y: 300},
+                    gravity: { y: 400},
                     debug: false
                 }
             },
@@ -30,6 +30,11 @@
         var cursors;
 
         var game = new Phaser.Game(config);
+        
+         function stickmechanic(){
+             
+                player.setVelocityY(-320);
+                }
         </script>
     </body>
 </html>
