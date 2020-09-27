@@ -67,20 +67,20 @@ class MovementTest extends Phaser.Scene{
         }, null, this);
 
         //Creating portal that makes player restart level
-        
+
         portal = this.physics.add.staticGroup();
 
-        portal.create(350,350,'portal').setScale(.05).refreshBody();
+        portal.create(400,300, 'portal').setScale(.05).refreshBody();
 
         cursors = this.input.keyboard.createCursorKeys();
 
-        this.physics.add.collider(player,portal);
+        this.physics.add.collider(player, platforms);
         this.physics.add.overlap(player, portal, function(){
             this.registry.destroy(); // destroy registry
             this.events.off(); // disable all active events
             this.scene.restart(); // restart current scene
-            console.log("ggs only");
-        }, null, this); 
+            console.log('ggs only!');
+        }, null, this);
     }
 
     update(){
