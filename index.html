@@ -45,20 +45,19 @@
                        player.body.setAllowGravity(true);
              }
                    if (held < 3000 && cursors.space.isDown && grabbing == true){
-                       player.body.setAllowGravity(false);
-                       console.log(held);
-                       player.setVelocityY(0);
                        if (cursors.up.isDown){
                            player.body.setAllowGravity(true);
                            player.body.setVelocityY(-160);
                            grabbing = false;
-                       }
+                       }player.body.setAllowGravity(false);
+                       console.log(held);
+                       player.setVelocityY(0);
+                   }
                    else{
                        player.body.setAllowGravity(true);
                        grabbing = false;
                    }
                    }
-               }
               </script>
     </body>
 </html>
