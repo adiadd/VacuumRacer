@@ -36,23 +36,25 @@
               var game = new Phaser.Game(config);
 
                function stickmechanic(){
+                   //gets how long the object is held for
                    var held = cursors.space.getDuration();
                    console.log(held);
                    if (player.body.touching.right){
                         grabbing = true;
                     }
-                   if (cursors.left.isDown){
-                       player.body.setAllowGravity(true);
-             }
                    if (held < 3000 && cursors.space.isDown && grabbing == true){
-                       if (cursors.up.isDown){
-                           player.body.setAllowGravity(true);
-                           player.body.setVelocityY(-160);
-                           grabbing = false;
-                       }player.body.setAllowGravity(false);
+                       //turns off the gravity and allows the player to stick in place
+                       player.body.setAllowGravity(false);
                        console.log(held);
                        player.setVelocityY(0);
+                       //once the player presses up he can't grab the wall again and he has an upward jump
+                       if (cursors.up.isDown){
+                           player.body.setAllowGravity(true);
+                           player.body.setVelocityY(-320);
+                           grabbing = false;
+                       }
                    }
+                   //resets player gravity once they stick for too long
                    else{
                        player.body.setAllowGravity(true);
                        grabbing = false;

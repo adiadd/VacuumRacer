@@ -116,12 +116,13 @@ class GameScene extends Phaser.Scene {
       });
         
         this.physics.add.collider(player, mover)
+        grabbing = false;
         
     }//end create
 
     update(){
       //all the keyboard controls are shown here
-      if (cursors.left.isDown)
+      if (cursors.left.isDown && grabbing == false)
       {
           player.setVelocityX(-160);
           player.flipX=true;
@@ -138,7 +139,7 @@ class GameScene extends Phaser.Scene {
           player.setVelocityX(0);
 
       }
-      if(cursors.space.isDown && player.body.touching.right){
+      if(cursors.space.isDown){
           stickmechanic();
 
       }
@@ -146,6 +147,15 @@ class GameScene extends Phaser.Scene {
       {
           player.setVelocityY(-320);
       }
+        if (player.body.touching.down){
+            grabbing = false;
+        }
+        if (cursors.space.isUp){
+            player.body.setAllowGravity(true);
+            grabbing = false;
+        }
+        
+    
         
 
     }//end update
