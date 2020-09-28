@@ -80,6 +80,7 @@ class MovementTest extends Phaser.Scene{
             this.scene.restart(); // restart current scene
             console.log('ggs only!');
         }, null, this);
+    grabbing = false;
     }
 
     update(){
@@ -90,7 +91,7 @@ class MovementTest extends Phaser.Scene{
 
         }
         else if (cursors.right.isDown)
-        {
+        {   
             player.setVelocityX(160);
 
         }
@@ -99,15 +100,21 @@ class MovementTest extends Phaser.Scene{
             player.setVelocityX(0);
 
         }
-        if(cursors.space.isDown && player.body.touching.right){
+        if( cursors.space.isDown ){
             stickmechanic();
             
         }
+        if (cursors.space.isUp){
+            player.body.setAllowGravity(true);
+        } 
+        
         if (cursors.up.isDown && player.body.touching.down)
-        {
+        { 
             player.setVelocityY(-320);
         }
        
-
+        if (player.body.touching.down){
+            grabbing = false;
+        }
     }
 }
