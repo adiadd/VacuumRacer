@@ -1,8 +1,13 @@
 <!DOCTYPE html>
+<html lang='en'>
     <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <title>Scene Demo</title>
         <script src="scripts/phaser.min.js"></script>
         <script src="scripts/main.js"></script>
         <script src="scripts/MovementTest.js"></script>
+        <link rel="stylesheet" href="main.css">
     </head>
     <body>
         <script type='text/javascript'>
@@ -56,5 +61,53 @@
                 }
         </script>
 
+      <script type='text/javascript'>
+
+              var config = {
+                  type: Phaser.AUTO,
+                  width: 800,
+                  height: 600,
+                  physics: {
+                      default: 'arcade',
+                      arcade: {
+                          gravity: { y: 400},
+                          debug: false
+                      }
+                  },
+                  scene: [TitleScene, GameScene]
+              };
+
+              var player;
+              var platforms;
+              var checkpoint;
+              var cursors;
+              var portal;
+              var grabbing;
+
+              var game = new Phaser.Game(config);
+
+               function stickmechanic(){
+                   var held = cursors.space.getDuration();
+                   console.log(held);
+                   if (player.body.touching.right){
+                        grabbing = true;
+                    }
+                   if (cursors.left.isDown){
+                       player.body.setAllowGravity(true);
+             }
+                   if (held < 3000 && cursors.space.isDown && grabbing == true){
+                       player.body.setAllowGravity(false);
+                       console.log(held);
+                       player.setVelocityY(0);
+                       if (cursors.up.isDown){
+                           player.body.setAllowGravity(true);
+                           player.body.setVelocityY(-160);
+                           grabbing = false;
+                       }
+                   else{
+                       player.body.setAllowGravity(true);
+                       grabbing = false;
+                   }
+              </script>
     </body>
 </html>
