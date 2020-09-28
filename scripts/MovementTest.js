@@ -4,54 +4,44 @@ class MovementTest extends Phaser.Scene{
     }
 
     preload(){
-        this.load.image('bg', 'assets/spacebg.jpg');
-        this.load.image('portal','assets/portal.png');
-        this.load.image('dust_bunny', 'assets/dust_bunny.jpg');
-        this.load.image('ground_lr', 'assets/platform_lightred.png');
-        this.load.image('ground_p','assets/platform_pink.png');
-        this.load.image('ground_db', 'assets/platform_darkblue.png');
-        this.load.spritesheet('player', 'assets/player.png',
-            { frameWidth: 300}
-        );
+        this.load.audio('song','../music/Art.mp3');
+        this.load.image('bg', '../assets/spacebg.jpg');
+        this.load.image('player', '../assets/player.png');
+        this.load.image('splatform', '../assets/platform_hor.png')
+        this.load.image('mover', '../assets/platform_vert.png')
+        this.load.image('dust_bunny','../assets/dust_bunny.jpg')
+        this.load.image('portal','../assets/portal.png');
     }
     create(){
-        this.add.image(400, 300, 'bg');
+        //add music
+        this.music = this.sound.add('song');
+        var musicConfig = {
+            mute: false,
+            volume: 0,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0
+        }
+        this.music.play(musicConfig);
+
+        this.add.image(400,300,'bg');       //set background
         
         //this is where the player and all their attributes are made
         player = this.physics.add.sprite(50, 450, 'player').setScale(0.1).refreshBody();
         player.setBounce(0.2);
         player.setCollideWorldBounds(true);
 
-        /*
-        //animations for the player
-        this.anims.create({
-            key: 'left',
-            frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3}),
-            frameRate: 10,
-            repeat: -1
-        });
-
-        this.anims.create({
-            key: 'turn',
-            frames: [ {key: 'dude', frame: 4}],
-            frameRate: 20
-        });
-
-        this.anims.create({
-            key: 'right',
-            frames: this.anims.generateFrameNumbers('dude', {start: 5, end: 8}),
-            frameRate: 10,
-            repeat: -1
-        });
-        */
         //creates the platforms for the player to stand on
         platforms = this.physics.add.staticGroup();
 
-
-        platforms.create(50, 600, 'ground_lr').setScale(0.1).refreshBody();
-        platforms.create(200, 500, 'ground_p').setScale(.025).refreshBody();
-        platforms.create(300, 400, 'ground_db').setScale(.05).refreshBody();
-        platforms.create(400,400,'ground_p').setScale(.05).refreshBody();
+        platforms.create(0,550,'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(200,500,'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(400,450,'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(400,250,'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(200,200,'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(0,150,'splatform').setOrigin(0,0).setScale(0.5).refreshBody();     //create and place static platforms
 
         checkpoint = this.physics.add.staticGroup();
 
