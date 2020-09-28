@@ -48,7 +48,7 @@ class GameScene extends Phaser.Scene {
         this.music = this.sound.add('song');
         var musicConfig = {
             mute: false,
-            volume: 0,
+            volume: 1,
             rate: 1,
             detune: 0,
             seek: 0,
@@ -65,7 +65,7 @@ class GameScene extends Phaser.Scene {
         
         //Creating portal that makes player restart level
         portal = this.physics.add.staticGroup();
-        portal.create(400,200, 'portal').setScale(.05).refreshBody();
+        portal.create(400,250, 'portal').setScale(.05).refreshBody();
 
         player = this.physics.add.sprite(60, 480, 'player').setScale(0.25);
 
@@ -109,8 +109,7 @@ class GameScene extends Phaser.Scene {
           { x:    0, y:   200, duration: 2000, ease: 'Stepped' },
         ]
       });
-
-
+        this.physics.add.collider(player, mover)
     }//end create
 
     update(){
