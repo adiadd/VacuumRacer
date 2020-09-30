@@ -75,7 +75,7 @@ class GameScene extends Phaser.Scene {
         player = this.physics.add.sprite(60, 480, 'player').setScale(0.25);
 
         player.setBounce(0.2);
-        player.setCollideWorldBounds(true);
+        player.setCollideWorldBounds(false);
         player.body.setGravityY(300);
 
         var platforms = this.physics.add.staticGroup();
@@ -95,12 +95,7 @@ class GameScene extends Phaser.Scene {
         }, null, this);
         
         //restart scene if player overlaps portal
-        this.physics.add.overlap(player, portal, function(){
-            this.registry.destroy(); // destroy registry
-            this.events.off(); // disable all active events
-            this.scene.restart(); // restart current scene
-            console.log('ggs only!');
-        }, null, this);
+        this.physics.add.overlap(player, portal, this.restart, null, this);
         
 
         var mover = this.physics.add.image(650, 500, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     //moving vertical platform
@@ -122,31 +117,31 @@ class GameScene extends Phaser.Scene {
 
     update(){
       //all the keyboard controls are shown here
-      if (cursors.left.isDown && grabbing == false)
-      {
-          player.setVelocityX(-160);
-          player.flipX=true;
+        if (cursors.left.isDown && grabbing == false)
+        {
+            player.setVelocityX(-160);
+            player.flipX=true;
 
-      }
-      else if (cursors.right.isDown)
-      {
-          player.setVelocityX(160);
-          player.flipX=false;
+        }
+        else if (cursors.right.isDown)
+        {
+            player.setVelocityX(160);
+            player.flipX=false;
 
-      }
-      else
-      {
-          player.setVelocityX(0);
+        }
+        else
+        {
+            player.setVelocityX(0);
 
-      }
-      if(cursors.space.isDown){
-          stickmechanic();
+        }
+        if(cursors.space.isDown){
+            stickmechanic();
 
-      }
-      if (cursors.up.isDown && player.body.touching.down)
-      {
-          player.setVelocityY(-320);
-      }
+        }
+        if (cursors.up.isDown && player.body.touching.down)
+        {
+            player.setVelocityY(-320);
+        }
         if (player.body.touching.down){
             grabbing = false;
         }
@@ -155,8 +150,67 @@ class GameScene extends Phaser.Scene {
             grabbing = false;
         }
         
-    
-        
+        if (player.body.checkWorldBounds() == true) {
+            this.registry.destroy(); // destroy registry
+            this.events.off(); // disable all active events
+            this.scene.restart(); // restart current scene
+            console.log("yoo");
+        }
 
     }//end update
+
+    restart() {
+        this.registry.destroy(); // destroy registry
+        this.events.off(); // disable all active events
+        this.scene.restart(); // restart current scene
+    }
+
+    checkWorldBounds()
+    {
+        var pos = this.position;
+        var bounds = this.customBoundsRectangle;
+        var check = this.world.checkCollision;
+
+        var bx = (this.worldBounce) ? -this.worldBounce.x : -this.bounce.x;
+        var by = (this.worldBounce) ? -this.worldBounce.y : -this.bounce.y;
+
+        var wasSet = false;
+
+        if (pos.x < bounds.x && check.left)
+        {
+            pos.x = bounds.x;
+            this.velocity.x *= bx;
+            this.blocked.left = true;
+            wasSet = true;
+        }
+        else if (this.right > bounds.right && check.right)
+        {
+            pos.x = bounds.right - this.width;
+            this.velocity.x *= bx;
+            this.blocked.right = true;
+            wasSet = true;
+        }
+
+        if (pos.y < bounds.y && check.up)
+        {
+            pos.y = bounds.y;
+            this.velocity.y *= by;
+            this.blocked.up = true;
+            wasSet = true;
+        }
+        else if (this.bottom > bounds.bottom && check.down)
+        {
+            pos.y = bounds.bottom - this.height;
+            this.velocity.y *= by;
+            this.blocked.down = true;
+            wasSet = true;
+        }
+
+        if (wasSet)
+        {
+            this.blocked.none = false;
+        }
+
+        return wasSet;
+    }
 }
