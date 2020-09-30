@@ -33,20 +33,23 @@ class GameScene extends Phaser.Scene {
     }
 
     preload(){
+        
         this.load.audio('song','../music/Art.mp3');
         this.load.audio('jump_sound', '../sounds/jump_sound.wav')
         this.load.audio('death_sound', '../sounds/death_sound.mp3')
+        
         this.load.image('bg', '../assets/spacebg.jpg');
-       // this.load.image('player', '../assets/player.png');
         this.load.image('splatform', '../assets/platform_hor.png')
         this.load.image('bplatform', '../assets/platform_blue.png')
         this.load.image('gplatform', '../assets/platform_green.png')
         this.load.image('pplatform', '../assets/platform_purple.png')
-
         this.load.image('mover', '../assets/platform_vert.png')
+        
         this.load.image('dust_bunny','../assets/dust_bunny.jpg')
         this.load.image('portal','../assets/portal.png');
         this.load.image('player', '../assets/player.png');
+        this.load.image('turret', '../assets/turret.png');
+        this.load.image('bullet', '../assets/tracer.png');
     }//end preload
 
     create(){
@@ -90,6 +93,13 @@ class GameScene extends Phaser.Scene {
 
         this.physics.add.collider(player, platforms);
         
+        //add bullet group
+        this.bullets = this.physics.add.group({
+            defaultKey: 'bullet',
+            maxSize: 10
+        });
+        this.input.on('pointerdown', this.shoot, this);
+        
         //if player overlaps with bunny, level is complete
         this.physics.add.overlap(player, checkpoint, function(){
             this.scene.start("next_level");
@@ -123,6 +133,17 @@ class GameScene extends Phaser.Scene {
         grabbing = false;
         
     }//end create
+    
+    //shoot function for bullets
+    shoot(pointer) 
+    {
+       var bullet = this.bullets.get(pointer.x, pointer.y);
+        if (bullet) {
+            bullet.setActive(true);
+            bullet.setVisible(true);
+            bullet.body.velocity.y = -200;
+                    }
+    }
 
     update(){
       //all the keyboard controls are shown here
@@ -160,8 +181,13 @@ class GameScene extends Phaser.Scene {
             grabbing = false;
         }
         
-    
-        
+        this.bullets.children.each(function(b) {
+            if (b.active) {
+                if (b.y < 0 || b.y > 800) {
+                    b.setActive(false);
+                }
+            }
+        }.bind(this));
 
     }//end update
 }
