@@ -148,6 +148,7 @@ class GameScene extends Phaser.Scene {
       }
       if(cursors.space.isDown){
           stickmechanic();
+          //rotates player left
           player.angle = 270;
           rotated = true;
           
@@ -163,6 +164,7 @@ class GameScene extends Phaser.Scene {
         if (cursors.space.isUp){
             player.body.setAllowGravity(true);
             grabbing = false;
+            //resets player rotation
             if (rotated == true){
                 player.angle = 0;
             }
