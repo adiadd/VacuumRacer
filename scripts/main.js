@@ -110,8 +110,15 @@ class GameScene extends Phaser.Scene {
         ]
       });
         
-        this.physics.add.collider(player, mover)
+        this.physics.add.collider(player, mover);
+        this.physics.add.overlap(player, mover, function(){
+            if (player.body.touching.right){
+                console.log("I am on the moving plat");
+            }
+        }, null, this);
+        
         grabbing = false;
+        rotated = false;
         
     }//end create
 
@@ -148,6 +155,9 @@ class GameScene extends Phaser.Scene {
         if (cursors.space.isUp){
             player.body.setAllowGravity(true);
             grabbing = false;
+            if (rotated == true){
+                player.angle = 0;
+            }
         }
         
         if (player.body.checkWorldBounds() == true) {
