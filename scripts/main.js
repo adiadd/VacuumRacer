@@ -34,6 +34,8 @@ class GameScene extends Phaser.Scene {
 
     preload(){
         this.load.audio('song','../music/Art.mp3');
+        this.load.audio('jump_sound', '../sounds/jump_sound.wav')
+        this.load.audio('death_sound', '../sounds/death_sound.mp3')
         this.load.image('bg', '../assets/spacebg.jpg');
        // this.load.image('player', '../assets/player.png');
         this.load.image('splatform', '../assets/platform_hor.png')
@@ -96,8 +98,10 @@ class GameScene extends Phaser.Scene {
         
         //restart scene if player overlaps portal
         this.physics.add.overlap(player, portal, function(){
+            this.sound.play('death_sound');
             this.registry.destroy(); // destroy registry
             this.events.off(); // disable all active events
+            this.music.stop()
             this.scene.restart(); // restart current scene
             console.log('ggs only!');
         }, null, this);
@@ -146,6 +150,7 @@ class GameScene extends Phaser.Scene {
       if (cursors.up.isDown && player.body.touching.down)
       {
           player.setVelocityY(-320);
+          this.sound.play('jump_sound');
       }
         if (player.body.touching.down){
             grabbing = false;
