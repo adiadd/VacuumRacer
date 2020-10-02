@@ -34,10 +34,12 @@ class GameScene extends Phaser.Scene {
 
     preload(){
         
+        //audio
         this.load.audio('song','../music/Art.mp3');
         this.load.audio('jump_sound', '../sounds/jump_sound.wav')
         this.load.audio('death_sound', '../sounds/death_sound.mp3')
         
+        //platforms
         this.load.image('bg', '../assets/spacebg.jpg');
         this.load.image('splatform', '../assets/platform_hor.png')
         this.load.image('bplatform', '../assets/platform_blue.png')
@@ -45,6 +47,7 @@ class GameScene extends Phaser.Scene {
         this.load.image('pplatform', '../assets/platform_purple.png')
         this.load.image('mover', '../assets/platform_vert.png')
         
+        //etc
         this.load.image('dust_bunny','../assets/dust_bunny.jpg')
         this.load.image('portal','../assets/portal.png');
         this.load.image('player', '../assets/player.png');
@@ -55,6 +58,7 @@ class GameScene extends Phaser.Scene {
     create(){
         cursors = this.input.keyboard.createCursorKeys();
 
+        //music config
         this.music = this.sound.add('song');
         var musicConfig = {
             mute: false,
@@ -66,34 +70,35 @@ class GameScene extends Phaser.Scene {
             delay: 0
         }
         this.music.play(musicConfig);
-
-        this.add.image(400,300,'bg');       //set background
+        
+        //set background
+        this.add.image(400,300,'bg');       
 
         //add checkpoint bunny
         checkpoint = this.physics.add.staticGroup();
         checkpoint.create(20, 60, 'dust_bunny').setOrigin(0,0).setScale(.125).refreshBody();
 
-        //Creating portal that makes player restart level
+        //add portals
         portal = this.physics.add.staticGroup();
         portal.create(400,230, 'portal').setScale(.125).refreshBody();
 
+        //set player physics
         player = this.physics.add.sprite(60, 480, 'player').setScale(0.25);
-
         player.setBounce(0.2);
         player.setCollideWorldBounds(false);
         player.body.setGravityY(300);
-
+        
+        //create and place static platforms
         var platforms = this.physics.add.staticGroup();
         platforms.create(0,550,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(200,500,'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(400,450,'gplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(400,250,'pplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(200,200,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(0,150,'splatform').setOrigin(0,0).setScale(0.5).refreshBody();     //create and place static platforms
+        platforms.create(0,150,'splatform').setOrigin(0,0).setScale(0.5).refreshBody();     
 
         this.physics.add.collider(player, platforms);
 
-        
         //add bullet group
         this.bullets = this.physics.add.group({
             defaultKey: 'bullet',
@@ -119,8 +124,8 @@ class GameScene extends Phaser.Scene {
         
         this.physics.add.overlap(player, portal, this.restart, null, this);
 
-
-        var mover = this.physics.add.image(650, 500, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     //moving vertical platform
+        //moving vertical platform
+        var mover = this.physics.add.image(650, 500, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
         mover.body.setAllowGravity(false);
 
         this.tweens.timeline({
@@ -131,7 +136,8 @@ class GameScene extends Phaser.Scene {
           { x:    0, y:   200, duration: 2000, ease: 'Stepped' },
         ]
       });
-
+        
+        //collider with moving platform
         this.physics.add.collider(player, mover);
         this.physics.add.overlap(player, mover, function(){
             if (player.body.touching.right){
@@ -156,39 +162,38 @@ class GameScene extends Phaser.Scene {
     }
 
     update(){
-      //all the keyboard controls are shown here
-
+        
+      //keyboard controls for movement
       if (cursors.left.isDown && grabbing == false)
       {
           player.setVelocityX(-160);
           player.flipX=true;
-
       }
       else if (cursors.right.isDown)
       {
           player.setVelocityX(160);
           player.flipX=false;
-
       }
       else
       {
           player.setVelocityX(0);
-
       }
-      if(cursors.space.isDown){
+        
+    //stickMechanic
+    if(cursors.space.isDown){
           stickmechanic();
           //rotates player left
           player.angle = 270;
           rotated = true;
-
-
       }
+        
+      //jumping  
       if (cursors.up.isDown && player.body.touching.down)
       {
           player.setVelocityY(-320);
           this.sound.play('jump_sound');
       }
-
+        
         if (player.body.touching.down){
             grabbing = false;
         }
@@ -200,7 +205,8 @@ class GameScene extends Phaser.Scene {
                 player.angle = 0;
             }
         }
-
+        
+        //checkWorldBounds
         if (player.body.checkWorldBounds() == true) {
             this.registry.destroy(); // destroy registry
             this.events.off(); // disable all active events
@@ -209,6 +215,7 @@ class GameScene extends Phaser.Scene {
             console.log("yoo");
         }
         
+        //inactivate bullets after leaving screen
         this.bullets.children.each(function(b) {
             if (b.active) {
                 if (b.y < 0 || b.y > 800) {
