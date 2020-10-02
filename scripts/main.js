@@ -30,6 +30,7 @@ class TitleScene extends Phaser.Scene {
 class GameScene extends Phaser.Scene {
     constructor(){
         super('gameScene')
+        var turret1;
     }
 
     preload(){
@@ -81,6 +82,9 @@ class GameScene extends Phaser.Scene {
         //add portals
         portal = this.physics.add.staticGroup();
         portal.create(400,230, 'portal').setScale(.125).refreshBody();
+        
+        //add turret
+        this.turret1 = this.add.image(380, 590, 'turret').setScale(0.25);
 
         //set player physics
         player = this.physics.add.sprite(60, 480, 'player').setScale(0.25);
@@ -99,12 +103,13 @@ class GameScene extends Phaser.Scene {
 
         this.physics.add.collider(player, platforms);
 
-        //add bullet group
+        //add bullet group and collider
         this.bullets = this.physics.add.group({
             defaultKey: 'bullet',
             maxSize: 10
         });
         this.input.on('pointerdown', this.shoot, this);
+        this.physics.add.collider(player, this.bullets, this.restart, null, this);
         
         //if player overlaps with bunny, level is complete
         this.physics.add.overlap(player, checkpoint, function(){
@@ -112,15 +117,15 @@ class GameScene extends Phaser.Scene {
             console.log('you win!');
         }, null, this);
 
-        //restart scene if player overlaps portal
-        this.physics.add.overlap(player, portal, function(){
-            this.sound.play('death_sound');
-            this.registry.destroy(); // destroy registry
-            this.events.off(); // disable all active events
-            this.music.stop()
-            this.scene.restart(); // restart current scene
-            console.log('ggs only!');
-        }, null, this);
+        //restart scene if player overlaps portal - *I think we can delete this.. line 129 does same?
+//        this.physics.add.overlap(player, portal, function(){
+//            this.sound.play('death_sound');
+//            this.registry.destroy(); // destroy registry
+//            this.events.off(); // disable all active events
+//            this.music.stop()
+//            this.scene.restart(); // restart current scene
+//            console.log('ggs only!');
+//        }, null, this);
         
         this.physics.add.overlap(player, portal, this.restart, null, this);
 
@@ -153,31 +158,20 @@ class GameScene extends Phaser.Scene {
     //shoot function for bullets
     shoot(pointer) 
     {
-       var bullet = this.bullets.get(pointer.x, pointer.y);
+       var bullet = this.bullets.get(this.turret1.x, this.turret1.y-20);
         if (bullet) {
             bullet.setActive(true);
             bullet.setVisible(true);
+            bullet.body.setAllowGravity(false);
             bullet.body.velocity.y = -200;
-                    }
+            }
     }
 
     update(){
-        
-      //keyboard controls for movement
-      if (cursors.left.isDown && grabbing == false)
-      {
-          player.setVelocityX(-160);
-          player.flipX=true;
-      }
-      else if (cursors.right.isDown)
-      {
-          player.setVelocityX(160);
-          player.flipX=false;
-      }
-      else
-      {
-          player.setVelocityX(0);
-      }
+    
+    this.checkKeyboard();
+    this.turretDetector();
+      
         
     //stickMechanic
     if(cursors.space.isDown){
@@ -225,6 +219,24 @@ class GameScene extends Phaser.Scene {
         }.bind(this));
 
     }//end update
+    
+    checkKeyboard() {
+        //keyboard controls for movement
+      if (cursors.left.isDown && grabbing == false)
+      {
+          player.setVelocityX(-160);
+          player.flipX=true;
+      }
+      else if (cursors.right.isDown)
+      {
+          player.setVelocityX(160);
+          player.flipX=false;
+      }
+      else
+      {
+          player.setVelocityX(0);
+      }
+}
 
     restart() {
         this.registry.destroy(); // destroy registry
@@ -280,5 +292,13 @@ class GameScene extends Phaser.Scene {
         }
 
         return wasSet;
+    }
+    
+    turretDetector()
+    {
+        if(player.x > 300 && player.x < 3200) {
+            console.log('shoot');
+            
+        }
     }
 }
