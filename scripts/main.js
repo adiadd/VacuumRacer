@@ -68,11 +68,11 @@ class GameScene extends Phaser.Scene {
         this.music.play(musicConfig);
 
         this.add.image(400,300,'bg');       //set background
-        
+
         //add checkpoint bunny
         checkpoint = this.physics.add.staticGroup();
         checkpoint.create(20, 60, 'dust_bunny').setOrigin(0,0).setScale(.125).refreshBody();
-        
+
         //Creating portal that makes player restart level
         portal = this.physics.add.staticGroup();
         portal.create(400,230, 'portal').setScale(.125).refreshBody();
@@ -80,7 +80,7 @@ class GameScene extends Phaser.Scene {
         player = this.physics.add.sprite(60, 480, 'player').setScale(0.25);
 
         player.setBounce(0.2);
-        player.setCollideWorldBounds(true);
+        player.setCollideWorldBounds(false);
         player.body.setGravityY(300);
 
         var platforms = this.physics.add.staticGroup();
@@ -92,6 +92,7 @@ class GameScene extends Phaser.Scene {
         platforms.create(0,150,'splatform').setOrigin(0,0).setScale(0.5).refreshBody();     //create and place static platforms
 
         this.physics.add.collider(player, platforms);
+
         
         //add bullet group
         this.bullets = this.physics.add.group({
@@ -105,7 +106,7 @@ class GameScene extends Phaser.Scene {
             this.scene.start("next_level");
             console.log('you win!');
         }, null, this);
-        
+
         //restart scene if player overlaps portal
         this.physics.add.overlap(player, portal, function(){
             this.sound.play('death_sound');
@@ -116,6 +117,8 @@ class GameScene extends Phaser.Scene {
             console.log('ggs only!');
         }, null, this);
         
+        this.physics.add.overlap(player, portal, this.restart, null, this);
+
 
         var mover = this.physics.add.image(650, 500, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     //moving vertical platform
         mover.body.setAllowGravity(false);
@@ -128,10 +131,17 @@ class GameScene extends Phaser.Scene {
           { x:    0, y:   200, duration: 2000, ease: 'Stepped' },
         ]
       });
-        
-        this.physics.add.collider(player, mover)
+
+        this.physics.add.collider(player, mover);
+        this.physics.add.overlap(player, mover, function(){
+            if (player.body.touching.right){
+                console.log("I am on the moving plat");
+            }
+        }, null, this);
+
         grabbing = false;
-        
+        rotated = false;
+
     }//end create
     
     //shoot function for bullets
@@ -147,6 +157,7 @@ class GameScene extends Phaser.Scene {
 
     update(){
       //all the keyboard controls are shown here
+
       if (cursors.left.isDown && grabbing == false)
       {
           player.setVelocityX(-160);
@@ -166,6 +177,10 @@ class GameScene extends Phaser.Scene {
       }
       if(cursors.space.isDown){
           stickmechanic();
+          //rotates player left
+          player.angle = 270;
+          rotated = true;
+
 
       }
       if (cursors.up.isDown && player.body.touching.down)
@@ -173,12 +188,24 @@ class GameScene extends Phaser.Scene {
           player.setVelocityY(-320);
           this.sound.play('jump_sound');
       }
+
         if (player.body.touching.down){
             grabbing = false;
         }
         if (cursors.space.isUp){
             player.body.setAllowGravity(true);
             grabbing = false;
+            //resets player rotation
+            if (rotated == true){
+                player.angle = 0;
+            }
+        }
+
+        if (player.body.checkWorldBounds() == true) {
+            this.registry.destroy(); // destroy registry
+            this.events.off(); // disable all active events
+            this.scene.restart(); // restart current scene
+            console.log("yoo");
         }
         
         this.bullets.children.each(function(b) {
@@ -190,4 +217,60 @@ class GameScene extends Phaser.Scene {
         }.bind(this));
 
     }//end update
+
+    restart() {
+        this.registry.destroy(); // destroy registry
+        this.music.stop();
+        this.events.off(); // disable all active events
+        this.scene.restart(); // restart current scene
+    }
+
+    checkWorldBounds()
+    {
+        var pos = this.position;
+        var bounds = this.customBoundsRectangle;
+        var check = this.world.checkCollision;
+
+        var bx = (this.worldBounce) ? -this.worldBounce.x : -this.bounce.x;
+        var by = (this.worldBounce) ? -this.worldBounce.y : -this.bounce.y;
+
+        var wasSet = false;
+
+        if (pos.x < bounds.x && check.left)
+        {
+            pos.x = bounds.x;
+            this.velocity.x *= bx;
+            this.blocked.left = true;
+            wasSet = true;
+        }
+        else if (this.right > bounds.right && check.right)
+        {
+            pos.x = bounds.right - this.width;
+            this.velocity.x *= bx;
+            this.blocked.right = true;
+            wasSet = true;
+        }
+
+        if (pos.y < bounds.y && check.up)
+        {
+            pos.y = bounds.y;
+            this.velocity.y *= by;
+            this.blocked.up = true;
+            wasSet = true;
+        }
+        else if (this.bottom > bounds.bottom && check.down)
+        {
+            pos.y = bounds.bottom - this.height;
+            this.velocity.y *= by;
+            this.blocked.down = true;
+            wasSet = true;
+        }
+
+        if (wasSet)
+        {
+            this.blocked.none = false;
+        }
+
+        return wasSet;
+    }
 }
