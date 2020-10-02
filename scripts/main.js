@@ -205,6 +205,7 @@ class GameScene extends Phaser.Scene {
             this.registry.destroy(); // destroy registry
             this.events.off(); // disable all active events
             this.scene.restart(); // restart current scene
+            this.music.stop()
             console.log("yoo");
         }
         
