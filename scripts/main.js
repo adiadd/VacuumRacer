@@ -150,8 +150,9 @@ class GameScene extends Phaser.Scene {
             }
         }, null, this);
 
-        grabbing = false;
+        canGrab = false;
         rotated = false;
+        wallJumped = false;
 
     }//end create
     
@@ -174,7 +175,7 @@ class GameScene extends Phaser.Scene {
       
         
     //stickMechanic
-    if(cursors.space.isDown){
+    if(cursors.space.isDown && wallJumped == false){
           stickmechanic();
           //rotates player left
           player.angle = 270;
@@ -189,11 +190,12 @@ class GameScene extends Phaser.Scene {
       }
         
         if (player.body.touching.down){
-            grabbing = false;
+            canGrab = true;
+            wallJumped = false;
         }
         if (cursors.space.isUp){
             player.body.setAllowGravity(true);
-            grabbing = false;
+            canGrab = false;
             //resets player rotation
             if (rotated == true){
                 player.angle = 0;
@@ -222,7 +224,7 @@ class GameScene extends Phaser.Scene {
     
     checkKeyboard() {
         //keyboard controls for movement
-      if (cursors.left.isDown && grabbing == false)
+      if (cursors.left.isDown && canGrab == false)
       {
           player.setVelocityX(-160);
           player.flipX=true;

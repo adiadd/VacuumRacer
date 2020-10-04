@@ -31,8 +31,9 @@
               var checkpoint;
               var cursors;
               var portal;
-              var grabbing;
+              var canGrab;
               var rotated;
+              var wallJumped;
 
               var game = new Phaser.Game(config);
 
@@ -41,9 +42,9 @@
                    var held = cursors.space.getDuration();
                    console.log(held);
                    if (player.body.touching.right){
-                        grabbing = true;
+                        canGrab = true;
                     }
-                   if (held < 3000 && cursors.space.isDown && grabbing == true){
+                   if (held < 3000 && cursors.space.isDown && canGrab == true){
                        //turns off the gravity and allows the player to stick in place
                        player.body.setAllowGravity(false);
                        console.log(held);
@@ -52,13 +53,14 @@
                        if (cursors.up.isDown){
                            player.body.setAllowGravity(true);
                            player.body.setVelocityY(-320);
-                           grabbing = false;
+                           canGrab = false;
+                           wallJumped = true;
                        }
                    }
                    //resets player gravity once they stick for too long
                    else{
                        player.body.setAllowGravity(true);
-                       grabbing = false;
+                       canGrab = false;
                    }
                    }
           
