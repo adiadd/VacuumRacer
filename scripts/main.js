@@ -144,11 +144,6 @@ class GameScene extends Phaser.Scene {
         
         //collider with moving platform
         this.physics.add.collider(player, mover);
-        this.physics.add.overlap(player, mover, function(){
-            if (player.body.touching.right){
-                console.log("I am on the moving plat");
-            }
-        }, null, this);
 
         canGrab = false;
         rotated = false;
@@ -177,9 +172,6 @@ class GameScene extends Phaser.Scene {
     //stickMechanic
     if(cursors.space.isDown && wallJumped == false){
           stickmechanic();
-          //rotates player left
-          player.angle = 270;
-          rotated = true;
       }
         
       //jumping  
