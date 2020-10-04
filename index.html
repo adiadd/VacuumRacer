@@ -34,6 +34,7 @@
               var canGrab;
               var rotated;
               var wallJumped;
+              var bodyTouchingLeft;
 
               var game = new Phaser.Game(config);
 
@@ -41,8 +42,19 @@
                    //gets how long the object is held for
                    var held = cursors.space.getDuration();
                    console.log(held);
-                   if (player.body.touching.right){
+                   //checks if  player is on a wall
+                   if (player.body.onWall()){
                         canGrab = true;
+                        if (player.body.touching.right){
+                            //rotates player right
+                            player.angle = 270;
+                            rotated = true;
+                        }
+                        else {
+                            //rotates player left
+                            player.angle = 90;
+                             rotated = true;
+                        }
                     }
                    if (held < 3000 && cursors.space.isDown && canGrab == true){
                        //turns off the gravity and allows the player to stick in place
