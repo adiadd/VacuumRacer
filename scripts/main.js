@@ -130,7 +130,7 @@ class GameScene extends Phaser.Scene {
         this.physics.add.overlap(player, portal, this.restart, null, this);
 
         //moving vertical platform
-        var mover = this.physics.add.image(650, 500, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
+        mover = this.physics.add.image(650, 500, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
         mover.body.setAllowGravity(false);
 
         this.tweens.timeline({
@@ -148,6 +148,9 @@ class GameScene extends Phaser.Scene {
         canGrab = false;
         rotated = false;
         wallJumped = false;
+        isOnWall = false;
+        isOnRight = false;
+        isOnLeft = false;
 
     }//end create
     
@@ -171,8 +174,25 @@ class GameScene extends Phaser.Scene {
         
     //stickMechanic
     if(cursors.space.isDown && wallJumped == false){
-          stickmechanic();
-      }
+        //if the player is touching the wall or a moving body, it is made note of here
+        if (player.body.onWall() || player.body.touching.right || player.body.touching.left){
+            if (player.body.onWall()){
+                isOnWall = true;
+            }
+            if (player.body.touching.right){
+                isOnRight = true;
+            }
+            if (player.body.touching.left){
+                isOnLeft = true;
+            }
+        }
+        if (!(isOnWall)&& (isOnLeft || isOnRight)){
+            stickmechanicMoving();
+        }
+        else if(isOnWall){
+        stickmechanic(); 
+          }
+    }
         
       //jumping  
       if (cursors.up.isDown && player.body.touching.down)
@@ -184,10 +204,21 @@ class GameScene extends Phaser.Scene {
         if (player.body.touching.down){
             canGrab = true;
             wallJumped = false;
+            bodyTouchingLeft = null;
+            //resets wall booleans upon touching floor
+            isOnWall = false;
+            isOnLeft = false;
+            isOnRight = false;
         }
         if (cursors.space.isUp){
             player.body.setAllowGravity(true);
             canGrab = false;
+            //resets wall booleans when letting go of space
+            isOnWall = false;
+            isOnLeft = false;
+            isOnRight = false;
+            //allows player to stick again as long as they let go of space first
+            wallJumped = false;
             //resets player rotation
             if (rotated == true){
                 player.angle = 0;
@@ -216,12 +247,12 @@ class GameScene extends Phaser.Scene {
     
     checkKeyboard() {
         //keyboard controls for movement
-      if (cursors.left.isDown && canGrab == false)
+      if (cursors.left.isDown && !(isOnRight))
       {
           player.setVelocityX(-160);
           player.flipX=true;
       }
-      else if (cursors.right.isDown)
+      else if (cursors.right.isDown && !(isOnRight))
       {
           player.setVelocityX(160);
           player.flipX=false;
