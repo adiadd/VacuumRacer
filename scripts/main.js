@@ -7,19 +7,20 @@ class TitleScene extends Phaser.Scene {
         console.log('preload title');
         this.load.image('bg', '../assets/spacebg.jpg');
         this.load.image('star','../assets/star.png');
-        this.load.image('logo', '../assets/VacuumRacerTitle.png')
+        this.load.image('logo', '../assets/VacuumRacerTitle.png');
+        this.load.image('playButton', '../assets/playButton.png');
     }//end preload
 
     create(){
         let sb = this.add.image(400,300,'bg')
         let logo = this.add.image(400,150,'logo').setScale(.5);
-        let starButton = this.add.image(400,300,'star')
-        starButton.setInteractive()
-        starButton.on('pointerdown', ()=>{
-            starButton.setScale(3)
+        let playButton = this.add.image(400,250,'playButton').setScale(.25);
+        playButton.setInteractive()
+        playButton.on('pointerdown', ()=>{
+            playButton.setScale(.5)
         })
-        starButton.on('pointerup', ()=>{
-            starButton.setScale(1)
+        playButton.on('pointerup', ()=>{
+            playButton.setScale(1)
             this.scene.switch('gameScene')
         })
     }//end create
@@ -82,7 +83,7 @@ class GameScene extends Phaser.Scene {
         var backdrop = this.add.image(400,300,'bg'); 
         backdrop.setScale(4);
         
-        //set bounds so camer wont go outside game world
+        //set bounds so camera wont go outside game world
         this.cameras.main.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
         //add checkpoint bunny
