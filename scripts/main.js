@@ -6,11 +6,13 @@ class TitleScene extends Phaser.Scene {
     preload(){
         console.log('preload title');
         this.load.image('bg', '../assets/spacebg.jpg');
-        this.load.image('star','../assets/star.png')
+        this.load.image('star','../assets/star.png');
+        this.load.image('logo', '../assets/VacuumRacerTitle.png')
     }//end preload
 
     create(){
         let sb = this.add.image(400,300,'bg')
+        let logo = this.add.image(400,150,'logo').setScale(.5);
         let starButton = this.add.image(400,300,'star')
         starButton.setInteractive()
         starButton.on('pointerdown', ()=>{
