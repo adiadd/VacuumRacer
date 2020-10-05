@@ -33,6 +33,7 @@ class GameScene extends Phaser.Scene {
     constructor(){
         super('gameScene')
         var turret1;
+        var tdelay;      //this counts to delay the turret 
     }
 
     preload(){
@@ -51,7 +52,7 @@ class GameScene extends Phaser.Scene {
         this.load.image('mover', '../assets/platform_vert.png')
         
         //etc
-        this.load.image('dust_bunny','../assets/dust_bunny.jpg')
+        this.load.image('dust_bunny','../assets/dust_bunny.png')
         this.load.image('portal','../assets/portal.png');
         this.load.image('player', '../assets/player.png');
         this.load.image('turret', '../assets/turret.png');
@@ -60,6 +61,7 @@ class GameScene extends Phaser.Scene {
 
     create(){
         cursors = this.input.keyboard.createCursorKeys();
+        this.tdelay = 0;
 
         //music config
         this.music = this.sound.add('song');
@@ -110,7 +112,7 @@ class GameScene extends Phaser.Scene {
             defaultKey: 'bullet',
             maxSize: 10
         });
-        this.input.on('pointerdown', this.shoot, this);
+        //this.input.on('pointerdown', this.shoot, this);
         this.physics.add.collider(player, this.bullets, this.restart, null, this);
         
         //if player overlaps with bunny, level is complete
@@ -157,19 +159,20 @@ class GameScene extends Phaser.Scene {
     }//end create
     
     //shoot function for bullets
-    shoot(pointer) 
+    shoot(x, y) 
     {
-       var bullet = this.bullets.get(this.turret1.x, this.turret1.y-20);
+       var bullet = this.bullets.get(x, y-20);
         if (bullet) {
             bullet.setActive(true);
             bullet.setVisible(true);
             bullet.body.setAllowGravity(false);
-            bullet.body.velocity.y = -200;
+            bullet.body.velocity.y = -300;
             }
     }
 
     update(){
     
+    //this.tdelay++;
     this.checkKeyboard();
     this.turretDetector();
       
@@ -323,9 +326,11 @@ class GameScene extends Phaser.Scene {
     
     turretDetector()
     {
-        if(player.x > 300 && player.x < 3200) {
-            console.log('shoot');
-            
+        if(player.x > 300 && player.x < 320 && this.tdelay > 30) {
+            this.shoot(this.turret1.x, this.turret1.y); 
+            this.tdelay = 0;
         }
+        this.tdelay++;
     }
+    
 }
