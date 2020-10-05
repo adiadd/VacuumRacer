@@ -33,7 +33,7 @@ class GameScene extends Phaser.Scene {
     constructor(){
         super('gameScene')
         var turret1;
-        var tdelay;      //this counts to delay the turret 
+        var tdelay;      //turret delay counter
     }
 
     preload(){
@@ -60,6 +60,8 @@ class GameScene extends Phaser.Scene {
     }//end preload
 
     create(){
+
+        
         cursors = this.input.keyboard.createCursorKeys();
         this.tdelay = 0;
 
@@ -77,7 +79,11 @@ class GameScene extends Phaser.Scene {
         this.music.play(musicConfig);
         
         //set background
-        this.add.image(400,300,'bg');       
+        var backdrop = this.add.image(400,300,'bg'); 
+        backdrop.setScale(4);
+        
+        //set bounds so camer wont go outside game world
+        this.cameras.main.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
         //add checkpoint bunny
         checkpoint = this.physics.add.staticGroup();
@@ -95,6 +101,10 @@ class GameScene extends Phaser.Scene {
         player.setBounce(0.2);
         player.setCollideWorldBounds(false);
         player.body.setGravityY(300);
+        
+        //make camera follow player
+        this.cameras.main.startFollow(player);
+        this.cameras.main.setZoom(1.5);
         
         //create and place static platforms
         var platforms = this.physics.add.staticGroup();
@@ -326,7 +336,7 @@ class GameScene extends Phaser.Scene {
     
     turretDetector()
     {
-        if(player.x > 300 && player.x < 320 && this.tdelay > 30) {
+        if(player.x > 300 && player.x < 320 && player.y > 400 && this.tdelay > 30) {
             this.shoot(this.turret1.x, this.turret1.y); 
             this.tdelay = 0;
         }
