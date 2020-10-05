@@ -9,12 +9,17 @@ class TitleScene extends Phaser.Scene {
         this.load.image('star','../assets/star.png');
         this.load.image('logo', '../assets/VacuumRacerTitle.png');
         this.load.image('playButton', '../assets/playButton.png');
+        this.load.image('instructionsButton', '../assets/instructionsButton.png');
+        this.load.image('creditsButton', '../assets/creditsButton.png');
     }//end preload
 
     create(){
         let sb = this.add.image(400,300,'bg')
         let logo = this.add.image(400,150,'logo').setScale(.5);
-        let playButton = this.add.image(400,250,'playButton').setScale(.25);
+        let playButton = this.add.image(400,300,'playButton');
+        let instructionsButton = this.add.image(400,375,'instructionsButton');
+        let creditsButton = this.add.image(400,450,'creditsButton');
+
         playButton.setInteractive()
         playButton.on('pointerdown', ()=>{
             playButton.setScale(.5)
@@ -22,6 +27,24 @@ class TitleScene extends Phaser.Scene {
         playButton.on('pointerup', ()=>{
             playButton.setScale(1)
             this.scene.switch('gameScene')
+        })
+
+        instructionsButton.setInteractive()
+        instructionsButton.on('pointerdown', ()=>{
+            instructionsButton.setScale(.5)
+        })
+        instructionsButton.on('pointerup', ()=>{
+            instructionsButton.setScale(1)
+            //this.scene.switch('gameScene')
+        })
+
+        creditsButton.setInteractive()
+        creditsButton.on('pointerdown', ()=>{
+            creditsButton.setScale(.5)
+        })
+        creditsButton.on('pointerup', ()=>{
+            creditsButton.setScale(1)
+            //this.scene.switch('gameScene')
         })
     }//end create
 
