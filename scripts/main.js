@@ -17,8 +17,8 @@ class TitleScene extends Phaser.Scene {
         let sb = this.add.image(400,300,'bg')
         let logo = this.add.image(400,150,'logo').setScale(.5);
         let playButton = this.add.image(400,300,'playButton');
-        let instructionsButton = this.add.image(400,375,'instructionsButton');
-        let creditsButton = this.add.image(400,450,'creditsButton');
+        let instructionsButton = this.add.image(400,400,'instructionsButton');
+        let creditsButton = this.add.image(400,500,'creditsButton');
 
         playButton.setInteractive()
         playButton.on('pointerdown', ()=>{
