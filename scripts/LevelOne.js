@@ -1,67 +1,8 @@
-class TitleScene extends Phaser.Scene {
+class LevelOne extends Phaser.Scene {
     constructor(){
-        super('titleScene')
+        super('levelone')
     }
-
-    preload(){
-        console.log('preload title');
-        this.load.image('bg', '../assets/spacebg.jpg');
-        this.load.image('star','../assets/star.png');
-        this.load.image('logo', '../assets/VacuumRacerTitle.png');
-        this.load.image('playButton', '../assets/playButton.png');
-        this.load.image('instructionsButton', '../assets/instructionsButton.png');
-        this.load.image('creditsButton', '../assets/creditsButton.png');
-    }//end preload
-
-    create(){
-        let sb = this.add.image(400,300,'bg')
-        let logo = this.add.image(400,150,'logo').setScale(.5);
-        let playButton = this.add.image(400,300,'playButton');
-        let instructionsButton = this.add.image(400,400,'instructionsButton');
-        let creditsButton = this.add.image(400,500,'creditsButton');
-
-        playButton.setInteractive()
-        playButton.on('pointerdown', ()=>{
-            playButton.setScale(.5)
-        })
-        playButton.on('pointerup', ()=>{
-            playButton.setScale(1)
-            this.scene.switch('gameScene')
-        })
-
-        instructionsButton.setInteractive()
-        instructionsButton.on('pointerdown', ()=>{
-            instructionsButton.setScale(.5)
-        })
-        instructionsButton.on('pointerup', ()=>{
-            instructionsButton.setScale(1)
-            //this.scene.switch('gameScene')
-        })
-
-        creditsButton.setInteractive()
-        creditsButton.on('pointerdown', ()=>{
-            creditsButton.setScale(.5)
-        })
-        creditsButton.on('pointerup', ()=>{
-            creditsButton.setScale(1)
-            //this.scene.switch('gameScene')
-        })
-    }//end create
-
-    update(){
-
-    }//end update
-}//end title scene
-
-class GameScene extends Phaser.Scene {
-    constructor(){
-        super('gameScene')
-        var turret1;
-        var tdelay;      //turret delay counter
-    }
-
-    preload(){
-        
+preload(){
         //audio
         this.load.audio('song','../music/Art.mp3');
         this.load.audio('jump_sound', '../sounds/jump_sound.wav')
@@ -81,12 +22,9 @@ class GameScene extends Phaser.Scene {
         this.load.image('player', '../assets/player.png');
         this.load.image('turret', '../assets/turret.png');
         this.load.image('bullet', '../assets/tracer.png');
-    }//end preload
-
-    create(){
-
-        
-        cursors = this.input.keyboard.createCursorKeys();
+}
+create(){
+    cursors = this.input.keyboard.createCursorKeys();
         this.tdelay = 0;
 
         //music config
@@ -151,7 +89,7 @@ class GameScene extends Phaser.Scene {
         
         //if player overlaps with bunny, level is complete
         this.physics.add.overlap(player, checkpoint, function(){
-            this.scene.start("levelone");
+            this.scene.start("next_level");
             console.log('you win!');
         }, null, this);
 
@@ -189,26 +127,11 @@ class GameScene extends Phaser.Scene {
         isOnWall = false;
         isOnRight = false;
         isOnLeft = false;
-
-    }//end create
-    
-    //shoot function for bullets
-    shoot(x, y) 
-    {
-       var bullet = this.bullets.get(x, y-20);
-        if (bullet) {
-            bullet.setActive(true);
-            bullet.setVisible(true);
-            bullet.body.setAllowGravity(false);
-            bullet.body.velocity.y = -300;
-            }
-    }
-
-    update(){
-    
+}
+update(){
     //this.tdelay++;
-    this.checkKeyboard();
-    this.turretDetector();
+    checkKeyboard();
+    turretDetector();
       
         
     //stickMechanic
@@ -281,89 +204,22 @@ class GameScene extends Phaser.Scene {
                 }
             }
         }.bind(this));
-
-    }//end update
     
-    checkKeyboard() {
-        //keyboard controls for movement
-      if (cursors.left.isDown && !(isOnRight))
-      {
-          player.setVelocityX(-160);
-          player.flipX=true;
-      }
-      else if (cursors.right.isDown && !(isOnRight))
-      {
-          player.setVelocityX(160);
-          player.flipX=false;
-      }
-      else
-      {
-          player.setVelocityX(0);
-      }
-}
-
-    restart() {
-        this.registry.destroy(); // destroy registry
-        this.music.stop();
-        this.events.off(); // disable all active events
-        this.scene.restart(); // restart current scene
-    }
-
-    checkWorldBounds()
-    {
-        var pos = this.position;
-        var bounds = this.customBoundsRectangle;
-        var check = this.world.checkCollision;
-
-        var bx = (this.worldBounce) ? -this.worldBounce.x : -this.bounce.x;
-        var by = (this.worldBounce) ? -this.worldBounce.y : -this.bounce.y;
-
-        var wasSet = false;
-
-        if (pos.x < bounds.x && check.left)
-        {
-            pos.x = bounds.x;
-            this.velocity.x *= bx;
-            this.blocked.left = true;
-            wasSet = true;
-        }
-        else if (this.right > bounds.right && check.right)
-        {
-            pos.x = bounds.right - this.width;
-            this.velocity.x *= bx;
-            this.blocked.right = true;
-            wasSet = true;
-        }
-
-        if (pos.y < bounds.y && check.up)
-        {
-            pos.y = bounds.y;
-            this.velocity.y *= by;
-            this.blocked.up = true;
-            wasSet = true;
-        }
-        else if (this.bottom > bounds.bottom && check.down)
-        {
-            pos.y = bounds.bottom - this.height;
-            this.velocity.y *= by;
-            this.blocked.down = true;
-            wasSet = true;
-        }
-
-        if (wasSet)
-        {
-            this.blocked.none = false;
-        }
-
-        return wasSet;
-    }
-    
-    turretDetector()
-    {
         if(player.x > 300 && player.x < 320 && player.y > 400 && this.tdelay > 30) {
             this.shoot(this.turret1.x, this.turret1.y); 
             this.tdelay = 0;
         }
         this.tdelay++;
-    }  
+}
+ shoot(x, y) 
+    {
+       var bullet = this.bullets.get(x, y-20);
+        if (bullet) {
+            bullet.setActive(true);
+            bullet.setVisible(true);
+            bullet.body.setAllowGravity(false);
+            bullet.body.velocity.y = -300;
+            }
+    }
+        
 }

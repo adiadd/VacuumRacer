@@ -7,6 +7,7 @@
         <script src="scripts/phaser.min.js"></script>
         <script src="scripts/main.js"></script>
         <script src="scripts/MovementTest.js"></script>
+        <script src="scripts/LevelOne.js"></script>
         <link rel="stylesheet" href="main.css">
     </head>
     <body>
@@ -23,7 +24,7 @@
                           debug: false
                       }
                   },
-                  scene: [TitleScene, GameScene]
+                  scene: [TitleScene, GameScene, LevelOne]
               };
 
               var player;
@@ -130,6 +131,99 @@
                        canGrab = false;
                    }
           }
+         
+          function shoot(x, y) 
+    {
+       var bullet = this.bullets.get(x, y-20);
+        if (bullet) {
+            bullet.setActive(true);
+            bullet.setVisible(true);
+            bullet.body.setAllowGravity(false);
+            bullet.body.velocity.y = -300;
+            }
+    }
+          function checkKeyboard() {
+        //keyboard controls for movement
+      if (cursors.left.isDown && !(isOnRight))
+      {
+          player.setVelocityX(-160);
+          player.flipX=true;
+      }
+      else if (cursors.right.isDown && !(isOnRight))
+      {
+          player.setVelocityX(160);
+          player.flipX=false;
+      }
+      else
+      {
+          player.setVelocityX(0);
+      }
+}
+
+    function restart() {
+        this.registry.destroy(); // destroy registry
+        this.music.stop();
+        this.events.off(); // disable all active events
+        this.scene.restart(); // restart current scene
+    }
+
+    function checkWorldBounds()
+    {
+        var pos = this.position;
+        var bounds = this.customBoundsRectangle;
+        var check = this.world.checkCollision;
+
+        var bx = (this.worldBounce) ? -this.worldBounce.x : -this.bounce.x;
+        var by = (this.worldBounce) ? -this.worldBounce.y : -this.bounce.y;
+
+        var wasSet = false;
+
+        if (pos.x < bounds.x && check.left)
+        {
+            pos.x = bounds.x;
+            this.velocity.x *= bx;
+            this.blocked.left = true;
+            wasSet = true;
+        }
+        else if (this.right > bounds.right && check.right)
+        {
+            pos.x = bounds.right - this.width;
+            this.velocity.x *= bx;
+            this.blocked.right = true;
+            wasSet = true;
+        }
+
+        if (pos.y < bounds.y && check.up)
+        {
+            pos.y = bounds.y;
+            this.velocity.y *= by;
+            this.blocked.up = true;
+            wasSet = true;
+        }
+        else if (this.bottom > bounds.bottom && check.down)
+        {
+            pos.y = bounds.bottom - this.height;
+            this.velocity.y *= by;
+            this.blocked.down = true;
+            wasSet = true;
+        }
+
+        if (wasSet)
+        {
+            this.blocked.none = false;
+        }
+
+        return wasSet;
+    }
+    
+    function turretDetector()
+    {
+        if(player.x > 300 && player.x < 320 && player.y > 400 && this.tdelay > 30) {
+            this.shoot(this.turret1.x, this.turret1.y); 
+            this.tdelay = 0;
+        }
+        this.tdelay++;
+    } 
           
               </script>
     </body>
