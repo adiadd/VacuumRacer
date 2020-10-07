@@ -11,14 +11,16 @@ class TitleScene extends Phaser.Scene {
         this.load.image('playButton', '../assets/playButton.png');
         this.load.image('instructionsButton', '../assets/instructionsButton.png');
         this.load.image('creditsButton', '../assets/creditsButton.png');
+        this.load.image('levelsButton', '../assets/levelsButton.png');
     }//end preload
 
     create(){
         let sb = this.add.image(400,300,'bg')
         let logo = this.add.image(400,150,'logo').setScale(.5);
-        let playButton = this.add.image(400,300,'playButton');
-        let instructionsButton = this.add.image(400,400,'instructionsButton');
-        let creditsButton = this.add.image(400,500,'creditsButton');
+        let playButton = this.add.image(200,300,'playButton');
+        let instructionsButton = this.add.image(200,400,'instructionsButton');
+        let creditsButton = this.add.image(600,300,'creditsButton');
+        let levelsButton = this.add.image(600, 400,'levelsButton');
         let levelOne = this.add.image(380, 580, 'star');
         let levelTwo = this.add.image(420,580,'star');
 
