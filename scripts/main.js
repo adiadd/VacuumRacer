@@ -26,7 +26,7 @@ class TitleScene extends Phaser.Scene {
         })
         playButton.on('pointerup', ()=>{
             playButton.setScale(1)
-            this.scene.switch('gameScene')
+            this.scene.switch('levelone')
         })
 
         instructionsButton.setInteractive()
