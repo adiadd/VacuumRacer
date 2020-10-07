@@ -25,7 +25,8 @@ preload(){
 }
     
 create(){
-    cursors = this.input.keyboard.createCursorKeys();
+    
+        cursors = this.input.keyboard.createCursorKeys();
         this.tdelay = 0;
 
         //music config
@@ -42,15 +43,12 @@ create(){
         this.music.play(musicConfig);
     
         //these two lines change the size of the scene and camera bounds!!
-        this.physics.world.setBounds(0, 0, 800, 1600, true, true, true, true);
-        this.cameras.main.setBounds(0, 0, 800, 1600);
+        this.physics.world.setBounds(0, 0, 800, 2600, true, true, true, true);
+        this.cameras.main.setBounds(0, 0, 800, 2600);
         
         //set background
         var backdrop = this.add.image(400,300,'bg'); 
         backdrop.setScale(4);
-        
-        //set bounds so camera wont go outside game world
-        this.cameras.main.setBounds(0, 0, 800, 1600);
     
         //add checkpoint bunny
         checkpoint = this.physics.add.staticGroup();
@@ -61,10 +59,15 @@ create(){
         portal.create(400,230, 'portal').setScale(.125).refreshBody();
         
         //add turret
-        this.turret1 = this.add.image(380, 590, 'turret').setScale(0.25);
+        this.turret1 = this.add.image(200, 2590, 'turret').setScale(0.25);
+        this.turret2 = this.add.image(300, 2590, 'turret').setScale(0.25);
+        this.turret3 = this.add.image(400, 2590, 'turret').setScale(0.25);
+    
+        this.turretArr = [this.turret1, this.turret2, this.turret3];
+        this.tdelay = 0;
 
         //set player physics
-        player = this.physics.add.sprite(60, 480, 'player').setScale(0.25);
+        player = this.physics.add.sprite(60, 2480, 'player').setScale(0.25);
         player.setBounce(0.2);
         player.setCollideWorldBounds(false);
         player.body.setGravityY(300);
@@ -75,14 +78,14 @@ create(){
         
         //create and place static platforms
         var platforms = this.physics.add.staticGroup();
-        platforms.create(0,550,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();    
+        platforms.create(0,2550,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();    
 
         this.physics.add.collider(player, platforms);
 
         //add bullet group and collider
         this.bullets = this.physics.add.group({
             defaultKey: 'bullet',
-            maxSize: 10
+            maxSize: 100
         });
         //this.input.on('pointerdown', this.shoot, this);
         this.physics.add.collider(player, this.bullets, this.restart, null, this);
@@ -121,9 +124,8 @@ create(){
 }
     
 update(){
-
     checkKeyboard();
-    turretDetector();
+    this.turretFire();
       
         
     //stickMechanic
@@ -191,18 +193,27 @@ update(){
         //inactivate bullets after leaving screen
         this.bullets.children.each(function(b) {
             if (b.active) {
-                if (b.y < 0 || b.y > 800) {
+                if (b.y < 0 || b.y > 3000) {
                     b.setActive(false);
                 }
             }
         }.bind(this));
     
-        if(player.x > 300 && player.x < 320 && player.y > 400 && this.tdelay > 30) {
-            this.shoot(this.turret1.x, this.turret1.y); 
-            this.tdelay = 0;
-        }
-        this.tdelay++;
 }
+    
+    
+    turretFire() {
+        if(this.tdelay > 40) {
+            console.log('check');
+            for(var i = 0; i < this.turretArr.length; i++) {
+                console.log('fff');
+                this.shoot(this.turretArr[i].x, this.turretArr[i].y);
+                }
+            this.tdelay = 0;
+            }
+        this.tdelay++;
+        }
+    
  shoot(x, y) 
     {
        var bullet = this.bullets.get(x, y-20);
@@ -210,7 +221,7 @@ update(){
             bullet.setActive(true);
             bullet.setVisible(true);
             bullet.body.setAllowGravity(false);
-            bullet.body.velocity.y = -300;
+            bullet.body.velocity.y = -400;
             }
     }
         

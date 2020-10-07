@@ -188,22 +188,25 @@ update(){
                 }
             }
         }.bind(this));
-    
-        if(player.x > 300 && player.x < 320 && player.y > 400 && this.tdelay > 30) {
-            this.shoot(this.turret1.x, this.turret1.y); 
-            this.tdelay = 0;
-        }
-        this.tdelay++;
-}
- shoot(x, y) 
-    {
-       var bullet = this.bullets.get(x, y-20);
-        if (bullet) {
-            bullet.setActive(true);
-            bullet.setVisible(true);
-            bullet.body.setAllowGravity(false);
-            bullet.body.velocity.y = -300;
-            }
-    }
         
+//        if(this.tdelay > 30) {
+//            for(var i = 0, i < this.turretArr; i++) {
+//                tempTurret = 
+//            }
+//            this.shoot(this.turret1.x, this.turret1.y, this.turret1); 
+//            this.tdelay = 0;
+//        }
+//        this.tdelay++;
+}
+// shoot(x, y, turret) 
+//    {
+//       var bullet = this.bullets.get(x, y-20);
+//        if (bullet) {
+//            bullet.setActive(true);
+//            bullet.setVisible(true);
+//            bullet.body.setAllowGravity(false);
+//            bullet.body.velocity.y = -300;
+//            }
+//    }
+//        
 }
