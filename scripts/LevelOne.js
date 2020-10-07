@@ -40,6 +40,10 @@ create(){
         }
         this.music.play(musicConfig);
         
+        //these two lines change the size of the scene and camera bounds!!
+        this.physics.world.setBounds(0, 0, 800, 1600, true, true, true, true);
+        this.cameras.main.setBounds(0, 0, 800, 1600);
+    
         //set background
         var backdrop = this.add.image(400,300,'bg'); 
         backdrop.setScale(4);
@@ -111,7 +115,7 @@ create(){
 update(){
 
     checkKeyboard();
-    turretDetector();
+    turretFire();
       
         
     //stickMechanic
