@@ -40,13 +40,17 @@ create(){
             delay: 0
         }
         this.music.play(musicConfig);
+    
+        //these two lines change the size of the scene and camera bounds!!
+        this.physics.world.setBounds(0, 0, 800, 1600, true, true, true, true);
+        this.cameras.main.setBounds(0, 0, 800, 1600);
         
         //set background
         var backdrop = this.add.image(400,300,'bg'); 
         backdrop.setScale(4);
         
         //set bounds so camera wont go outside game world
-        this.cameras.main.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        this.cameras.main.setBounds(0, 0, 800, 1600);
     
         //add checkpoint bunny
         checkpoint = this.physics.add.staticGroup();
@@ -67,7 +71,7 @@ create(){
         
         //make camera follow player
         this.cameras.main.startFollow(player);
-        this.cameras.main.setZoom(1.5);
+        this.cameras.main.setZoom(1);
         
         //create and place static platforms
         var platforms = this.physics.add.staticGroup();

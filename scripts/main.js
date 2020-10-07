@@ -104,8 +104,6 @@ class GameScene extends Phaser.Scene {
     }//end preload
 
     create(){
-
-        
         cursors = this.input.keyboard.createCursorKeys();
         this.tdelay = 0;
 
