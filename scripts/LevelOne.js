@@ -57,35 +57,35 @@ create(){
 
         //add portals
         portal = this.physics.add.staticGroup();
-        portal.create(650, 110, 'portal').setScale(.125).refreshBody();
+        portal.create(355, 1245, 'portal').setScale(.125).refreshBody();
         
         //add turret
         this.turret1 = this.add.image(380, 250, 'turret').setScale(0.15);
 
         //set player physics
-        player = this.physics.add.sprite(60, 480, 'player').setScale(0.25);
+        player = this.physics.add.sprite(40, 1500, 'player').setScale(0.125);
         player.setBounce(0.2);
         player.setCollideWorldBounds(false);
         player.body.setGravityY(300);
         
         //make camera follow player
-        //this.cameras.main.startFollow(player);
-        //this.cameras.main.setZoom(1.5);
+        this.cameras.main.startFollow(player);
+        this.cameras.main.setZoom(1.0);
         
         //create and place static platforms
         var platforms = this.physics.add.staticGroup();
-        platforms.create(0,550,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(200,525,'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(400,500,'gplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(400, 100,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(200, 150,'pplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(20,1550,'bplatform').setOrigin(0,0).setScale(0.25).refreshBody();
+        platforms.create(125,1525,'splatform').setOrigin(0,0).setScale(0.25).refreshBody();
+        platforms.create(225,1500,'gplatform').setOrigin(0,0).setScale(0.25).refreshBody();
+        platforms.create(225, 1250,'bplatform').setOrigin(0,0).setScale(0.25).refreshBody();
+        platforms.create(150, 1150,'pplatform').setOrigin(0,0).setScale(0.25).refreshBody();
 
         this.physics.add.collider(player, platforms);
     
         var vert_platforms = this.physics.add.staticGroup();
-        vert_platforms.create(650, 455, 'mover').setScale(0.5).refreshBody();
-        vert_platforms.create(550, 325, 'mover').setScale(0.5).refreshBody();
-        vert_platforms.create(650, 200, 'mover').setScale(0.5).refreshBody();
+        vert_platforms.create(355, 1440, 'mover').setScale(0.25).refreshBody();
+        vert_platforms.create(300, 1375, 'mover').setScale(0.25).refreshBody();
+        vert_platforms.create(355, 1300, 'mover').setScale(0.25).refreshBody();
         
         this.physics.add.collider(player, vert_platforms);
 
@@ -112,10 +112,10 @@ create(){
         isOnRight = false;
         isOnLeft = false;
 }
+
 update(){
 
     checkKeyboard();
-    turretFire();
       
         
     //stickMechanic
@@ -189,11 +189,7 @@ update(){
             }
         }.bind(this));
     
-        if(player.x > 300 && player.x < 320 && player.y > 400 && this.tdelay > 30) {
-            this.shoot(this.turret1.x, this.turret1.y); 
-            this.tdelay = 0;
-        }
-        this.tdelay++;
+        turretFire();
 }
  shoot(x, y) 
     {
@@ -205,5 +201,12 @@ update(){
             bullet.body.velocity.y = -300;
             }
     }
+    restart() {
+        this.registry.destroy(); // destroy registry
+        this.music.stop();
+        this.events.off(); // disable all active events
+        this.scene.restart(); // restart current scene
+    }
+
         
 }
