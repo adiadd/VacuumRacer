@@ -7,7 +7,7 @@ preload(){
         this.load.audio('song','../music/Art.mp3');
         this.load.audio('jump_sound', '../sounds/jump_sound.wav')
         this.load.audio('death_sound', '../sounds/death_sound.mp3')
-        
+
         //platforms
         this.load.image('bg', '../assets/spacebg.jpg');
         this.load.image('splatform', '../assets/platform_hor.png')
@@ -15,7 +15,7 @@ preload(){
         this.load.image('gplatform', '../assets/platform_green.png')
         this.load.image('pplatform', '../assets/platform_purple.png')
         this.load.image('mover', '../assets/platform_vert.png')
-        
+
         //etc
         this.load.image('dust_bunny','../assets/dust_bunny.png')
         this.load.image('portal','../assets/portal.png');
@@ -39,15 +39,15 @@ create(){
             delay: 0
         }
         this.music.play(musicConfig);
-        
+
         //these two lines change the size of the scene and camera bounds!!
         this.physics.world.setBounds(0, 0, 800, 1600, true, true, true, true);
         this.cameras.main.setBounds(0, 0, 800, 1600);
-    
+
         //set background
-        var backdrop = this.add.image(400,300,'bg'); 
+        var backdrop = this.add.image(400,300,'bg');
         backdrop.setScale(4);
-        
+
         //set bounds so camera wont go outside game world
         //this.cameras.main.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
@@ -57,36 +57,36 @@ create(){
 
         //add portals
         portal = this.physics.add.staticGroup();
-        portal.create(650, 110, 'portal').setScale(.125).refreshBody();
-        
+        portal.create(355, 1245, 'portal').setScale(.125).refreshBody();
+
         //add turret
         this.turret1 = this.add.image(380, 250, 'turret').setScale(0.15);
 
         //set player physics
-        player = this.physics.add.sprite(60, 480, 'player').setScale(0.25);
+        player = this.physics.add.sprite(40, 1500, 'player').setScale(0.125);
         player.setBounce(0.2);
         player.setCollideWorldBounds(false);
         player.body.setGravityY(300);
-        
+
         //make camera follow player
-        //this.cameras.main.startFollow(player);
-        //this.cameras.main.setZoom(1.5);
-        
+        this.cameras.main.startFollow(player);
+        this.cameras.main.setZoom(1.0);
+
         //create and place static platforms
         var platforms = this.physics.add.staticGroup();
-        platforms.create(0,550,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(200,525,'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(400,500,'gplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(400, 100,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(200, 150,'pplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(20,1550,'bplatform').setOrigin(0,0).setScale(0.25).refreshBody();
+        platforms.create(125,1525,'splatform').setOrigin(0,0).setScale(0.25).refreshBody();
+        platforms.create(225,1500,'gplatform').setOrigin(0,0).setScale(0.25).refreshBody();
+        platforms.create(225, 1250,'bplatform').setOrigin(0,0).setScale(0.25).refreshBody();
+        platforms.create(150, 1150,'pplatform').setOrigin(0,0).setScale(0.25).refreshBody();
 
         this.physics.add.collider(player, platforms);
-    
+
         var vert_platforms = this.physics.add.staticGroup();
-        vert_platforms.create(650, 455, 'mover').setScale(0.5).refreshBody();
-        vert_platforms.create(550, 325, 'mover').setScale(0.5).refreshBody();
-        vert_platforms.create(650, 200, 'mover').setScale(0.5).refreshBody();
-        
+        vert_platforms.create(355, 1440, 'mover').setScale(0.25).refreshBody();
+        vert_platforms.create(300, 1375, 'mover').setScale(0.25).refreshBody();
+        vert_platforms.create(355, 1300, 'mover').setScale(0.25).refreshBody();
+
         this.physics.add.collider(player, vert_platforms);
 
         //add bullet group and collider
@@ -96,13 +96,13 @@ create(){
         });
         //this.input.on('pointerdown', this.shoot, this);
         this.physics.add.collider(player, this.bullets, this.restart, null, this);
-        
+
         //if player overlaps with bunny, level is complete
         this.physics.add.overlap(player, checkpoint, function(){
             this.scene.start("leveloneb");
         }, null, this);
 
-        //restart scene if player overlaps portal 
+        //restart scene if player overlaps portal
         this.physics.add.overlap(player, portal, this.restart, null, this);
 
         canGrab = false;
@@ -112,12 +112,12 @@ create(){
         isOnRight = false;
         isOnLeft = false;
 }
+
 update(){
 
     checkKeyboard();
-    turretFire();
-      
-        
+
+
     //stickMechanic
     if(cursors.space.isDown && wallJumped == false){
         //if the player is touching the wall or a moving body, it is made note of here
@@ -136,17 +136,17 @@ update(){
             stickmechanicMoving();
         }
         else if(isOnWall){
-        stickmechanic(); 
+        stickmechanic();
           }
     }
-        
-      //jumping  
+
+      //jumping
       if (cursors.up.isDown && player.body.touching.down)
       {
           player.setVelocityY(-320);
           this.sound.play('jump_sound');
       }
-        
+
         if (player.body.touching.down){
             canGrab = true;
             wallJumped = false;
@@ -170,7 +170,7 @@ update(){
                 player.angle = 0;
             }
         }
-        
+
         //checkWorldBounds
         if (player.body.checkWorldBounds() == true) {
             this.registry.destroy(); // destroy registry
@@ -179,7 +179,7 @@ update(){
             this.music.stop()
             console.log("yoo");
         }
-        
+
         //inactivate bullets after leaving screen
         this.bullets.children.each(function(b) {
             if (b.active) {
@@ -188,17 +188,17 @@ update(){
                 }
             }
         }.bind(this));
-        
+
 //        if(this.tdelay > 30) {
 //            for(var i = 0, i < this.turretArr; i++) {
-//                tempTurret = 
+//                tempTurret =
 //            }
-//            this.shoot(this.turret1.x, this.turret1.y, this.turret1); 
+//            this.shoot(this.turret1.x, this.turret1.y, this.turret1);
 //            this.tdelay = 0;
 //        }
 //        this.tdelay++;
 }
-// shoot(x, y, turret) 
+// shoot(x, y, turret)
 //    {
 //       var bullet = this.bullets.get(x, y-20);
 //        if (bullet) {
@@ -208,5 +208,5 @@ update(){
 //            bullet.body.velocity.y = -300;
 //            }
 //    }
-//        
+//
 }
