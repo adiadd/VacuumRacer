@@ -19,11 +19,12 @@ class TitleScene extends Phaser.Scene {
         let logo = this.add.image(400,150,'logo').setScale(.5);
         let playButton = this.add.image(200,300,'playButton');
         let instructionsButton = this.add.image(200,400,'instructionsButton');
-        let creditsButton = this.add.image(600,300,'creditsButton');
-        let levelsButton = this.add.image(600, 400,'levelsButton');
-        let levelOne = this.add.image(380, 580, 'star');
+        let creditsButton = this.add.image(600,400,'creditsButton');
+        let levelsButton = this.add.image(600,300,'levelsButton');
+        let levelOne = this.add.image(380,580, 'star');
         let levelTwo = this.add.image(420,580,'star');
 
+        //Button that sends them to the first level
         playButton.setInteractive()
         playButton.on('pointerdown', ()=>{
             playButton.setScale(.5)
@@ -33,24 +34,36 @@ class TitleScene extends Phaser.Scene {
             this.scene.switch('levelone')
         })
 
+        //Button to send them to the instructions page
         instructionsButton.setInteractive()
         instructionsButton.on('pointerdown', ()=>{
             instructionsButton.setScale(.5)
         })
         instructionsButton.on('pointerup', ()=>{
             instructionsButton.setScale(1)
-            //this.scene.switch('gameScene')
+            this.scene.switch('instructions')
         })
 
+        //Button to send them to the credits page
         creditsButton.setInteractive()
         creditsButton.on('pointerdown', ()=>{
             creditsButton.setScale(.5)
         })
         creditsButton.on('pointerup', ()=>{
             creditsButton.setScale(1)
-            //this.scene.switch('gameScene')
+            this.scene.switch('credits')
         })
         
+        //Button to send them to select levels on level page
+        levelsButton.setInteractive()
+        levelsButton.on('pointerdown', ()=>{
+            levelsButton.setScale(.5)
+        })
+        levelsButton.on('pointerup', ()=>{
+            levelsButton.setScale(1) 
+            this.scene.switch('levels')
+        })
+
         levelOne.setInteractive()
         levelOne.on('pointerdown', ()=>{
             levelOne.setScale(.5)
