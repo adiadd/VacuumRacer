@@ -217,9 +217,9 @@
         return wasSet;
     }
     
-    function turretDetector()
+    function turretFire()
     {
-        if(player.x > 300 && player.x < 320 && player.y > 400 && this.tdelay > 30) {
+        if(this.tdelay > 1000) {
             this.shoot(this.turret1.x, this.turret1.y); 
             this.tdelay = 0;
         }
