@@ -19,6 +19,8 @@ class TitleScene extends Phaser.Scene {
         let playButton = this.add.image(400,300,'playButton');
         let instructionsButton = this.add.image(400,400,'instructionsButton');
         let creditsButton = this.add.image(400,500,'creditsButton');
+        let levelOne = this.add.image(380, 580, 'star');
+        let levelTwo = this.add.image(420,580,'star');
 
         playButton.setInteractive()
         playButton.on('pointerdown', ()=>{
@@ -45,6 +47,24 @@ class TitleScene extends Phaser.Scene {
         creditsButton.on('pointerup', ()=>{
             creditsButton.setScale(1)
             //this.scene.switch('gameScene')
+        })
+        
+        levelOne.setInteractive()
+        levelOne.on('pointerdown', ()=>{
+            levelOne.setScale(.5)
+        })
+        levelOne.on('pointerup', ()=>{
+            levelOne.setScale(1)
+            this.scene.switch('levelone')
+        })
+        
+        levelTwo.setInteractive()
+        levelTwo.on('pointerdown', ()=>{
+            levelTwo.setScale(.5)
+        })
+        levelTwo.on('pointerup', ()=>{
+            levelTwo.setScale(1)
+            this.scene.switch('leveltwo')
         })
     }//end create
 
@@ -155,16 +175,7 @@ class GameScene extends Phaser.Scene {
             console.log('you win!');
         }, null, this);
 
-        //restart scene if player overlaps portal - *I think we can delete this.. line 129 does same?
-//        this.physics.add.overlap(player, portal, function(){
-//            this.sound.play('death_sound');
-//            this.registry.destroy(); // destroy registry
-//            this.events.off(); // disable all active events
-//            this.music.stop()
-//            this.scene.restart(); // restart current scene
-//            console.log('ggs only!');
-//        }, null, this);
-        
+        //restart scene if player overlaps portal     
         this.physics.add.overlap(player, portal, this.restart, null, this);
 
         //moving vertical platform
@@ -206,7 +217,6 @@ class GameScene extends Phaser.Scene {
 
     update(){
     
-    //this.tdelay++;
     this.checkKeyboard();
     this.turretDetector();
       

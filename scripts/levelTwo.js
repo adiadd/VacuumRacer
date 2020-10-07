@@ -1,6 +1,6 @@
-class LevelOne extends Phaser.Scene {
+class LevelTwo extends Phaser.Scene {
     constructor(){
-        super('levelone')
+        super('leveltwo')
     }
 preload(){
         //audio
@@ -23,6 +23,7 @@ preload(){
         this.load.image('turret', '../assets/turret.png');
         this.load.image('bullet', '../assets/tracer.png');
 }
+    
 create(){
     cursors = this.input.keyboard.createCursorKeys();
         this.tdelay = 0;
@@ -45,18 +46,18 @@ create(){
         backdrop.setScale(4);
         
         //set bounds so camera wont go outside game world
-        //this.cameras.main.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-
+        this.cameras.main.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+    
         //add checkpoint bunny
         checkpoint = this.physics.add.staticGroup();
-        checkpoint.create(420, 35, 'dust_bunny').setOrigin(0,0).setScale(.125).refreshBody();
+        checkpoint.create(20, 60, 'dust_bunny').setOrigin(0,0).setScale(.125).refreshBody();
 
         //add portals
         portal = this.physics.add.staticGroup();
-        portal.create(650, 110, 'portal').setScale(.125).refreshBody();
+        portal.create(400,230, 'portal').setScale(.125).refreshBody();
         
         //add turret
-        this.turret1 = this.add.image(380, 250, 'turret').setScale(0.15);
+        this.turret1 = this.add.image(380, 590, 'turret').setScale(0.25);
 
         //set player physics
         player = this.physics.add.sprite(60, 480, 'player').setScale(0.25);
@@ -65,25 +66,14 @@ create(){
         player.body.setGravityY(300);
         
         //make camera follow player
-        //this.cameras.main.startFollow(player);
-        //this.cameras.main.setZoom(1.5);
+        this.cameras.main.startFollow(player);
+        this.cameras.main.setZoom(1.5);
         
         //create and place static platforms
         var platforms = this.physics.add.staticGroup();
-        platforms.create(0,550,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(200,525,'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(400,500,'gplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(400, 100,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(200, 150,'pplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(0,550,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();    
 
         this.physics.add.collider(player, platforms);
-    
-        var vert_platforms = this.physics.add.staticGroup();
-        vert_platforms.create(650, 455, 'mover').setScale(0.5).refreshBody();
-        vert_platforms.create(550, 325, 'mover').setScale(0.5).refreshBody();
-        vert_platforms.create(650, 200, 'mover').setScale(0.5).refreshBody();
-        
-        this.physics.add.collider(player, vert_platforms);
 
         //add bullet group and collider
         this.bullets = this.physics.add.group({
@@ -95,11 +85,28 @@ create(){
         
         //if player overlaps with bunny, level is complete
         this.physics.add.overlap(player, checkpoint, function(){
-            this.scene.start("leveloneb");
+            this.scene.start("next_level");
+            console.log('you win!');
         }, null, this);
 
         //restart scene if player overlaps portal 
         this.physics.add.overlap(player, portal, this.restart, null, this);
+
+        //moving vertical platform
+//        mover = this.physics.add.image(650, 500, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
+//        mover.body.setAllowGravity(false);
+//
+//        this.tweens.timeline({
+//        targets: mover.body.velocity,
+//        loop: -1,
+//        tweens: [
+//          { x:    0, y: -200, duration: 2000, ease: 'Stepped' },
+//          { x:    0, y:   200, duration: 2000, ease: 'Stepped' },
+//        ]
+//      });
+        
+        //collider with moving platform
+        this.physics.add.collider(player, mover);
 
         canGrab = false;
         rotated = false;
@@ -108,6 +115,7 @@ create(){
         isOnRight = false;
         isOnLeft = false;
 }
+    
 update(){
 
     checkKeyboard();
@@ -203,3 +211,4 @@ update(){
     }
         
 }
+    
