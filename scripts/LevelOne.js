@@ -25,6 +25,7 @@ preload(){
         this.load.image('turret', 'assets/turret.png');
         this.load.image('bullet', 'assets/tracer.png');
         this.load.image('star', '../assets/star.png');
+        this.load.image('backdrop', '../backdrops/white.png');
 }
     
 create(){
@@ -51,8 +52,8 @@ create(){
         this.cameras.main.setBounds(0, 0, 800, 2600);
 
         //set background
-        var backdrop = this.add.image(400,1300,'bg');
-        backdrop.setScale(4);
+        var backdrop = this.add.image(400,1300,'backdrop');
+        backdrop.setScale(1);
     
         //add checkpoint bunny
         checkpoint = this.physics.add.staticGroup();
@@ -60,12 +61,22 @@ create(){
 
         //add portals
         portal = this.physics.add.staticGroup();
-        //portal.create(200,2500, 'portal').setScale(.125).refreshBody();
+        portal.create(725,1560, 'portal').setScale(.25).refreshBody();
+        portal.create(120,1700, 'portal').setScale(.25).refreshBody();
+        portal.create(275,875, 'portal').setScale(.15).refreshBody();
+        portal.create(475,875, 'portal').setScale(.15).refreshBody();
         
         //add turret
-        this.turret1 = this.add.image(700, 2590, 'turret').setScale(0.25);
-        //this.turret2 = this.add.image(800, 2590, 'turret').setScale(0.25);
-        //this.turret3 = this.add.image(800, 2590, 'turret').setScale(0.25);
+        this.turret1 = this.add.image(475, 1800, 'turret');
+        this.turret2 = this.add.image(275, 1840, 'turret');
+    
+        this.turret3 = this.add.image(475, 1100, 'turret');
+        this.turret3.angle = 180;
+        this.turret4 = this.add.image(275, 1140, 'turret');
+        this.turret4.angle = 180;
+    
+        this.turret5 = this.add.image(50, 875, 'turret');
+        this.turret5.angle = 90;
     
         this.turretArr = [this.turret1];
         this.tdelay = 0;
