@@ -15,6 +15,7 @@ preload(){
         this.load.image('gplatform', '../assets/platform_green.png')
         this.load.image('pplatform', '../assets/platform_purple.png')
         this.load.image('mover', '../assets/platform_vert.png')
+        this.load.image('vplatform', '../assets/platform_vert.png')
         
         //etc
         this.load.image('dust_bunny','../assets/dust_bunny.png')
@@ -25,6 +26,8 @@ preload(){
 }
     
 create(){
+        var mover1;
+        var mover2;
     
         cursors = this.input.keyboard.createCursorKeys();
         this.tdelay = 0;
@@ -56,14 +59,14 @@ create(){
 
         //add portals
         portal = this.physics.add.staticGroup();
-        portal.create(400,230, 'portal').setScale(.125).refreshBody();
+        //portal.create(200,2500, 'portal').setScale(.125).refreshBody();
         
         //add turret
-        this.turret1 = this.add.image(200, 2590, 'turret').setScale(0.25);
-        this.turret2 = this.add.image(300, 2590, 'turret').setScale(0.25);
-        this.turret3 = this.add.image(400, 2590, 'turret').setScale(0.25);
+        this.turret1 = this.add.image(700, 2590, 'turret').setScale(0.25);
+        //this.turret2 = this.add.image(800, 2590, 'turret').setScale(0.25);
+        //this.turret3 = this.add.image(800, 2590, 'turret').setScale(0.25);
     
-        this.turretArr = [this.turret1, this.turret2, this.turret3];
+        this.turretArr = [this.turret1];
         this.tdelay = 0;
 
         //set player physics
@@ -78,7 +81,12 @@ create(){
         
         //create and place static platforms
         var platforms = this.physics.add.staticGroup();
-        platforms.create(0,2550,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();    
+        platforms.create(0,2550,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(200,2350,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(200, 2100, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(350, 2200, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(500, 2300, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        
 
         this.physics.add.collider(player, platforms);
 
@@ -88,7 +96,7 @@ create(){
             maxSize: 100
         });
         //this.input.on('pointerdown', this.shoot, this);
-        this.physics.add.collider(player, this.bullets, this.restart, null, this);
+        //this.physics.add.collider(player, this.bullets, this.restart, null, this);
         
         //if player overlaps with bunny, level is complete
         this.physics.add.overlap(player, checkpoint, function(){
@@ -100,20 +108,23 @@ create(){
         this.physics.add.overlap(player, portal, this.restart, null, this);
 
         //moving vertical platform
-//        mover = this.physics.add.image(650, 500, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
-//        mover.body.setAllowGravity(false);
-//
-//        this.tweens.timeline({
-//        targets: mover.body.velocity,
-//        loop: -1,
-//        tweens: [
-//          { x:    0, y: -200, duration: 2000, ease: 'Stepped' },
-//          { x:    0, y:   200, duration: 2000, ease: 'Stepped' },
-//        ]
-//      });
+        mover1 = this.physics.add.image(50, 2350, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
+        mover1.body.setAllowGravity(false);
+    
+        mover2 = this.physics.add.image(750, 2200, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
+        mover2.body.setAllowGravity(false);
+
+        this.tweens.timeline({
+        targets: [mover1.body.velocity, mover2.body.velocity],
+        loop: -1,
+        tweens: [
+          { x:    0, y: -200, duration: 2000, ease: 'Stepped' },
+          { x:    0, y:   200, duration: 2000, ease: 'Stepped' },
+        ]
+      });
         
         //collider with moving platform
-        this.physics.add.collider(player, mover);
+        this.physics.add.collider(player, mover1);
 
         canGrab = false;
         rotated = false;
@@ -223,6 +234,13 @@ update(){
             bullet.body.setAllowGravity(false);
             bullet.body.velocity.y = -400;
             }
+    }
+    
+    restart() {
+        this.registry.destroy(); // destroy registry
+        this.music.stop();
+        this.events.off(); // disable all active events
+        this.scene.restart(); // restart current scene
     }
         
 }
