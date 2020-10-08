@@ -62,7 +62,7 @@ create(){
         //portal.create(200,2500, 'portal').setScale(.125).refreshBody();
         
         //add turret
-        this.turret1 = this.add.image(700, 2590, 'turret').setScale(0.25);
+        this.turret1 = this.add.image(700, 2590, 'turret');
         //this.turret2 = this.add.image(800, 2590, 'turret').setScale(0.25);
         //this.turret3 = this.add.image(800, 2590, 'turret').setScale(0.25);
     
