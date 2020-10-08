@@ -26,6 +26,7 @@ preload(){
         this.load.image('bullet', 'assets/tracer.png');
         this.load.image('star', '../assets/star.png');
 }
+    
 create(){
         var mover1;
         var mover2;
@@ -55,7 +56,7 @@ create(){
     
         //add checkpoint bunny
         checkpoint = this.physics.add.staticGroup();
-        checkpoint.create(20, 60, 'dust_bunny').setOrigin(0,0).setScale(.125).refreshBody();
+        checkpoint.create(600, 400, 'dust_bunny').setOrigin(0,0).setScale(.125).refreshBody();
 
         //add portals
         portal = this.physics.add.staticGroup();
@@ -77,6 +78,8 @@ create(){
     
         //create star checkpoints
         this.star1 = this.add.image(640, 1630, 'star');
+        this.star2 = this.add.image(110, 1280, 'star');
+        this.star3 = this.add.image(640, 880, 'star');
         
         //make camera follow player
         this.cameras.main.startFollow(player);
@@ -105,9 +108,19 @@ create(){
         platforms.create(500, 1200, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(300, 1250, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(100, 1300, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+    
+        platforms.create(500, 900, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(300, 900, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(100, 900, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        
+        platforms.create(200, 700, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(500, 500, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+    
+        platforms.create(50, 700, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(400, 500, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
   
         //moving vertical platform
-        mover1 = this.physics.add.image(700, 1250, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
+        mover1 = this.physics.add.image(750, 1150, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
         mover1.body.setAllowGravity(false);
         this.physics.add.collider(player, platforms);
     
