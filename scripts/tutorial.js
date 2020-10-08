@@ -10,7 +10,7 @@ preload(){
         this.load.audio('death_sound', '../sounds/death_sound.mp3')
         
         //platforms
-        this.load.image('bg', '../assets/spacebg.jpg');
+        this.load.image('backdrop', '../backdrops/white.png');
         this.load.image('splatform', '../assets/platform_hor.png')
         this.load.image('bplatform', '../assets/platform_blue.png')
         this.load.image('gplatform', '../assets/platform_green.png')
@@ -18,6 +18,7 @@ preload(){
         this.load.image('mover', '../assets/platform_vert.png')
         this.load.image('vplatform', '../assets/platform_vert.png')
         this.load.image('vplatform_xl', '../assets/vert_xl.png')
+        this.load.image('lvl', '../backdrops/tut.png');
         
         //etc
         this.load.image('dust_bunny','../assets/dust_bunny.png')
@@ -48,8 +49,8 @@ create(){
     this.cameras.main.setBounds(0, 0, 800, 2600);
             
     //set background
-    var backdrop = this.add.image(400,300,'bg'); 
-    backdrop.setScale(4);
+    var backdrop = this.add.image(400,1300,'backdrop'); 
+    backdrop.setScale(1);
     
     //add player and set physics
     player = this.physics.add.sprite(60, 2480, 'player').setScale(0.25);

@@ -14,6 +14,8 @@ preload(){
         this.load.image('bplatform', 'assets/platform_blue.png')
         this.load.image('gplatform', 'assets/platform_green.png')
         this.load.image('pplatform', 'assets/platform_purple.png')
+        this.load.image('vplatform', '../assets/platform_vert.png')
+        this.load.image('vplatform_xl', '../assets/vert_xl.png')
         this.load.image('mover', 'assets/platform_vert.png')
 
         //etc
@@ -22,9 +24,12 @@ preload(){
         this.load.image('player', 'assets/player.png');
         this.load.image('turret', 'assets/turret.png');
         this.load.image('bullet', 'assets/tracer.png');
+        this.load.image('star', '../assets/star.png');
 }
 create(){
-    cursors = this.input.keyboard.createCursorKeys();
+        var mover1;
+        var mover2;
+        cursors = this.input.keyboard.createCursorKeys();
         this.tdelay = 0;
 
         //music config
@@ -41,61 +46,85 @@ create(){
         this.music.play(musicConfig);
 
         //these two lines change the size of the scene and camera bounds!!
-        this.physics.world.setBounds(0, 0, 800, 1600, true, true, true, true);
-        this.cameras.main.setBounds(0, 0, 800, 1600);
+        this.physics.world.setBounds(0, 0, 800, 2600, true, true, true, true);
+        this.cameras.main.setBounds(0, 0, 800, 2600);
 
         //set background
-        var backdrop = this.add.image(400,300,'bg');
+        var backdrop = this.add.image(400,1300,'bg');
         backdrop.setScale(4);
-
-        //set bounds so camera wont go outside game world
-        //this.cameras.main.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-
+    
         //add checkpoint bunny
         checkpoint = this.physics.add.staticGroup();
-        checkpoint.create(420, 35, 'dust_bunny').setOrigin(0,0).setScale(.125).refreshBody();
+        checkpoint.create(20, 60, 'dust_bunny').setOrigin(0,0).setScale(.125).refreshBody();
 
         //add portals
         portal = this.physics.add.staticGroup();
-        portal.create(355, 1245, 'portal').setScale(.125).refreshBody();
-
+        //portal.create(200,2500, 'portal').setScale(.125).refreshBody();
+        
         //add turret
-        this.turret1 = this.add.image(380, 250, 'turret').setScale(0.15);
+        this.turret1 = this.add.image(700, 2590, 'turret').setScale(0.25);
+        //this.turret2 = this.add.image(800, 2590, 'turret').setScale(0.25);
+        //this.turret3 = this.add.image(800, 2590, 'turret').setScale(0.25);
+    
+        this.turretArr = [this.turret1];
+        this.tdelay = 0;
 
-        //set player physics
-        player = this.physics.add.sprite(40, 1500, 'player').setScale(0.125);
+        //add player and set physics
+        player = this.physics.add.sprite(60, 2480, 'player').setScale(0.25);
         player.setBounce(0.2);
         player.setCollideWorldBounds(false);
         player.body.setGravityY(300);
-
+    
+        //create star checkpoints
+        this.star1 = this.add.image(640, 1630, 'star');
+        
         //make camera follow player
         this.cameras.main.startFollow(player);
-        this.cameras.main.setZoom(1.0);
-
+        this.cameras.main.setZoom(1);
+    
+        //check if player overlaps with star
+        //this.physics.add.overlap(player, stars, collectStar, null, this);
+        
         //create and place static platforms
         var platforms = this.physics.add.staticGroup();
-        platforms.create(20,1550,'bplatform').setOrigin(0,0).setScale(0.25).refreshBody();
-        platforms.create(125,1525,'splatform').setOrigin(0,0).setScale(0.25).refreshBody();
-        platforms.create(225,1500,'gplatform').setOrigin(0,0).setScale(0.25).refreshBody();
-        platforms.create(225, 1250,'bplatform').setOrigin(0,0).setScale(0.25).refreshBody();
-        platforms.create(150, 1150,'pplatform').setOrigin(0,0).setScale(0.25).refreshBody();
-
+        platforms.create(0,2550,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+       
+        //first star
+        platforms.create(200,2500,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(400, 2450, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(600, 2400, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(700, 2000, 'vplatform_xl').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(550, 1800, 'vplatform_xl').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(700, 1600, 'vplatform_xl').setOrigin(0,0).setScale(0.5).refreshBody();
+        
+        platforms.create(500, 1650, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(300, 1700, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(100, 1750, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(0, 1350, 'vplatform_xl').setOrigin(0,0).setScale(0.5).refreshBody();
+    
+        platforms.create(500, 1200, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(300, 1250, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(100, 1300, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+  
+        //moving vertical platform
+        mover1 = this.physics.add.image(700, 1250, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
+        mover1.body.setAllowGravity(false);
         this.physics.add.collider(player, platforms);
-
-        var vert_platforms = this.physics.add.staticGroup();
-        vert_platforms.create(355, 1440, 'mover').setScale(0.25).refreshBody();
-        vert_platforms.create(300, 1375, 'mover').setScale(0.25).refreshBody();
-        vert_platforms.create(355, 1300, 'mover').setScale(0.25).refreshBody();
-
-        this.physics.add.collider(player, vert_platforms);
+    
+        this.tweens.timeline({
+        targets: [mover1.body.velocity],
+        loop: -1,
+        tweens: [
+          { x:    0, y: -200, duration: 2000, ease: 'Stepped' },
+          { x:    0, y:   200, duration: 2000, ease: 'Stepped' },
+        ]
+      });
 
         //add bullet group and collider
         this.bullets = this.physics.add.group({
             defaultKey: 'bullet',
-            maxSize: 10
+            maxSize: 100
         });
-        //this.input.on('pointerdown', this.shoot, this);
-        this.physics.add.collider(player, this.bullets, this.restart, null, this);
 
         //if player overlaps with bunny, level is complete
         this.physics.add.overlap(player, checkpoint, function(){
@@ -141,7 +170,7 @@ update(){
     }
 
       //jumping
-      if (cursors.up.isDown && player.body.touching.down)
+      if (cursors.up.isDown)
       {
           player.setVelocityY(-320);
           this.sound.play('jump_sound');
@@ -188,6 +217,13 @@ update(){
                 }
             }
         }.bind(this));
+    
+    
+    
+//    function collectStar (player, star)
+//    {
+//        star.disableBody(true, true);
+//    }
 
 //        if(this.tdelay > 30) {
 //            for(var i = 0, i < this.turretArr; i++) {

@@ -17,9 +17,6 @@ class TitleScene extends Phaser.Scene {
 
     create(){
         
-        
-        
-        
         let sb = this.add.image(400,300,'bg')
         let logo = this.add.image(400,150,'logo').setScale(.5);
         let playButton = this.add.image(200,300,'playButton');
