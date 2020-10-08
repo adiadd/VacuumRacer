@@ -4,7 +4,7 @@ class LevelOne extends Phaser.Scene {
     }
 preload(){
         //audio
-        this.load.audio('song','music/Art.mp3');
+        this.load.audio('song','../music/Art.mp3');
         this.load.audio('jump_sound', 'sounds/jump_sound.wav')
         this.load.audio('death_sound', 'sounds/death_sound.mp3')
 
@@ -176,7 +176,7 @@ update(){
             this.registry.destroy(); // destroy registry
             this.events.off(); // disable all active events
             this.scene.restart(); // restart current scene
-            this.music.stop()
+            this.music.stop();
             console.log("yoo");
         }
 

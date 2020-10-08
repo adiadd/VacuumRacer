@@ -4,7 +4,7 @@ class LevelTwo extends Phaser.Scene {
     }
 preload(){
         //audio
-        this.load.audio('song','../music/Art.mp3');
+        this.load.audio('song','../music/zipline.mp3');
         this.load.audio('jump_sound', '../sounds/jump_sound.wav')
         this.load.audio('death_sound', '../sounds/death_sound.mp3')
         
@@ -69,7 +69,7 @@ create(){
         this.turretArr = [this.turret1];
         this.tdelay = 0;
 
-        //set player physics
+        //add player and set physics
         player = this.physics.add.sprite(60, 2480, 'player').setScale(0.25);
         player.setBounce(0.2);
         player.setCollideWorldBounds(false);

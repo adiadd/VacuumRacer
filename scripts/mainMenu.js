@@ -5,6 +5,7 @@ class TitleScene extends Phaser.Scene {
 
     preload(){
         console.log('preload title');
+        //this.load.audio('song','../music/Finance.mp3');
         this.load.image('bg', 'assets/spacebg.jpg');
         this.load.image('star','assets/star.png');
         this.load.image('logo', 'assets/VacuumRacerTitle.png');
@@ -15,6 +16,10 @@ class TitleScene extends Phaser.Scene {
     }//end preload
 
     create(){
+        
+        
+        
+        
         let sb = this.add.image(400,300,'bg')
         let logo = this.add.image(400,150,'logo').setScale(.5);
         let playButton = this.add.image(200,300,'playButton');
@@ -22,7 +27,26 @@ class TitleScene extends Phaser.Scene {
         let creditsButton = this.add.image(600,400,'creditsButton');
         let levelsButton = this.add.image(600,300,'levelsButton');
         let levelOne = this.add.image(380,580, 'star');
-        //let levelTwo = this.add.image(420,580,'star');
+        let levelTwo = this.add.image(420,580,'star');
+        let tutorial = this.add.image(460, 580, 'star');
+        
+        //music config
+//        this.music = this.sound.add('song');
+//        var musicConfig = {
+//            mute: false,
+//            volume: 1,
+//            rate: 1,
+//            detune: 0,
+//            seek: 0,
+//            loop: true,
+//            delay: 0
+//        }
+//        
+//        this.music.play(musicConfig);
+//        
+//        window.setTimeout(() => {
+//        this.music.play();
+//        }, 500);
 
         //Button that sends them to the first level
         playButton.setInteractive()
@@ -73,14 +97,23 @@ class TitleScene extends Phaser.Scene {
             this.scene.switch('levelone')
         })
         
-        //levelTwo.setInteractive()
-        //levelTwo.on('pointerdown', ()=>{
-        //    levelTwo.setScale(.5)
-        //})
-        //levelTwo.on('pointerup', ()=>{
-        //    levelTwo.setScale(1)
-            //this.scene.switch('leveltwo')
-        //})
+        levelTwo.setInteractive()
+        levelTwo.on('pointerdown', ()=>{
+            levelTwo.setScale(.5)
+        })
+        levelTwo.on('pointerup', ()=>{
+            levelTwo.setScale(1)
+            this.scene.switch('leveltwo')
+        })
+        
+        tutorial.setInteractive()
+        tutorial.on('pointerdown', ()=>{
+            tutorial.setScale(.5)
+        })
+        tutorial.on('pointerup', ()=>{
+            tutorial.setScale(1)
+            this.scene.switch('tutorial')
+        })
     }//end create
 
     update(){
