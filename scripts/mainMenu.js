@@ -5,13 +5,13 @@ class TitleScene extends Phaser.Scene {
 
     preload(){
         console.log('preload title');
-        this.load.image('bg', '../assets/spacebg.jpg');
-        this.load.image('star','../assets/star.png');
-        this.load.image('logo', '../assets/VacuumRacerTitle.png');
-        this.load.image('playButton', '../assets/playButton.png');
-        this.load.image('instructionsButton', '../assets/instructionsButton.png');
-        this.load.image('creditsButton', '../assets/creditsButton.png');
-        this.load.image('levelsButton', '../assets/levelsButton.png');
+        this.load.image('bg', 'assets/spacebg.jpg');
+        this.load.image('star','assets/star.png');
+        this.load.image('logo', 'assets/VacuumRacerTitle.png');
+        this.load.image('playButton', 'assets/playButton.png');
+        this.load.image('instructionsButton', 'assets/instructionsButton.png');
+        this.load.image('creditsButton', 'assets/creditsButton.png');
+        this.load.image('levelsButton', 'assets/levelsButton.png');
     }//end preload
 
     create(){
@@ -22,7 +22,7 @@ class TitleScene extends Phaser.Scene {
         let creditsButton = this.add.image(600,400,'creditsButton');
         let levelsButton = this.add.image(600,300,'levelsButton');
         let levelOne = this.add.image(380,580, 'star');
-        let levelTwo = this.add.image(420,580,'star');
+        //let levelTwo = this.add.image(420,580,'star');
 
         //Button that sends them to the first level
         playButton.setInteractive()
@@ -73,14 +73,14 @@ class TitleScene extends Phaser.Scene {
             this.scene.switch('levelone')
         })
         
-        levelTwo.setInteractive()
-        levelTwo.on('pointerdown', ()=>{
-            levelTwo.setScale(.5)
-        })
-        levelTwo.on('pointerup', ()=>{
-            levelTwo.setScale(1)
-            this.scene.switch('leveltwo')
-        })
+        //levelTwo.setInteractive()
+        //levelTwo.on('pointerdown', ()=>{
+        //    levelTwo.setScale(.5)
+        //})
+        //levelTwo.on('pointerup', ()=>{
+        //    levelTwo.setScale(1)
+            //this.scene.switch('leveltwo')
+        //})
     }//end create
 
     update(){
