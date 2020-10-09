@@ -44,6 +44,7 @@
               var wallJumped;
               var bodyTouchingLeft;
               var mover;
+            
               var isOnWall;
               var isOnLeft;
               var isOnRight;
@@ -96,49 +97,10 @@
 //                   else{
 //                       player.body.setAllowGravity(true);
 //                       canGrab = false;
-//                       bodyTouchingLeft = null;
+//                   
 //                   }
                    }
-               function stickmechanicMoving(){
-                    //gets how long the object is held for
-                    var held = cursors.space.getDuration();
-                    console.log(held);
-                    if (isOnRight){
-                            //rotates player right
-                            player.angle = 270;
-                            rotated = true;
-                            canGrab = true;
-                        }
-                        else {
-                            //rotates player left
-                            player.angle = 90;
-                            rotated = true;
-                            canGrab = true;
-                        }
-                    if (held < 3000 && cursors.space.isDown && canGrab == true){
-                       //turns off the gravity and allows the player to stick in place
-                       player.body.setAllowGravity(false);
-                       console.log(held);
-                       player.setVelocityY(0);
-                       player.y = mover.y;
-                       //once the player presses up he can't grab the wall again and he has an upward jump
-                       if (cursors.up.isDown){
-                           player.body.setAllowGravity(true);
-                           player.body.setVelocityY(-320);
-                           canGrab = false;
-                           wallJumped = true;
-                           //allows player to move left or right upon jumping
-                           isOnLeft = false;
-                           isOnRight = false;
-                           isOnWall = false;
-                       }
-                   }
-                   //resets player gravity once they stick for too long
-                   else{
-                       player.body.setAllowGravity(true);
-                       canGrab = false;
-                   }
-          }
+               
          
           function shoot(x, y) 
     {
