@@ -138,6 +138,8 @@ create(){
         //collider with moving platform
         this.physics.add.collider(player, mover1);
         this.physics.add.collider(player, mover2);
+        mover = [mover1];
+    
     
         this.tweens.timeline({
         targets: [mover1.body.velocity],
@@ -168,6 +170,7 @@ create(){
         isOnWall = false;
         isOnRight = false;
         isOnLeft = false;
+        findMover = false;
 }
 
 update(){
@@ -190,7 +193,11 @@ update(){
             }
         }
         if (!(isOnWall)&& (isOnLeft || isOnRight)){
+            if (findMover == false){
+             moverTouching = whichMover(mover);   
+            }
             stickmechanicMoving();
+            findMover = true;
         }
         else if(isOnWall){
         stickmechanic();
@@ -212,6 +219,7 @@ update(){
             isOnWall = false;
             isOnLeft = false;
             isOnRight = false;
+            findMover = false;
         }
         if (cursors.space.isUp){
             player.body.setAllowGravity(true);
