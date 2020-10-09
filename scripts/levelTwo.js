@@ -115,6 +115,7 @@ create(){
     
         mover2 = this.physics.add.image(750, 2200, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
         mover2.body.setAllowGravity(false);
+        //mover array
         mover = [mover1, mover2];
 
         this.tweens.timeline({
@@ -159,6 +160,7 @@ update(){
             }
         }
         if (!(isOnWall)&& (isOnLeft || isOnRight)){
+                //if it has not found a mover, it will find which mover object is being grabbed in the array
                 if (findMover == false){
                 moverTouching = whichMover(mover);   
             }
@@ -190,6 +192,7 @@ update(){
             isOnWall = false;
             isOnLeft = false;
             isOnRight = false;
+            //allows it to only get the mover object once
             findMover = false;
         }
         if (cursors.space.isUp){
