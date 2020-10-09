@@ -20,7 +20,7 @@ class LevelsScene extends Phaser.Scene {
 
     create(){
         let sb = this.add.image(400,300,'bg');
-        let backButton = this.add.image(50,75,'back');
+        let backButton = this.add.image(50,100,'back');
         let levelsButton = this.add.image(400,100,'levelsButton').setScale(1.5);
         let levelOne = this.add.image(200,300, 'l1');
         let levelTwo = this.add.image(400,300,'l2');

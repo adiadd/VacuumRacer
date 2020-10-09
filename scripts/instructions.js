@@ -7,11 +7,13 @@ class InstructionsScene extends Phaser.Scene {
         console.log("instructions scene");
         this.load.image('bg', 'assets/spacebg.jpg');
         this.load.image('back', 'assets/backButton.png');
+        this.load.image('instructionsButton', 'assets/instructionsButton.png');
     }//end preload
 
     create(){
         let sb = this.add.image(400,300,'bg');
-        let backButton = this.add.image(50,75,'back');
+        let backButton = this.add.image(50,100,'back');
+        let instructionsButton = this.add.image(400,100,'instructionsButton').setScale(1.5);
 
         backButton.setInteractive()
         backButton.on('pointerdown', ()=>{
