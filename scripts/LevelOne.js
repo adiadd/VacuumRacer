@@ -61,43 +61,47 @@ create(){
 
         //add portals
         portal = this.physics.add.staticGroup();
-        portal.create(725,1560, 'portal').setScale(.25).refreshBody();
-        portal.create(120,1700, 'portal').setScale(.25).refreshBody();
+        portal.create(725,1560, 'portal').setScale(.15).refreshBody();
+        portal.create(120,1700, 'portal').setScale(.15).refreshBody();
         portal.create(275,875, 'portal').setScale(.15).refreshBody();
         portal.create(475,875, 'portal').setScale(.15).refreshBody();
         
         //add turret
         this.turret1 = this.add.image(475, 1800, 'turret');
         this.turret2 = this.add.image(275, 1840, 'turret');
+        var turrUp = [this.turret1, this.turret2];
     
         this.turret3 = this.add.image(475, 1100, 'turret');
         this.turret3.angle = 180;
         this.turret4 = this.add.image(275, 1140, 'turret');
         this.turret4.angle = 180;
+        var turrDown = [this.turret3, this.turret4];
     
         this.turret5 = this.add.image(50, 875, 'turret');
         this.turret5.angle = 90;
+        var turrRight = [this.turret5];
     
-        this.turretArr = [this.turret1];
         this.tdelay = 0;
 
         //add player and set physics
         player = this.physics.add.sprite(60, 2480, 'player').setScale(0.25);
+        checkpointX = 60;
+        checkpointY = 2480;
         player.setBounce(0.2);
         player.setCollideWorldBounds(false);
         player.body.setGravityY(300);
     
         //create star checkpoints
-        this.star1 = this.add.image(640, 1630, 'star');
-        this.star2 = this.add.image(110, 1280, 'star');
-        this.star3 = this.add.image(640, 880, 'star');
+        var stars = this.physics.add.staticGroup();
+        this.star1 = stars.create(640, 1630, 'star').refreshBody();
+        this.star2 = stars.create(110, 1280, 'star').refreshBody();
+        this.star3 = stars.create(640, 880, 'star').refreshBody();
+        this.starArr = [this.star1, this.star2, this.star3];
         
         //make camera follow player
         this.cameras.main.startFollow(player);
         this.cameras.main.setZoom(1);
-    
-        //check if player overlaps with star
-        //this.physics.add.overlap(player, stars, collectStar, null, this);
+
         
         //create and place static platforms
         var platforms = this.physics.add.staticGroup();
@@ -141,6 +145,9 @@ create(){
         mover = [mover1];
     
     
+        //star pickup overlap 
+        this.physics.add.overlap(player, stars, this.checkPoint, null, this);
+    
         this.tweens.timeline({
         targets: [mover1.body.velocity],
         loop: -1,
@@ -161,8 +168,8 @@ create(){
             this.scene.start("leveloneb");
         }, null, this);
 
-        //restart scene if player overlaps portal
-        this.physics.add.overlap(player, portal, this.restart, null, this);
+        //reset player to checkpoint if player overlaps portal
+        this.physics.add.overlap(player, portal, this.reset, null, this);
 
         canGrab = false;
         rotated = false;
@@ -176,7 +183,7 @@ create(){
 update(){
 
     checkKeyboard();
-
+    //this.turretFire();
 
     //stickMechanic
     if(cursors.space.isDown && wallJumped == false){
@@ -238,11 +245,13 @@ update(){
 
         //checkWorldBounds
         if (player.body.checkWorldBounds() == true) {
-            this.registry.destroy(); // destroy registry
-            this.events.off(); // disable all active events
-            this.scene.restart(); // restart current scene
-            this.music.stop();
-            console.log("yoo");
+            this.sound.play('death_sound');
+            this.reset();
+//            this.registry.destroy(); // destroy registry
+//            this.events.off(); // disable all active events
+//            this.scene.restart(); // restart current scene
+//            this.music.stop();
+//            console.log("yoo");
         }
 
         //inactivate bullets after leaving screen
@@ -255,11 +264,6 @@ update(){
         }.bind(this));
     
     
-    
-//    function collectStar (player, star)
-//    {
-//        star.disableBody(true, true);
-//    }
 
 //        if(this.tdelay > 30) {
 //            for(var i = 0, i < this.turretArr; i++) {
@@ -270,15 +274,66 @@ update(){
 //        }
 //        this.tdelay++;
 }
-// shoot(x, y, turret)
-//    {
-//       var bullet = this.bullets.get(x, y-20);
-//        if (bullet) {
-//            bullet.setActive(true);
-//            bullet.setVisible(true);
-//            bullet.body.setAllowGravity(false);
-//            bullet.body.velocity.y = -300;
-//            }
-//    }
-//
+    
+    checkPoint(){
+        console.log('checkpoint')
+        checkpointX = this.starArr[0].x;
+        checkpointY = this.starArr[0].y - 20;
+        this.starArr[0].disableBody(true,true);
+        this.starArr.shift();
+        console.log(this.starArr.length)
+    }
+    
+    
+    reset(){
+        this.sound.play('death_sound');
+        //var timer = scene.time.delayedCall(1000, null, null, this);
+        player.x = checkpointX;
+        player.y = checkpointY;
+    }
+    
+    turretFire() {
+        if(this.tdelay > 40) {
+            console.log('check');
+            for(var i = 0; i < this.turretUp.length; i++) {
+                console.log('fff');
+                this.shootUp(this.turretUp[i].x, this.turretUp[i].y);
+                }
+            this.tdelay = 0;
+            }
+        this.tdelay++;
+        }
+    
+    shootUp(x, y)
+    {
+       var bullet = this.bullets.get(x, y-20);
+        if (bullet) {
+            bullet.setActive(true);
+            bullet.setVisible(true);
+            bullet.body.setAllowGravity(false);
+            bullet.body.velocity.y = -300;
+            }
+    }
+
+     shootDown(x, y)
+    {
+       var bullet = this.bullets.get(x, y+20);
+        if (bullet) {
+            bullet.setActive(true);
+            bullet.setVisible(true);
+            bullet.body.setAllowGravity(false);
+            bullet.body.velocity.y = 300;
+            }
+    }
+    
+     shootRight(x, y)
+    {
+       var bullet = this.bullets.get(x+20, y);
+        if (bullet) {
+            bullet.setActive(true);
+            bullet.setVisible(true);
+            bullet.body.setAllowGravity(false);
+            bullet.body.velocity.x = 300;
+            }
+    }
 }

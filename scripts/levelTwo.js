@@ -28,6 +28,7 @@ preload(){
 create(){
         var mover1;
         var mover2;
+        var score = 0;
     
         cursors = this.input.keyboard.createCursorKeys();
         this.tdelay = 0;
