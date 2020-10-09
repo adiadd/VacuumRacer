@@ -24,10 +24,10 @@ class TitleScene extends Phaser.Scene {
         let creditsButton = this.add.image(600,400,'creditsButton');
         let levelsButton = this.add.image(600,300,'levelsButton');
 
-        let levelOne = this.add.image(380,580, 'star');
-        let levelTwo = this.add.image(420,580,'star');
-        let tutorial = this.add.image(460, 580, 'star');
-        let gMode = this.add.image(20, 20, 'star');
+        //let levelOne = this.add.image(380,580, 'star');
+        //let levelTwo = this.add.image(420,580,'star');
+        //let tutorial = this.add.image(460, 580, 'star');
+        //let gMode = this.add.image(20, 20, 'star');
 
         
         //music config
