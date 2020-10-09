@@ -24,6 +24,7 @@ preload(){
         this.load.image('player', 'assets/player.png');
         this.load.image('turret', 'assets/turret.png');
         this.load.image('bullet', 'assets/tracer.png');
+        this.load.image('bullet2', 'assets/tracer2.png');
         this.load.image('star', '../assets/star.png');
         this.load.image('backdrop', '../backdrops/white.png');
 }
@@ -69,17 +70,17 @@ create(){
         //add turret
         this.turret1 = this.add.image(475, 1800, 'turret');
         this.turret2 = this.add.image(275, 1840, 'turret');
-        var turrUp = [this.turret1, this.turret2];
+        this.turrUp = [this.turret1, this.turret2];
     
-        this.turret3 = this.add.image(475, 1100, 'turret');
+        this.turret3 = this.add.image(475, 1000, 'turret');
         this.turret3.angle = 180;
-        this.turret4 = this.add.image(275, 1140, 'turret');
+        this.turret4 = this.add.image(275, 1000, 'turret');
         this.turret4.angle = 180;
-        var turrDown = [this.turret3, this.turret4];
+        this.turrDown = [this.turret3, this.turret4];
     
         this.turret5 = this.add.image(50, 875, 'turret');
         this.turret5.angle = 90;
-        var turrRight = [this.turret5];
+        this.turrRight = [this.turret5];
     
         this.tdelay = 0;
 
@@ -157,9 +158,15 @@ create(){
         ]
       });
 
-        //add bullet group and collider
+        //add bullet group and collider for vertical bullets
         this.bullets = this.physics.add.group({
             defaultKey: 'bullet',
+            maxSize: 100
+        });
+    
+        //add bullet group and collider for horizontal bullets
+        this.bullets2 = this.physics.add.group({
+            defaultKey: 'bullet2',
             maxSize: 100
         });
 
@@ -184,6 +191,8 @@ update(){
 
     checkKeyboard();
     //this.turretFire();
+    
+    this.checkTurrets();
 
     //stickMechanic
     if(cursors.space.isDown && wallJumped == false){
@@ -257,23 +266,23 @@ update(){
         //inactivate bullets after leaving screen
         this.bullets.children.each(function(b) {
             if (b.active) {
-                if (b.y < 0 || b.y > 800) {
+                if (b.x < 0 || b.x > 800) {
+                    b.setActive(false);
+                }
+            }
+        }.bind(this));
+    
+        //inactivate bullets2 after leaving screen
+        this.bullets2.children.each(function(b) {
+            if (b.active) {
+                if (b.x < 0 || b.x > 800) {
                     b.setActive(false);
                 }
             }
         }.bind(this));
     
     
-
-//        if(this.tdelay > 30) {
-//            for(var i = 0, i < this.turretArr; i++) {
-//                tempTurret =
-//            }
-//            this.shoot(this.turret1.x, this.turret1.y, this.turret1);
-//            this.tdelay = 0;
-//        }
-//        this.tdelay++;
-}
+}//end update function
     
     checkPoint(){
         console.log('checkpoint')
@@ -292,12 +301,42 @@ update(){
         player.y = checkpointY;
     }
     
+    checkTurrets() {
+        //first two
+        var x = player.x;
+        var y = player.y;
+        
+        if(this.tdelay > 40) {
+            console.log(this.tdelay);
+            //bottom two
+            if(y < 1850 && y > 1500 && x < 650 && x > 150) {
+                for(var i = 0; i < this.turrUp.length; i++) {
+                this.shootUp(this.turrUp[i].x, this.turrUp[i].y);
+                }
+            }
+            //middle two
+            if(y < 1300 && y > 900 && x < 650 && x > 50) {
+                for(var i = 0; i < this.turrDown.length; i++) {
+                this.shootDown(this.turrDown[i].x, this.turrDown[i].y);
+                }
+            }
+            //top one
+            if(y > 500 && y < 900) {
+                for(var i = 0; i < this.turrRight.length; i++) {
+                this.shootRight(this.turrRight[i].x, this.turrRight[i].y);
+                }
+            }
+            this.tdelay = 0;
+        }
+        this.tdelay++;
+    }
+    
     turretFire() {
         if(this.tdelay > 40) {
             console.log('check');
-            for(var i = 0; i < this.turretUp.length; i++) {
+            for(var i = 0; i < this.turrUp.length; i++) {
                 console.log('fff');
-                this.shootUp(this.turretUp[i].x, this.turretUp[i].y);
+                this.shootUp(this.turrUp[i].x, this.turrUp[i].y);
                 }
             this.tdelay = 0;
             }
@@ -311,6 +350,7 @@ update(){
             bullet.setActive(true);
             bullet.setVisible(true);
             bullet.body.setAllowGravity(false);
+            bullet.body.velocity.x = 0;
             bullet.body.velocity.y = -300;
             }
     }
@@ -322,18 +362,21 @@ update(){
             bullet.setActive(true);
             bullet.setVisible(true);
             bullet.body.setAllowGravity(false);
+            bullet.body.velocity.x = 0;
             bullet.body.velocity.y = 300;
             }
     }
     
      shootRight(x, y)
     {
-       var bullet = this.bullets.get(x+20, y);
+       var bullet = this.bullets2.get(x+20, y);
+        
         if (bullet) {
             bullet.setActive(true);
             bullet.setVisible(true);
             bullet.body.setAllowGravity(false);
             bullet.body.velocity.x = 300;
+            bullet.body.velocity.y = 0;
             }
     }
 }
