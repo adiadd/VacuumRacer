@@ -134,6 +134,10 @@ create(){
         mover1 = this.physics.add.image(750, 1150, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
         mover1.body.setAllowGravity(false);
         this.physics.add.collider(player, platforms);
+        
+        //collider with moving platform
+        this.physics.add.collider(player, mover1);
+        this.physics.add.collider(player, mover2);
     
         this.tweens.timeline({
         targets: [mover1.body.velocity],
