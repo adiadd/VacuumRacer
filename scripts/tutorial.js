@@ -120,6 +120,11 @@ update(){
     }
         
       //jumping  
+      if (godMode && cursors.up.isDown)
+      {
+          player.setVelocityY(-320);
+          this.sound.play('jump_sound');
+      }
       if (cursors.up.isDown && player.body.touching.down)
       {
           player.setVelocityY(-320);

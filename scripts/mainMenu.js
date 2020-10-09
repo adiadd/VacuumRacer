@@ -23,6 +23,12 @@ class TitleScene extends Phaser.Scene {
         let instructionsButton = this.add.image(200,400,'instructionsButton');
         let creditsButton = this.add.image(600,400,'creditsButton');
         let levelsButton = this.add.image(600,300,'levelsButton');
+
+        let levelOne = this.add.image(380,580, 'star');
+        let levelTwo = this.add.image(420,580,'star');
+        let tutorial = this.add.image(460, 580, 'star');
+        let gMode = this.add.image(20, 20, 'star');
+
         
         //music config
 //        this.music = this.sound.add('song');
@@ -82,7 +88,25 @@ class TitleScene extends Phaser.Scene {
             this.scene.switch('levels')
         })
         
+
+        tutorial.setInteractive()
+        tutorial.on('pointerdown', ()=>{
+            tutorial.setScale(.5)
+        })
+        tutorial.on('pointerup', ()=>{
+            tutorial.setScale(1)
+            this.scene.switch('tutorial')
+        })
         
+        gMode.setInteractive()
+        gMode.on('pointerdown', ()=>{
+            gMode.setScale(.5)
+        })
+        gMode.on('pointerup', ()=>{
+            gMode.setScale(1)
+            godMode = !godMode;
+        })
+
     }//end create
 
     update(){

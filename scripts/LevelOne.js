@@ -34,6 +34,7 @@ create(){
         var mover2;
         cursors = this.input.keyboard.createCursorKeys();
         this.tdelay = 0;
+        this.clearBullets = false;
 
         //music config
         this.music = this.sound.add('song');
@@ -63,7 +64,7 @@ create(){
         //add portals
         portal = this.physics.add.staticGroup();
         portal.create(725,1560, 'portal').setScale(.15).refreshBody();
-        portal.create(120,1700, 'portal').setScale(.15).refreshBody();
+        portal.create(70,1740, 'portal').setScale(.15).refreshBody();
         portal.create(275,875, 'portal').setScale(.15).refreshBody();
         portal.create(475,875, 'portal').setScale(.15).refreshBody();
         
@@ -163,16 +164,18 @@ create(){
             defaultKey: 'bullet',
             maxSize: 100
         });
+        this.physics.add.collider(player, this.bullets, this.reset, null, this);
     
         //add bullet group and collider for horizontal bullets
         this.bullets2 = this.physics.add.group({
             defaultKey: 'bullet2',
             maxSize: 100
         });
+        this.physics.add.collider(player, this.bullets2, this.reset, null, this);
 
         //if player overlaps with bunny, level is complete
         this.physics.add.overlap(player, checkpoint, function(){
-            this.scene.start("leveloneb");
+            this.scene.start("leveltwo");
         }, null, this);
 
         //reset player to checkpoint if player overlaps portal
@@ -189,9 +192,7 @@ create(){
 
 update(){
 
-    checkKeyboard();
-    //this.turretFire();
-    
+    checkKeyboard();    
     this.checkTurrets();
 
     //stickMechanic
@@ -221,7 +222,12 @@ update(){
     }
 
       //jumping
-      if (cursors.up.isDown)
+      if (cursors.up.isDown && godMode)
+      {
+          player.setVelocityY(-320);
+          this.sound.play('jump_sound');
+      }
+      else if(cursors.up.isDown && player.body.touching.down)
       {
           player.setVelocityY(-320);
           this.sound.play('jump_sound');
@@ -279,10 +285,24 @@ update(){
                     b.setActive(false);
                 }
             }
-        }.bind(this));
-    
+        }.bind(this));    
     
 }//end update function
+    
+//    endBullets() {
+//        console.log('ending bullets')
+//        this.bullets.children.each(function(b) {
+//            if (b.active) {
+//                    b.setActive(false);
+//            }
+//        }
+//        
+//        this.bullets2.children.each(function(b) {
+//            if (b.active) {
+//                    b.setActive(false);
+//                }
+//        }
+//    }
     
     checkPoint(){
         console.log('checkpoint')
@@ -297,6 +317,8 @@ update(){
     reset(){
         this.sound.play('death_sound');
         //var timer = scene.time.delayedCall(1000, null, null, this);
+        this.bullets.clear(true);
+        this.bullets2.clear(true);
         player.x = checkpointX;
         player.y = checkpointY;
     }
@@ -306,7 +328,7 @@ update(){
         var x = player.x;
         var y = player.y;
         
-        if(this.tdelay > 40) {
+        if(this.tdelay > 60) {
             console.log(this.tdelay);
             //bottom two
             if(y < 1850 && y > 1500 && x < 650 && x > 150) {
@@ -331,17 +353,17 @@ update(){
         this.tdelay++;
     }
     
-    turretFire() {
-        if(this.tdelay > 40) {
-            console.log('check');
-            for(var i = 0; i < this.turrUp.length; i++) {
-                console.log('fff');
-                this.shootUp(this.turrUp[i].x, this.turrUp[i].y);
-                }
-            this.tdelay = 0;
-            }
-        this.tdelay++;
-        }
+//    turretFire() {
+//        if(this.tdelay > 40) {
+//            console.log('check');
+//            for(var i = 0; i < this.turrUp.length; i++) {
+//                console.log('fff');
+//                this.shootUp(this.turrUp[i].x, this.turrUp[i].y);
+//                }
+//            this.tdelay = 0;
+//            }
+//        this.tdelay++;
+//        }
     
     shootUp(x, y)
     {
