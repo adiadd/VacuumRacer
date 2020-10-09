@@ -115,6 +115,7 @@ create(){
     
         mover2 = this.physics.add.image(750, 2200, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
         mover2.body.setAllowGravity(false);
+        mover = [mover1, mover2];
 
         this.tweens.timeline({
         targets: [mover1.body.velocity, mover2.body.velocity],
@@ -127,6 +128,7 @@ create(){
         
         //collider with moving platform
         this.physics.add.collider(player, mover1);
+        this.physics.add.collider(player, mover2);
 
         canGrab = false;
         rotated = false;
@@ -134,6 +136,7 @@ create(){
         isOnWall = false;
         isOnRight = false;
         isOnLeft = false;
+        findMover = false;
 }
     
 update(){
@@ -156,12 +159,16 @@ update(){
             }
         }
         if (!(isOnWall)&& (isOnLeft || isOnRight)){
-            stickmechanicMoving();
+                if (findMover == false){
+                moverTouching = whichMover(mover);   
+            }
+                stickmechanicMoving();
+                findMover = true;
+            }
+            else if(isOnWall){
+                stickmechanic(); 
+            }
         }
-        else if(isOnWall){
-        stickmechanic(); 
-          }
-    }
         
       //jumping  
       if (godMode && cursors.up.isDown)
@@ -183,6 +190,7 @@ update(){
             isOnWall = false;
             isOnLeft = false;
             isOnRight = false;
+            findMover = false;
         }
         if (cursors.space.isUp){
             player.body.setAllowGravity(true);

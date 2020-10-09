@@ -195,7 +195,7 @@
     }
     function whichMover(moverArray){
     for (i = 0; i < moverArray.length; i++){
-        if (mover[i].body.touching.left){
+        if (mover[i].body.touching.left || mover[i].body.touching.right){
             console.log("he touch");
             return mover[i];
         }
