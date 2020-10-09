@@ -27,7 +27,7 @@ class TitleScene extends Phaser.Scene {
         //let levelOne = this.add.image(380,580, 'star');
         //let levelTwo = this.add.image(420,580,'star');
         //let tutorial = this.add.image(460, 580, 'star');
-        //let gMode = this.add.image(20, 20, 'star');
+        let gMode = this.add.image(20, 20, 'star');
 
         
         //music config
@@ -89,7 +89,7 @@ class TitleScene extends Phaser.Scene {
         })
         
 
-        tutorial.setInteractive()
+        /*tutorial.setInteractive()
         tutorial.on('pointerdown', ()=>{
             tutorial.setScale(.5)
         })
@@ -106,6 +106,7 @@ class TitleScene extends Phaser.Scene {
             gMode.setScale(1)
             godMode = !godMode;
         })
+        */
 
     }//end create
 
