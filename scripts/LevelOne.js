@@ -30,6 +30,7 @@ preload(){
 }
     
 create(){
+    
         var mover1;
         var mover2;
         cursors = this.input.keyboard.createCursorKeys();
@@ -50,8 +51,8 @@ create(){
         this.music.play(musicConfig);
 
         //these two lines change the size of the scene and camera bounds!!
-        this.physics.world.setBounds(0, 0, 800, 2600, true, true, true, true);
-        this.cameras.main.setBounds(0, 0, 800, 2600);
+        this.physics.world.setBounds(0, 0, 750, 2600, true, true, true, true);
+        this.cameras.main.setBounds(0, 0, 750, 2600);
 
         //set background
         var backdrop = this.add.image(400,1300,'backdrop');
@@ -323,7 +324,7 @@ update(){
                 }
             }
             //top one
-            if(y > 500 && y < 900) {
+            if(y > 500 && y < 900 && x > 300) {
                 for(var i = 0; i < this.turrRight.length; i++) {
                 this.shootRight(this.turrRight[i].x, this.turrRight[i].y);
                 }
