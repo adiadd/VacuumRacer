@@ -87,16 +87,7 @@ class TitleScene extends Phaser.Scene {
             levelsButton.setScale(1) 
             this.scene.switch('levels')
         })
-        
 
-        /*tutorial.setInteractive()
-        tutorial.on('pointerdown', ()=>{
-            tutorial.setScale(.5)
-        })
-        tutorial.on('pointerup', ()=>{
-            tutorial.setScale(1)
-            this.scene.switch('tutorial')
-        })
         
         gMode.setInteractive()
         gMode.on('pointerdown', ()=>{
@@ -106,7 +97,7 @@ class TitleScene extends Phaser.Scene {
             gMode.setScale(1)
             godMode = !godMode;
         })
-        */
+        
 
     }//end create
 
