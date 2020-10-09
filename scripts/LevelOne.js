@@ -4,7 +4,7 @@ class LevelOne extends Phaser.Scene {
     }
 preload(){
         //audio
-        this.load.audio('song','../music/Art.mp3');
+        this.load.audio('song2','../music/Art.mp3');
         this.load.audio('jump_sound', 'sounds/jump_sound.wav')
         this.load.audio('death_sound', 'sounds/death_sound.mp3')
 
@@ -37,7 +37,7 @@ create(){
         this.clearBullets = false;
 
         //music config
-        this.music = this.sound.add('song');
+        this.music = this.sound.add('song2');
         var musicConfig = {
             mute: false,
             volume: 1,
@@ -262,11 +262,6 @@ update(){
         if (player.body.checkWorldBounds() == true) {
             this.sound.play('death_sound');
             this.reset();
-//            this.registry.destroy(); // destroy registry
-//            this.events.off(); // disable all active events
-//            this.scene.restart(); // restart current scene
-//            this.music.stop();
-//            console.log("yoo");
         }
 
         //inactivate bullets after leaving screen
@@ -288,21 +283,6 @@ update(){
         }.bind(this));    
     
 }//end update function
-    
-//    endBullets() {
-//        console.log('ending bullets')
-//        this.bullets.children.each(function(b) {
-//            if (b.active) {
-//                    b.setActive(false);
-//            }
-//        }
-//        
-//        this.bullets2.children.each(function(b) {
-//            if (b.active) {
-//                    b.setActive(false);
-//                }
-//        }
-//    }
     
     checkPoint(){
         console.log('checkpoint')

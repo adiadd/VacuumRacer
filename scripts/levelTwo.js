@@ -23,6 +23,7 @@ preload(){
         this.load.image('player', '../assets/player.png');
         this.load.image('turret', '../assets/turret.png');
         this.load.image('bullet', '../assets/tracer.png');
+        this.load.image('backdrop', '../backdrops/white.png');
 }
     
 create(){
@@ -51,8 +52,8 @@ create(){
         this.cameras.main.setBounds(0, 0, 800, 2600);
         
         //set background
-        var backdrop = this.add.image(400,300,'bg'); 
-        backdrop.setScale(4);
+        var backdrop = this.add.image(400,1300,'backdrop'); 
+        backdrop.setScale(1);
     
         //add checkpoint bunny
         checkpoint = this.physics.add.staticGroup();
