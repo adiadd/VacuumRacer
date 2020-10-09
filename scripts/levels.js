@@ -6,6 +6,7 @@ class LevelsScene extends Phaser.Scene {
     preload(){
         console.log("levels scene");
         this.load.image('bg', 'assets/spacebg.jpg');
+        this.load.image('back', 'assets/backButton.png');
         this.load.image('l1', 'assets/levelOneButton.png');
         this.load.image('l2', 'assets/levelTwoButton.png');
         this.load.image('l3', 'assets/levelThreeButton.png');
@@ -19,6 +20,7 @@ class LevelsScene extends Phaser.Scene {
 
     create(){
         let sb = this.add.image(400,300,'bg');
+        let backButton = this.add.image(50,75,'back');
         let levelsButton = this.add.image(400,100,'levelsButton').setScale(1.5);
         let levelOne = this.add.image(200,300, 'l1');
         let levelTwo = this.add.image(400,300,'l2');
@@ -27,6 +29,15 @@ class LevelsScene extends Phaser.Scene {
         let levelFive = this.add.image(400,500,'l5');
         let levelSix = this.add.image(600,500,'l6');
         let levelTutorial = this.add.image(600,100,'lt').setScale(.5);
+
+        backButton.setInteractive()
+        backButton.on('pointerdown', ()=>{
+            backButton.setScale(.5)
+        })
+        backButton.on('pointerup', ()=>{
+            backButton.setScale(1)
+            this.scene.switch('titleScene')
+        })
 
         levelTutorial.setInteractive()
         levelTutorial.on('pointerdown', ()=>{
@@ -54,6 +65,7 @@ class LevelsScene extends Phaser.Scene {
             levelTwo.setScale(1)
             this.scene.switch('leveltwo')
         })
+
     }//end create
 
     update(){

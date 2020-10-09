@@ -5,10 +5,22 @@ class CreditsScene extends Phaser.Scene {
 
     preload(){
         console.log("credits scene");
+        this.load.image('bg', 'assets/spacebg.jpg');
+        this.load.image('back', 'assets/backButton.png');
     }//end preload
 
     create(){
-        
+        let sb = this.add.image(400,300,'bg');
+        let backButton = this.add.image(50,75,'back');
+
+        backButton.setInteractive()
+        backButton.on('pointerdown', ()=>{
+            backButton.setScale(.5)
+        })
+        backButton.on('pointerup', ()=>{
+            backButton.setScale(1)
+            this.scene.switch('titleScene')
+        })
     }//end create
 
     update(){
