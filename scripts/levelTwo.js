@@ -89,7 +89,11 @@ create(){
         platforms.create(350, 2200, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(500, 2300, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         
-
+        dissapearPlatforms = this.physics.add.staticGroup();
+        dissapearPlatforms.create(350, 2000, 'gplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        
+        
+        platCollide = this.physics.add.collider(player, dissapearPlatforms);
         this.physics.add.collider(player, platforms);
 
         //add bullet group and collider
@@ -138,13 +142,27 @@ create(){
         isOnRight = false;
         isOnLeft = false;
         findMover = false;
+        dissapeardelay = 0;
 }
     
 update(){
     checkKeyboard();
     this.turretFire();
       
-        
+    dissapeardelay ++;
+    if (dissapeardelay >= 200){
+        dissapeardelay = 0;
+        console.log("vanish");
+        if (dissapearPlatforms.active == true){
+            dissapearPlatforms.setActive(false).toggleVisible(false);
+            platCollide.active = false;
+        }
+        else{
+            dissapearPlatforms.setActive(true).setVisible(true);
+            platCollide.active = true;
+        }
+    }
+    
     //stickMechanic
     if(cursors.space.isDown && wallJumped == false){
         //if the player is touching the wall or a moving body, it is made note of here
