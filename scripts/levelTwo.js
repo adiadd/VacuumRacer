@@ -16,7 +16,7 @@ preload(){
         this.load.image('pplatform', 'assets/platform_purple.png')
         this.load.image('mover', 'assets/platform_vert.png')
         this.load.image('vplatform', 'assets/platform_vert.png')
-        this.load.image('wplatform', 'assets/platform_green.png')
+        this.load.image('wplatform', 'assets/platform_white.png')
         
         //etc
         this.load.image('dust_bunny','assets/dust_bunny.png')
@@ -32,7 +32,6 @@ create(){
         var mover2;
         var mover3;
         var score = 0;
-        this.start = true;
     
         cursors = this.input.keyboard.createCursorKeys();
         this.tdelay = 0;
@@ -60,19 +59,23 @@ create(){
     
         //add checkpoint bunny
         checkpoint = this.physics.add.staticGroup();
-        checkpoint.create(20, 60, 'dust_bunny').setOrigin(0,0).setScale(.125).refreshBody();
+        checkpoint.create(20, 925, 'dust_bunny').setOrigin(0,0).setScale(.125).refreshBody();
 
         //add portals
         portal = this.physics.add.staticGroup();
         //portal.create(200,2500, 'portal').setScale(.125).refreshBody();
         
         //add turret
-        this.turret1 = this.add.image(700, 2090, 'turret');
+        this.turret1 = this.add.image(675, 800, 'turret');
         this.turret1.angle = 180;
-        //this.turret2 = this.add.image(800, 2590, 'turret').setScale(0.25);
-        //this.turret3 = this.add.image(800, 2590, 'turret').setScale(0.25);
+        this.turret2 = this.add.image(525, 800, 'turret');
+        this.turret2.angle = 180;
+        this.turret3 = this.add.image(375, 800, 'turret');
+        this.turret3.angle = 180;
+        this.turret4 = this.add.image(225, 800, 'turret');
+        this.turret4.angle = 180;
     
-        this.turrDown = [this.turret1];
+        this.turrDown = [this.turret1, this.turret2, this.turret3, this.turret4];
         this.turrUp = [];
         this.turrRight = [];
         this.tdelay = 0;
@@ -85,7 +88,7 @@ create(){
         
         //make camera follow player
         this.cameras.main.startFollow(player);
-        this.cameras.main.setZoom(1);
+        this.cameras.main.setZoom(0.9);
         
         //create and place static platforms
         var platforms = this.physics.add.staticGroup();
@@ -102,14 +105,14 @@ create(){
     
         platforms.create(675, 1400, 'pplatform').setOrigin(0,0).setScale(0.5).refreshBody();
     
-        platforms.create(400, 1000, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(0, 1000, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         
         dissapearPlatforms = this.physics.add.staticGroup();
         dissapearPlatforms.create(325, 1900, 'gplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         dissapearPlatforms.create(400, 1400, 'gplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         
-        var moverLR = this.physics.add.image(400, 1000, 'wplatform').setScale(0.5).setImmovable(true).setVelocity(0, 100);
+        var moverLR = this.physics.add.image(450, 1000, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
+        moverLR.body.setAllowGravity(false);
         
         platCollide = this.physics.add.collider(player, dissapearPlatforms);
         this.physics.add.collider(player, platforms);
@@ -120,7 +123,7 @@ create(){
             maxSize: 100
         });
         //this.input.on('pointerdown', this.shoot, this);
-        //this.physics.add.collider(player, this.bullets, this.restart, null, this);
+        this.physics.add.collider(player, this.bullets, this.restart, null, this);
         
         //if player overlaps with bunny, level is complete
         this.physics.add.overlap(player, checkpoint, function(){
@@ -142,7 +145,7 @@ create(){
         mover3.body.setAllowGravity(false);
     
         //mover array
-        mover = [mover1, mover2, mover3];
+        mover = [mover1, mover2, mover3, moverLR];
 
         this.tweens.timeline({
         targets: [mover1.body.velocity, mover2.body.velocity, mover3.body.velocity],
@@ -154,11 +157,11 @@ create(){
       });
         
     this.tweens.timeline({
-        targets: [moverLR],
+        targets: [moverLR.body.velocity],
         loop: -1,
         tweens: [
-          { x:    -200, y: 0, duration: 2000, ease: 'Stepped' },
-          { x:    200, y:   0, duration: 2000, ease: 'Stepped' },
+          { x:    -100, y: 0, duration: 2000, ease: 'Stepped' },
+          { x:    100, y:   0, duration: 2000, ease: 'Stepped' },
         ]
       });
         //collider with moving platform
@@ -178,12 +181,6 @@ create(){
 }
     
 update(){
-    
-    if(this.start) {
-        this.cameras.main.zoomTo(1.7, 1000);
-        this.start = false;
-    }
-    
     checkKeyboard();
     this.checkTurrets();
       
@@ -294,22 +291,10 @@ update(){
         
         if(this.tdelay > 60) {
             console.log(this.tdelay);
-            //bottom two
-            if(y < 1850 && y > 1500 && x < 650 && x > 150) {
-                for(var i = 0; i < this.turrUp.length; i++) {
-                this.shootUp(this.turrUp[i].x, this.turrUp[i].y);
-                }
-            }
             //middle two
-            if(y < 1300 && y > 900 && x < 650 && x > 50) {
+            if(y < 1000 && x < 680 ) {
                 for(var i = 0; i < this.turrDown.length; i++) {
                 this.shootDown(this.turrDown[i].x, this.turrDown[i].y);
-                }
-            }
-            //top one
-            if(y > 500 && y < 900 && x > 300) {
-                for(var i = 0; i < this.turrRight.length; i++) {
-                this.shootRight(this.turrRight[i].x, this.turrRight[i].y);
                 }
             }
             this.tdelay = 0;
@@ -329,17 +314,6 @@ update(){
 //        this.tdelay++;
 //        }
     
-    shootUp(x, y)
-    {
-       var bullet = this.bullets.get(x, y-20);
-        if (bullet) {
-            bullet.setActive(true);
-            bullet.setVisible(true);
-            bullet.body.setAllowGravity(false);
-            bullet.body.velocity.x = 0;
-            bullet.body.velocity.y = -300;
-            }
-    }
 
      shootDown(x, y)
     {
@@ -353,18 +327,6 @@ update(){
             }
     }
     
-     shootRight(x, y)
-    {
-       var bullet = this.bullets2.get(x+20, y);
-        
-        if (bullet) {
-            bullet.setActive(true);
-            bullet.setVisible(true);
-            bullet.body.setAllowGravity(false);
-            bullet.body.velocity.x = 300;
-            bullet.body.velocity.y = 0;
-            }
-    }
     
     restart() {
         this.registry.destroy(); // destroy registry
