@@ -103,7 +103,7 @@ create(){
     platforms.create(0,1920,'vplatform_xl').setOrigin(0,0).setScale(0.5).refreshBody();
     platforms.create(0,1580,'vplatform_xl').setOrigin(0,0).setScale(0.5).refreshBody();
 
-    //instructions
+    //instruction labels throughout the level
     var instructions = this.physics.add.staticGroup();
     instructions.create(200,2430,'instructions').setScale(0.25);
     var stickInstructions = this.physics.add.staticGroup();
