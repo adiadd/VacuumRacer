@@ -5,33 +5,33 @@ class Tutorial extends Phaser.Scene {
     
 preload(){
         //audio
-        this.load.audio('song','../music/Ecosystem.mp3');
-        this.load.audio('jump_sound', '../sounds/jump_sound.wav')
-        this.load.audio('death_sound', '../sounds/death_sound.mp3')
+        this.load.audio('song','music/Ecosystem.mp3');
+        this.load.audio('jump_sound', 'sounds/jump_sound.wav')
+        this.load.audio('death_sound', 'sounds/death_sound.mp3')
         
         //platforms
-        this.load.image('backdrop', '../backdrops/white.png');
-        this.load.image('splatform', '../assets/platform_hor.png')
-        this.load.image('bplatform', '../assets/platform_blue.png')
-        this.load.image('gplatform', '../assets/platform_green.png')
-        this.load.image('pplatform', '../assets/platform_purple.png')
-        this.load.image('mover', '../assets/platform_vert.png')
-        this.load.image('vplatform', '../assets/platform_vert.png')
-        this.load.image('vplatform_xl', '../assets/vert_xl.png')
-        this.load.image('lvl', '../backdrops/tut.png');
+        this.load.image('backdrop', 'backdrops/white.png');
+        this.load.image('splatform', 'assets/platform_hor.png')
+        this.load.image('bplatform', 'assets/platform_blue.png')
+        this.load.image('gplatform', 'assets/platform_green.png')
+        this.load.image('pplatform', 'assets/platform_purple.png')
+        this.load.image('mover', 'assets/platform_vert.png')
+        this.load.image('vplatform', 'assets/platform_vert.png')
+        this.load.image('vplatform_xl', 'assets/vert_xl.png')
+        this.load.image('lvl', 'backdrops/tut.png');
         
         //etc
-        this.load.image('dust_bunny','../assets/dust_bunny.png')
-        this.load.image('portal','../assets/portal.png');
-        this.load.image('player', '../assets/player.png');
-        this.load.image('turret', '../assets/turret.png');
-        this.load.image('bullet', '../assets/tracer.png');
-        this.load.image('instructions', '../assets/instructions.png');
-        this.load.image('stickInstructions','../assets/stickInstructions.png');
-        this.load.image('stickInstructionsLeft','../assets/stickInstructionsLeft.png');
-        this.load.image('checkpointInstructions','../assets/checkpointInstructions.png');
-        this.load.image('portalInstructions','../assets/portalInstructions.png');
-        this.load.image('turretInstructions','../assets/turretInstructions.png');
+        this.load.image('dust_bunny','assets/dust_bunny.png')
+        this.load.image('portal','assets/portal.png');
+        this.load.image('player', 'assets/player.png');
+        this.load.image('turret', 'assets/turret.png');
+        this.load.image('bullet', 'assets/tracer.png');
+        this.load.image('instructions', 'assets/instructions.png');
+        this.load.image('stickInstructions','assets/stickInstructions.png');
+        this.load.image('stickInstructionsLeft','assets/stickInstructionsLeft.png');
+        this.load.image('checkpointInstructions','assets/checkpointInstructions.png');
+        this.load.image('portalInstructions','assets/portalInstructions.png');
+        this.load.image('turretInstructions','assets/turretInstructions.png');
 }
     
 create(){
