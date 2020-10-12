@@ -4,7 +4,7 @@ class LevelOne extends Phaser.Scene {
     }
 preload(){
         //audio
-        this.load.audio('song2','../music/Art.mp3');
+        this.load.audio('song2','music/Art.mp3');
         this.load.audio('jump_sound', 'sounds/jump_sound.wav')
         this.load.audio('death_sound', 'sounds/death_sound.mp3')
 
@@ -14,8 +14,8 @@ preload(){
         this.load.image('bplatform', 'assets/platform_blue.png')
         this.load.image('gplatform', 'assets/platform_green.png')
         this.load.image('pplatform', 'assets/platform_purple.png')
-        this.load.image('vplatform', '../assets/platform_vert.png')
-        this.load.image('vplatform_xl', '../assets/vert_xl.png')
+        this.load.image('vplatform', 'assets/platform_vert.png')
+        this.load.image('vplatform_xl', 'assets/vert_xl.png')
         this.load.image('mover', 'assets/platform_vert.png')
 
         //etc
@@ -25,8 +25,8 @@ preload(){
         this.load.image('turret', 'assets/turret.png');
         this.load.image('bullet', 'assets/tracer.png');
         this.load.image('bullet2', 'assets/tracer2.png');
-        this.load.image('star', '../assets/star.png');
-        this.load.image('backdrop', '../backdrops/white.png');
+        this.load.image('star', 'assets/star.png');
+        this.load.image('backdrop', 'backdrops/white.png');
 }
     
 create(){
