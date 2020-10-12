@@ -20,7 +20,7 @@ class TitleScene extends Phaser.Scene {
         let sb = this.add.image(400,300,'bg');
         let logo = this.add.image(400,150,'logo').setScale(.5);
         let playButton = this.add.image(200,300,'playButton');
-        let tutorialButton = this.add.image(200,400,'tutorialButton');
+        let tutorialButton = this.add.image(200,400,'tutorialButton').setScale(.8);
         let creditsButton = this.add.image(600,400,'creditsButton');
         let levelsButton = this.add.image(600,300,'levelsButton');
 
