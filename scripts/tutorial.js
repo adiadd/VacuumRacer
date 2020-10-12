@@ -28,9 +28,18 @@ preload(){
         this.load.image('bullet', '../assets/tracer.png');
         this.load.image('instructions', '../assets/instructions.png');
         this.load.image('stickInstructions','../assets/stickInstructions.png');
+        this.load.image('stickInstructionsLeft','../assets/stickInstructionsLeft.png');
+        this.load.image('checkpointInstructions','../assets/checkpointInstructions.png');
+        this.load.image('portalInstructions','../assets/portalInstructions.png');
+        this.load.image('turretInstructions','../assets/turretInstructions.png');
 }
     
-create(){cursors = this.input.keyboard.createCursorKeys();
+create(){
+    //timetext = this.add.text(300,2430);
+    //timeText = this.add.text(680, 20);
+    //timeText.fixedToCamera = true;
+
+    cursors = this.input.keyboard.createCursorKeys();
     
     //music config
     this.music = this.sound.add('song');
@@ -99,6 +108,14 @@ create(){cursors = this.input.keyboard.createCursorKeys();
     instructions.create(200,2430,'instructions').setScale(0.25);
     var stickInstructions = this.physics.add.staticGroup();
     stickInstructions.create(600,2320,'stickInstructions').setScale(0.2);
+    var stickInstructionsLeft = this.physics.add.staticGroup();
+    stickInstructionsLeft.create(250,1950,'stickInstructionsLeft').setScale(0.2);
+    var checkpointInstructions = this.physics.add.staticGroup();
+    checkpointInstructions.create(110,1500,'checkpointInstructions').setScale(0.2);
+    var portalInstructions = this.physics.add.staticGroup();
+    portalInstructions.create(350,1500,'portalInstructions').setScale(0.2);
+    var turretInstructions = this.physics.add.staticGroup();
+    turretInstructions.create(620,1750,'turretInstructions').setScale(0.2);
     
     //create star checkpoints
     var stars = this.physics.add.staticGroup();
@@ -134,6 +151,8 @@ create(){cursors = this.input.keyboard.createCursorKeys();
 update(){
     checkKeyboard();
     this.checkTurrets();
+
+    //displayTimeElapsed();
     
     //stickMechanic
     if(cursors.space.isDown && wallJumped == false){
@@ -246,6 +265,20 @@ update(){
             bullet.body.velocity.x = 0;
             bullet.body.velocity.y = -300;
             }
+    }
+
+    displayTimeElapsed() {
+        var time = Math.floor(this.time.totalElapsedSeconds() );
+        var min = Math.floor(time / 60);
+        var sec = time % 60;
+    
+        if (min < 10) {
+            min = '0' + min;
+        }
+        if (sec < 10) {
+            sec = '0' + sec;
+        }
+        timeText.text = 'Time ' + min + ':' + sec;
     }
     
 }
