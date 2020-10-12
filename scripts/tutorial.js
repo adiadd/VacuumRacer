@@ -35,12 +35,12 @@ preload(){
 }
     
 create(){
-    //timetext = this.add.text(300,2430);
-    //timeText = this.add.text(680, 20);
-    //timeText.fixedToCamera = true;
+    
+    this.deathCount = 0;
+    this.elapsed = 0;
 
     cursors = this.input.keyboard.createCursorKeys();
-    this.start = true;
+    this.start = false;
     
     //music config
     this.music = this.sound.add('song');
@@ -54,6 +54,13 @@ create(){
             delay: 0
         }
         this.music.play(musicConfig);
+    
+    this.timer = this.time.addEvent({              
+    loop: false,
+    repeat: 1000000,
+    startAt: 0,
+    paused: false
+    });
     
     //these two lines change the size of the scene and camera bounds!!
     this.physics.world.setBounds(0, 0, 800, 2600, true, true, true, true);
@@ -118,6 +125,10 @@ create(){
     this.cameras.main.startFollow(player);
     this.cameras.main.setZoom(1);
     
+    this.timeText = this.add.text(10, 10, this.elapsed)
+    this.timeText.setScrollFactor(0);
+   // this.timeText.cameraOffset.setTo(100,100);
+    
     //create star checkpoints
     var stars = this.physics.add.staticGroup();
     this.star1 = stars.create(120, 1560, 'star').refreshBody();
@@ -166,7 +177,10 @@ update(){
     checkKeyboard();
     this.checkTurrets();
 
-    //displayTimeElapsed();
+    this.elapsed = this.timer.getElapsedSeconds();
+    console.log(this.timer.getElapsedSeconds());
+    //add Math.floor or something here to round elapsed
+    this.timeText.setText(this.elapsed);
     
     //stickMechanic
     if(cursors.space.isDown && wallJumped == false){
@@ -239,6 +253,7 @@ update(){
 }
     reset(){
         this.sound.play('death_sound');
+        this.deathCount++;
         //var timer = scene.time.delayedCall(1000, null, null, this);
         this.bullets.clear(true);
         player.x = checkpointX;
@@ -279,20 +294,6 @@ update(){
             bullet.body.velocity.x = 0;
             bullet.body.velocity.y = -300;
             }
-    }
-
-    displayTimeElapsed() {
-        var time = Math.floor(this.time.totalElapsedSeconds() );
-        var min = Math.floor(time / 60);
-        var sec = time % 60;
-    
-        if (min < 10) {
-            min = '0' + min;
-        }
-        if (sec < 10) {
-            sec = '0' + sec;
-        }
-        timeText.text = 'Time ' + min + ':' + sec;
     }
     
 }
