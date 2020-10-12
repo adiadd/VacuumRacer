@@ -29,6 +29,8 @@ preload(){
 }
     
 create(){
+    var txt = this.add.text(60, 2480, 'hello');
+
     cursors = this.input.keyboard.createCursorKeys();
     
     //music config
