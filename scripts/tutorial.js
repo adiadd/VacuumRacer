@@ -158,6 +158,14 @@ create(){
     this.physics.add.collider(player, this.bullets, this.reset, null, this);
       
     this.physics.add.collider(player, platforms);
+
+    checkpoint = this.physics.add.staticGroup();
+
+    checkpoint.create(585,1190, 'dust_bunny').setScale(.15).refreshBody();
+    this.physics.add.overlap(player, checkpoint, function(){
+        this.scene.start("levelone");
+        console.log('you win!');
+    }, null, this);
 }
     
 update(){
