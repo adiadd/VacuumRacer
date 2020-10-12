@@ -104,6 +104,8 @@ create(){
         //make camera follow player
         this.cameras.main.startFollow(player);
         this.cameras.main.setZoom(1);
+        
+        cam.zoomTo(1.5, 2000);
 
         
         //create and place static platforms
@@ -195,6 +197,7 @@ update(){
 
     checkKeyboard();    
     this.checkTurrets();
+    this.cameraZoom();
 
     //stickMechanic
     if(cursors.space.isDown && wallJumped == false){
@@ -381,5 +384,18 @@ update(){
             bullet.body.velocity.x = 300;
             bullet.body.velocity.y = 0;
             }
+    }
+    
+    cameraZoom() {
+        var x = player.x;
+        var y = player.y;
+        
+        var cam = this.cameras.main;
+        
+        if(y < 2500 && y > 2000 && x > 500) {
+            //cam.pan(500, 500, 2000, 'Power2');
+            
+        }
+        
     }
 }
