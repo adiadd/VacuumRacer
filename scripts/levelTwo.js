@@ -16,6 +16,7 @@ preload(){
         this.load.image('pplatform', 'assets/platform_purple.png')
         this.load.image('mover', 'assets/platform_vert.png')
         this.load.image('vplatform', 'assets/platform_vert.png')
+        this.load.image('wplatform', 'assets/platform_green.png')
         
         //etc
         this.load.image('dust_bunny','assets/dust_bunny.png')
@@ -96,17 +97,18 @@ create(){
     
         platforms.create(200, 1700, 'mover').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(350, 1550, 'mover').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(200, 1450, 'mover').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(200, 1400, 'mover').setOrigin(0,0).setScale(0.5).refreshBody();
     
         platforms.create(675, 1400, 'pplatform').setOrigin(0,0).setScale(0.5).refreshBody();
     
-        platforms.create(200, 1000, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(400, 1000, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(0, 1000, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         
         dissapearPlatforms = this.physics.add.staticGroup();
         dissapearPlatforms.create(325, 1900, 'gplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         dissapearPlatforms.create(400, 1400, 'gplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         
+        var moverLR = this.physics.add.image(400, 1000, 'wplatform').setScale(0.5).setImmovable(true).setVelocity(0, 100);
         
         platCollide = this.physics.add.collider(player, dissapearPlatforms);
         this.physics.add.collider(player, platforms);
@@ -135,7 +137,7 @@ create(){
         mover2 = this.physics.add.image(750, 2200, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
         mover2.body.setAllowGravity(false);
         
-        mover3 = this.physics.add.image(750, 1200, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);
+        mover3 = this.physics.add.image(750, 1250, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);
         mover3.body.setAllowGravity(false);
     
         //mover array
@@ -150,10 +152,19 @@ create(){
         ]
       });
         
+    this.tweens.timeline({
+        targets: [moverLR],
+        loop: -1,
+        tweens: [
+          { x:    -200, y: 0, duration: 2000, ease: 'Stepped' },
+          { x:    200, y:   0, duration: 2000, ease: 'Stepped' },
+        ]
+      });
         //collider with moving platform
         this.physics.add.collider(player, mover1);
         this.physics.add.collider(player, mover2);
         this.physics.add.collider(player, mover3);
+        this.physics.add.collider(player, moverLR);
 
         canGrab = false;
         rotated = false;
