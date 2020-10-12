@@ -33,6 +33,7 @@ create(){
     
         var mover1;
         var mover2;
+        this.start = true;
         cursors = this.input.keyboard.createCursorKeys();
         this.tdelay = 0;
         this.clearBullets = false;
@@ -104,8 +105,6 @@ create(){
         //make camera follow player
         this.cameras.main.startFollow(player);
         this.cameras.main.setZoom(1);
-        
-        cam.zoomTo(1.5, 2000);
 
         
         //create and place static platforms
@@ -194,10 +193,14 @@ create(){
 }
 
 update(){
-
+    
+    if(this.start) {
+        this.cameras.main.zoomTo(1.7, 1000);
+        this.start = false;
+    }
+    
     checkKeyboard();    
     this.checkTurrets();
-    this.cameraZoom();
 
     //stickMechanic
     if(cursors.space.isDown && wallJumped == false){
@@ -386,16 +389,4 @@ update(){
             }
     }
     
-    cameraZoom() {
-        var x = player.x;
-        var y = player.y;
-        
-        var cam = this.cameras.main;
-        
-        if(y < 2500 && y > 2000 && x > 500) {
-            //cam.pan(500, 500, 2000, 'Power2');
-            
-        }
-        
-    }
 }

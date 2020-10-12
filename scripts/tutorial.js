@@ -40,6 +40,7 @@ create(){
     //timeText.fixedToCamera = true;
 
     cursors = this.input.keyboard.createCursorKeys();
+    this.start = true;
     
     //music config
     this.music = this.sound.add('song');
@@ -61,16 +62,6 @@ create(){
     //set background
     var backdrop = this.add.image(400,1300,'backdrop'); 
     backdrop.setScale(1);
-    
-    //add player and set physics
-    player = this.physics.add.sprite(60, 2480, 'player').setScale(0.25);
-    player.setBounce(0.2);
-    player.setCollideWorldBounds(false);
-    player.body.setGravityY(300);
-    
-    //make camera follow player
-    this.cameras.main.startFollow(player);
-    this.cameras.main.setZoom(1);
 
     var platforms = this.physics.add.staticGroup();
     
@@ -117,6 +108,16 @@ create(){
     var turretInstructions = this.physics.add.staticGroup();
     turretInstructions.create(620,1750,'turretInstructions').setScale(0.2);
     
+    //add player and set physics
+    player = this.physics.add.sprite(60, 2480, 'player').setScale(0.25);
+    player.setBounce(0.2);
+    player.setCollideWorldBounds(false);
+    player.body.setGravityY(300);
+    
+    //make camera follow player
+    this.cameras.main.startFollow(player);
+    this.cameras.main.setZoom(1);
+    
     //create star checkpoints
     var stars = this.physics.add.staticGroup();
     this.star1 = stars.create(120, 1560, 'star').refreshBody();
@@ -157,6 +158,11 @@ create(){
 }
     
 update(){
+    
+    if(this.start){
+        this.cameras.main.zoomTo(1.5, 1000);
+        this.start = false;
+    }
     checkKeyboard();
     this.checkTurrets();
 
