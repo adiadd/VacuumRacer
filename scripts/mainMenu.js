@@ -10,7 +10,7 @@ class TitleScene extends Phaser.Scene {
         this.load.image('star','assets/star.png');
         this.load.image('logo', 'assets/VacuumRacerTitle.png');
         this.load.image('playButton', 'assets/playButton.png');
-        this.load.image('instructionsButton', 'assets/instructionsButton.png');
+        this.load.image('tutorialButton', 'assets/tutorialButton.png');
         this.load.image('creditsButton', 'assets/creditsButton.png');
         this.load.image('levelsButton', 'assets/levelsButton.png');
     }//end preload
@@ -20,7 +20,7 @@ class TitleScene extends Phaser.Scene {
         let sb = this.add.image(400,300,'bg');
         let logo = this.add.image(400,150,'logo').setScale(.5);
         let playButton = this.add.image(200,300,'playButton');
-        let instructionsButton = this.add.image(200,400,'instructionsButton');
+        let tutorialButton = this.add.image(200,400,'tutorialButton');
         let creditsButton = this.add.image(600,400,'creditsButton');
         let levelsButton = this.add.image(600,300,'levelsButton');
 
@@ -59,13 +59,13 @@ class TitleScene extends Phaser.Scene {
         })
 
         //Button to send them to the instructions page
-        instructionsButton.setInteractive()
-        instructionsButton.on('pointerdown', ()=>{
-            instructionsButton.setScale(.5)
+        tutorialButton.setInteractive()
+        tutorialButton.on('pointerdown', ()=>{
+            tutorialButton.setScale(.5)
         })
-        instructionsButton.on('pointerup', ()=>{
-            instructionsButton.setScale(1)
-            this.scene.switch('instructions')
+        tutorialButton.on('pointerup', ()=>{
+            tutorialButton.setScale(1)
+            this.scene.switch('tutorial')
         })
 
         //Button to send them to the credits page
