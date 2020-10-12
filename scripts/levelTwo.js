@@ -96,9 +96,12 @@ create(){
     
         platforms.create(200, 1700, 'mover').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(350, 1550, 'mover').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(200, 1400, 'mover').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(200, 1450, 'mover').setOrigin(0,0).setScale(0.5).refreshBody();
     
         platforms.create(675, 1400, 'pplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+    
+        platforms.create(200, 1000, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(0, 1000, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         
         dissapearPlatforms = this.physics.add.staticGroup();
         dissapearPlatforms.create(325, 1900, 'gplatform').setOrigin(0,0).setScale(0.5).refreshBody();
