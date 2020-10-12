@@ -26,12 +26,11 @@ preload(){
         this.load.image('player', '../assets/player.png');
         this.load.image('turret', '../assets/turret.png');
         this.load.image('bullet', '../assets/tracer.png');
+        this.load.image('instructions', '../assets/instructions.png');
+        this.load.image('stickInstructions','../assets/stickInstructions.png');
 }
     
-create(){
-    var txt = this.add.text(60, 2480, 'hello');
-
-    cursors = this.input.keyboard.createCursorKeys();
+create(){cursors = this.input.keyboard.createCursorKeys();
     
     //music config
     this.music = this.sound.add('song');
@@ -94,6 +93,12 @@ create(){
     //left climb
     platforms.create(0,1920,'vplatform_xl').setOrigin(0,0).setScale(0.5).refreshBody();
     platforms.create(0,1580,'vplatform_xl').setOrigin(0,0).setScale(0.5).refreshBody();
+
+    //instructions
+    var instructions = this.physics.add.staticGroup();
+    instructions.create(200,2430,'instructions').setScale(0.25);
+    var stickInstructions = this.physics.add.staticGroup();
+    stickInstructions.create(600,2320,'stickInstructions').setScale(0.2);
     
     //create star checkpoints
     var stars = this.physics.add.staticGroup();
