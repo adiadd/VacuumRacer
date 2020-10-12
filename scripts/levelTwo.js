@@ -29,6 +29,7 @@ preload(){
 create(){
         var mover1;
         var mover2;
+        var mover3;
         var score = 0;
     
         cursors = this.input.keyboard.createCursorKeys();
@@ -130,11 +131,15 @@ create(){
     
         mover2 = this.physics.add.image(750, 2200, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
         mover2.body.setAllowGravity(false);
+        
+        mover3 = this.physics.add.image(750, 1200, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);
+        mover3.body.setAllowGravity(false);
+    
         //mover array
-        mover = [mover1, mover2];
+        mover = [mover1, mover2, mover3];
 
         this.tweens.timeline({
-        targets: [mover1.body.velocity, mover2.body.velocity],
+        targets: [mover1.body.velocity, mover2.body.velocity, mover3.body.velocity],
         loop: -1,
         tweens: [
           { x:    0, y: -200, duration: 2000, ease: 'Stepped' },
@@ -145,6 +150,7 @@ create(){
         //collider with moving platform
         this.physics.add.collider(player, mover1);
         this.physics.add.collider(player, mover2);
+        this.physics.add.collider(player, mover3);
 
         canGrab = false;
         rotated = false;
