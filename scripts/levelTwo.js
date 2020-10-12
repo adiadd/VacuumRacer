@@ -64,11 +64,14 @@ create(){
         //portal.create(200,2500, 'portal').setScale(.125).refreshBody();
         
         //add turret
-        this.turret1 = this.add.image(700, 2590, 'turret');
+        this.turret1 = this.add.image(700, 2090, 'turret');
+        this.turret1.angle = 180;
         //this.turret2 = this.add.image(800, 2590, 'turret').setScale(0.25);
         //this.turret3 = this.add.image(800, 2590, 'turret').setScale(0.25);
     
-        this.turretArr = [this.turret1];
+        this.turrDown = [this.turret1];
+        this.turrUp = [];
+        this.turrRight = [];
         this.tdelay = 0;
 
         //add player and set physics
@@ -88,9 +91,17 @@ create(){
         platforms.create(200, 2100, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(350, 2200, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(500, 2300, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(500, 1800, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+    
+        platforms.create(200, 1700, 'mover').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(350, 1550, 'mover').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(200, 1400, 'mover').setOrigin(0,0).setScale(0.5).refreshBody();
+    
+        platforms.create(675, 1400, 'pplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         
         dissapearPlatforms = this.physics.add.staticGroup();
-        dissapearPlatforms.create(350, 2000, 'gplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        dissapearPlatforms.create(325, 1900, 'gplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        dissapearPlatforms.create(400, 1400, 'gplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         
         
         platCollide = this.physics.add.collider(player, dissapearPlatforms);
@@ -147,7 +158,7 @@ create(){
     
 update(){
     checkKeyboard();
-    this.turretFire();
+    this.checkTurrets();
       
     dissapeardelay ++;
     if (dissapeardelay >= 200){
@@ -249,26 +260,82 @@ update(){
 }
     
     
-    turretFire() {
-        if(this.tdelay > 40) {
-            console.log('check');
-            for(var i = 0; i < this.turretArr.length; i++) {
-                console.log('fff');
-                this.shoot(this.turretArr[i].x, this.turretArr[i].y);
+    checkTurrets() {
+        //first two
+        var x = player.x;
+        var y = player.y;
+        
+        if(this.tdelay > 60) {
+            console.log(this.tdelay);
+            //bottom two
+            if(y < 1850 && y > 1500 && x < 650 && x > 150) {
+                for(var i = 0; i < this.turrUp.length; i++) {
+                this.shootUp(this.turrUp[i].x, this.turrUp[i].y);
                 }
-            this.tdelay = 0;
             }
-        this.tdelay++;
+            //middle two
+            if(y < 1300 && y > 900 && x < 650 && x > 50) {
+                for(var i = 0; i < this.turrDown.length; i++) {
+                this.shootDown(this.turrDown[i].x, this.turrDown[i].y);
+                }
+            }
+            //top one
+            if(y > 500 && y < 900 && x > 300) {
+                for(var i = 0; i < this.turrRight.length; i++) {
+                this.shootRight(this.turrRight[i].x, this.turrRight[i].y);
+                }
+            }
+            this.tdelay = 0;
         }
+        this.tdelay++;
+    }
     
- shoot(x, y) 
+//    turretFire() {
+//        if(this.tdelay > 40) {
+//            console.log('check');
+//            for(var i = 0; i < this.turrUp.length; i++) {
+//                console.log('fff');
+//                this.shootUp(this.turrUp[i].x, this.turrUp[i].y);
+//                }
+//            this.tdelay = 0;
+//            }
+//        this.tdelay++;
+//        }
+    
+    shootUp(x, y)
     {
        var bullet = this.bullets.get(x, y-20);
         if (bullet) {
             bullet.setActive(true);
             bullet.setVisible(true);
             bullet.body.setAllowGravity(false);
-            bullet.body.velocity.y = -400;
+            bullet.body.velocity.x = 0;
+            bullet.body.velocity.y = -300;
+            }
+    }
+
+     shootDown(x, y)
+    {
+       var bullet = this.bullets.get(x, y+20);
+        if (bullet) {
+            bullet.setActive(true);
+            bullet.setVisible(true);
+            bullet.body.setAllowGravity(false);
+            bullet.body.velocity.x = 0;
+            bullet.body.velocity.y = 300;
+            }
+    }
+    
+     shootRight(x, y)
+    {
+       var bullet = this.bullets2.get(x+20, y);
+        
+        if (bullet) {
+            bullet.setActive(true);
+            bullet.setVisible(true);
+            bullet.body.setAllowGravity(false);
+            bullet.body.velocity.x = 300;
+            bullet.body.velocity.y = 0;
             }
     }
     
