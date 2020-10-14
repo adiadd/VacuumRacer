@@ -59,23 +59,16 @@ create(){
     
         //add checkpoint bunny
         checkpoint = this.physics.add.staticGroup();
-        checkpoint.create(20, 925, 'dust_bunny').setOrigin(0,0).setScale(.125).refreshBody();
+        
 
         //add portals
         portal = this.physics.add.staticGroup();
-        //portal.create(200,2500, 'portal').setScale(.125).refreshBody();
+        
         
         //add turret
-        this.turret1 = this.add.image(675, 800, 'turret');
-        this.turret1.angle = 180;
-        this.turret2 = this.add.image(525, 800, 'turret');
-        this.turret2.angle = 180;
-        this.turret3 = this.add.image(375, 800, 'turret');
-        this.turret3.angle = 180;
-        this.turret4 = this.add.image(225, 800, 'turret');
-        this.turret4.angle = 180;
+        
     
-        this.turrDown = [this.turret1, this.turret2, this.turret3, this.turret4];
+        this.turrDown = [];
         this.turrUp = [];
         this.turrRight = [];
         this.tdelay = 0;
@@ -93,25 +86,16 @@ create(){
         //create and place static platforms
         var platforms = this.physics.add.staticGroup();
         platforms.create(0,2550,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(200,2350,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(200, 2100, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(350, 2200, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(500, 2300, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(500, 1800, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-    
-        platforms.create(200, 1700, 'mover').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(350, 1550, 'mover').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(200, 1400, 'mover').setOrigin(0,0).setScale(0.5).refreshBody();
-    
-        platforms.create(675, 1400, 'pplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-    
-        platforms.create(0, 1000, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        
+        platforms.create(500,2150,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(300,2150,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(100,2150,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        
         
         dissapearPlatforms = this.physics.add.staticGroup();
-        dissapearPlatforms.create(325, 1900, 'gplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        dissapearPlatforms.create(400, 1400, 'gplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         
-        var moverLR = this.physics.add.image(450, 1000, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
+        
+        var moverLR = this.physics.add.image(500, 2550, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
         moverLR.body.setAllowGravity(false);
         
         platCollide = this.physics.add.collider(player, dissapearPlatforms);
@@ -135,20 +119,15 @@ create(){
         this.physics.add.overlap(player, portal, this.restart, null, this);
 
         //moving vertical platform
-        mover1 = this.physics.add.image(50, 2350, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
+        mover1 = this.physics.add.image(750, 2500, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
         mover1.body.setAllowGravity(false);
     
-        mover2 = this.physics.add.image(750, 2200, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
-        mover2.body.setAllowGravity(false);
-        
-        mover3 = this.physics.add.image(750, 1250, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);
-        mover3.body.setAllowGravity(false);
     
         //mover array
-        mover = [mover1, mover2, mover3, moverLR];
+        mover = [mover1, moverLR];
 
         this.tweens.timeline({
-        targets: [mover1.body.velocity, mover2.body.velocity, mover3.body.velocity],
+        targets: [mover1.body.velocity],
         loop: -1,
         tweens: [
           { x:    0, y: -200, duration: 2000, ease: 'Stepped' },
