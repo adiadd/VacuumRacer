@@ -79,6 +79,12 @@ create(){
         this.turrUp = [];
         this.turrRight = [];
         this.tdelay = 0;
+    
+        //create star checkpoints
+        var stars = this.physics.add.staticGroup();
+        this.star1 = stars.create(620, 1775, 'star').refreshBody();
+        this.star2 = stars.create(694, 1375, 'star').refreshBody();
+        this.starArr = [this.star1, this.star2];
 
         //add player and set physics
         player = this.physics.add.sprite(60, 2480, 'player').setScale(0.25);
@@ -123,7 +129,7 @@ create(){
             maxSize: 100
         });
         //this.input.on('pointerdown', this.shoot, this);
-        this.physics.add.collider(player, this.bullets, this.restart, null, this);
+        this.physics.add.collider(player, this.bullets, this.reset, null, this);
         
         //if player overlaps with bunny, level is complete
         this.physics.add.overlap(player, checkpoint, function(){
@@ -132,7 +138,7 @@ create(){
         }, null, this);
 
         //restart scene if player overlaps portal 
-        this.physics.add.overlap(player, portal, this.restart, null, this);
+        this.physics.add.overlap(player, portal, this.reset, null, this);
 
         //moving vertical platform
         mover1 = this.physics.add.image(50, 2350, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
@@ -169,6 +175,9 @@ create(){
         this.physics.add.collider(player, mover2);
         this.physics.add.collider(player, mover3);
         this.physics.add.collider(player, moverLR);
+    
+        //star pickup overlap 
+        this.physics.add.overlap(player, stars, this.checkPoint, null, this);
 
         canGrab = false;
         rotated = false;
@@ -183,6 +192,7 @@ create(){
 update(){
     checkKeyboard();
     this.checkTurrets();
+    console.log(player.x + " , " + player.y);
       
     dissapeardelay ++;
     if (dissapeardelay >= 200){
@@ -265,11 +275,7 @@ update(){
         
         //checkWorldBounds
         if (player.body.checkWorldBounds() == true) {
-            this.registry.destroy(); // destroy registry
-            this.events.off(); // disable all active events
-            this.scene.restart(); // restart current scene
-            this.music.stop()
-            console.log("yoo");
+            this.reset();
         }
         
         //inactivate bullets after leaving screen
@@ -283,6 +289,14 @@ update(){
     
 }
     
+    checkPoint(){
+        console.log('checkpoint')
+        checkpointX = this.starArr[0].x;
+        checkpointY = this.starArr[0].y - 20;
+        this.starArr[0].disableBody(true,true);
+        this.starArr.shift();
+        console.log(this.starArr.length)
+    }
     
     checkTurrets() {
         //first two
@@ -301,19 +315,6 @@ update(){
         }
         this.tdelay++;
     }
-    
-//    turretFire() {
-//        if(this.tdelay > 40) {
-//            console.log('check');
-//            for(var i = 0; i < this.turrUp.length; i++) {
-//                console.log('fff');
-//                this.shootUp(this.turrUp[i].x, this.turrUp[i].y);
-//                }
-//            this.tdelay = 0;
-//            }
-//        this.tdelay++;
-//        }
-    
 
      shootDown(x, y)
     {
@@ -328,11 +329,13 @@ update(){
     }
     
     
-    restart() {
-        this.registry.destroy(); // destroy registry
-        this.music.stop();
-        this.events.off(); // disable all active events
-        this.scene.restart(); // restart current scene
+    reset(){
+        this.sound.play('death_sound');
+        //var timer = scene.time.delayedCall(1000, null, null, this);
+        this.bullets.clear(true);
+        //this.bullets2.clear(true);
+        player.x = checkpointX;
+        player.y = checkpointY;
     }
         
 }
