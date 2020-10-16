@@ -32,6 +32,7 @@ create(){
         var mover2;
         var mover3;
         var score = 0;
+        this.start = true;
     
         cursors = this.input.keyboard.createCursorKeys();
         this.tdelay = 0;
@@ -91,6 +92,8 @@ create(){
         player.setBounce(0.2);
         player.setCollideWorldBounds(false);
         player.body.setGravityY(300);
+        checkpointX = player.x;
+        checkpointY = player.y;
         
         //make camera follow player
         this.cameras.main.startFollow(player);
@@ -191,6 +194,10 @@ create(){
 }
     
 update(){
+    if(this.start) {
+        this.cameras.main.zoomTo(1.7, 1000);
+        this.start = false;
+    }
     checkKeyboard();
     this.checkTurrets();
     console.log(player.x + " , " + player.y);
