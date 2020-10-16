@@ -133,7 +133,8 @@ create(){
         
         //if player overlaps with bunny, level is complete
         this.physics.add.overlap(player, checkpoint, function(){
-            this.scene.start("next_level");
+            this.music.stop();
+            this.scene.start("levelthree");
             console.log('you win!');
         }, null, this);
 
