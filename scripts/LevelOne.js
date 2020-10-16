@@ -37,6 +37,7 @@ create(){
         cursors = this.input.keyboard.createCursorKeys();
         this.tdelay = 0;
         this.clearBullets = false;
+        this.elapsed = 0;
 
         //music config
         this.music = this.sound.add('song2');
@@ -156,6 +157,9 @@ create(){
         this.physics.add.collider(player, mover2);
         mover = [mover1];
     
+        //change y position to stay in window after pan
+        this.timeText = this.add.text(10, 10, this.elapsed)
+        this.timeText.setScrollFactor(0);
     
         //star pickup overlap 
         this.physics.add.overlap(player, stars, this.checkPoint, null, this);
@@ -203,9 +207,11 @@ create(){
 
 update(){
 
-    //Updating timer 
+    //Updating timer
     this.elapsed = this.timer.getElapsedSeconds();
     console.log(this.timer.getElapsedSeconds());
+    //add Math.floor or something here to round elapsed
+    this.timeText.setText(this.elapsed);
     
     if(this.start) {
         this.cameras.main.zoomTo(1.7, 1000);

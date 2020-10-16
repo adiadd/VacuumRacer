@@ -33,6 +33,7 @@ create(){
         var mover3;
         var score = 0;
         this.start = true;
+        this.elapsed = 0;
     
         cursors = this.input.keyboard.createCursorKeys();
         this.tdelay = 0;
@@ -49,6 +50,14 @@ create(){
             delay: 0
         }
         this.music.play(musicConfig);
+    
+        //Adding timer
+        this.timer = this.time.addEvent({              
+        loop: false,
+        repeat: 1000000,
+        startAt: 0,
+        paused: false
+        });
     
         //these two lines change the size of the scene and camera bounds!!
         this.physics.world.setBounds(0, 0, 800, 2600, true, true, true, true);
@@ -156,6 +165,9 @@ create(){
     
         //mover array
         mover = [mover1, mover2, mover3, moverLR];
+    
+        this.timeText = this.add.text(10, 10, this.elapsed)
+        this.timeText.setScrollFactor(0);
 
         this.tweens.timeline({
         targets: [mover1.body.velocity, mover2.body.velocity, mover3.body.velocity],
@@ -201,6 +213,12 @@ update(){
     checkKeyboard();
     this.checkTurrets();
     console.log(player.x + " , " + player.y);
+    
+    //Updating timer
+    this.elapsed = this.timer.getElapsedSeconds();
+    console.log(this.timer.getElapsedSeconds());
+    //add Math.floor or something here to round elapsed
+    this.timeText.setText(this.elapsed);
       
     dissapeardelay ++;
     if (dissapeardelay >= 200){

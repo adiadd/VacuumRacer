@@ -33,6 +33,7 @@ create(){
         var mover2;
         var mover3;
         var score = 0;
+        this.elapsed = 0;
         
     
         cursors = this.input.keyboard.createCursorKeys();
@@ -51,6 +52,14 @@ create(){
             delay: 0
         }
         this.music.play(musicConfig);
+    
+        //Adding timer
+        this.timer = this.time.addEvent({              
+        loop: false,
+        repeat: 1000000,
+        startAt: 0,
+        paused: false
+        });
     
         //these two lines change the size of the scene and camera bounds!!
         this.physics.world.setBounds(0, 0, 800, 2600, true, true, true, true);
@@ -139,6 +148,9 @@ create(){
         
         platCollide = this.physics.add.collider(player, dissapearPlatforms);
         this.physics.add.collider(player, platforms);
+    
+        this.timeText = this.add.text(10, 400, this.elapsed)
+        this.timeText.setScrollFactor(0);
 
         //add bullet group and collider
         this.bullets = this.physics.add.group({
@@ -220,6 +232,12 @@ update(){
     this.checkTurrets();
     this.checkTurrets2();
     console.log(game.input.mousePointer.x + " , " + game.input.mousePointer.y);
+    
+    //Updating timer
+    this.elapsed = this.timer.getElapsedSeconds();
+    console.log(this.timer.getElapsedSeconds());
+    //add Math.floor or something here to round elapsed
+    this.timeText.setText(this.elapsed);
       
     dissapeardelay ++;
     if (dissapeardelay >= 200){
