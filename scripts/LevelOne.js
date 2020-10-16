@@ -51,6 +51,14 @@ create(){
         }
         this.music.play(musicConfig);
 
+        //Adding timer
+        this.timer = this.time.addEvent({              
+        loop: false,
+        repeat: 1000000,
+        startAt: 0,
+        paused: false
+        });
+
         //these two lines change the size of the scene and camera bounds!!
         this.physics.world.setBounds(0, 0, 750, 2600, true, true, true, true);
         this.cameras.main.setBounds(0, 0, 750, 2600);
@@ -194,6 +202,10 @@ create(){
 }
 
 update(){
+
+    //Updating timer 
+    this.elapsed = this.timer.getElapsedSeconds();
+    console.log(this.timer.getElapsedSeconds());
     
     if(this.start) {
         this.cameras.main.zoomTo(1.7, 1000);
