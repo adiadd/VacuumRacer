@@ -4,7 +4,7 @@ class LevelThree extends Phaser.Scene {
     }
 preload(){
         //audio
-        this.load.audio('song','music/zipline.mp3');
+        this.load.audio('song','../music/cities.mp3');
         this.load.audio('jump_sound', 'sounds/jump_sound.wav')
         this.load.audio('death_sound', 'sounds/death_sound.mp3')
         
@@ -32,6 +32,7 @@ create(){
         var mover2;
         var mover3;
         var score = 0;
+        
     
         cursors = this.input.keyboard.createCursorKeys();
         this.tdelay = 0;
@@ -65,16 +66,19 @@ create(){
         portal = this.physics.add.staticGroup();
         
         
-        //add turret
-        this.turret1 = this.add.image(475, 2300, 'turret');
-        this.turret2 = this.add.image(325, 2300, 'turret');
-        this.turret3 = this.add.image(175, 2300, 'turret');
+        //bottom turrets
+        this.turret1 = this.add.image(555, 2300, 'turret');
+        this.turret2 = this.add.image(390, 2300, 'turret');
+        this.turret3 = this.add.image(210, 2300, 'turret');
         this.turret1.angle = 180;
         this.turret2.angle = 180;
         this.turret3.angle = 180;
     
+        this.turret4 = this.add.image(450, 2250, 'turret');
+        this.turret5 = this.add.image(210, 2250, 'turret');
+    
         this.turrDown = [this.turret1, this.turret2, this.turret3];
-        this.turrUp = [];
+        this.turrUp = [this.turret4, this.turret5];
         this.turrRight = [];
         this.tdelay = 0;
 
@@ -83,10 +87,20 @@ create(){
         player.setBounce(0.2);
         player.setCollideWorldBounds(false);
         player.body.setGravityY(300);
+        checkpointX = player.x;
+        checkpointY = player.y;
         
         //make camera follow player
         this.cameras.main.startFollow(player);
         this.cameras.main.setZoom(0.9);
+    
+        //create star checkpoints
+        var stars = this.physics.add.staticGroup();
+        this.star1 = stars.create(630, 2135, 'star').refreshBody();
+        this.starArr = [this.star1]
+    
+        //star pickup overlap 
+        this.physics.add.overlap(player, stars, this.checkPoint, null, this);
         
         //create and place static platforms
         var platforms = this.physics.add.staticGroup();
@@ -106,7 +120,7 @@ create(){
         dissapearPlatforms = this.physics.add.staticGroup();
         
         
-        var moverLR = this.physics.add.image(500, 2550, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
+        var moverLR = this.physics.add.image(550, 2550, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
         moverLR.body.setAllowGravity(false);
         
         var mover2LR = this.physics.add.image(600, 2000, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
@@ -123,8 +137,8 @@ create(){
             defaultKey: 'bullet',
             maxSize: 100
         });
-        //this.input.on('pointerdown', this.shoot, this);
-        this.physics.add.collider(player, this.bullets, this.restart, null, this);
+
+        this.physics.add.collider(player, this.bullets, this.reset, null, this);
         
         //if player overlaps with bunny, level is complete
         this.physics.add.overlap(player, checkpoint, function(){
@@ -133,7 +147,7 @@ create(){
         }, null, this);
 
         //restart scene if player overlaps portal 
-        this.physics.add.overlap(player, portal, this.restart, null, this);
+        this.physics.add.overlap(player, portal, this.reset, null, this);
 
         //moving vertical platform
         mover1 = this.physics.add.image(750, 2500, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
@@ -156,8 +170,8 @@ create(){
         targets: [moverLR.body.velocity],
         loop: -1,
         tweens: [
-          { x:    -100, y: 0, duration: 2000, ease: 'Stepped' },
-          { x:    100, y:   0, duration: 2000, ease: 'Stepped' },
+          { x:    -200, y: 0, duration: 2000, ease: 'Stepped' },
+          { x:    200, y:   0, duration: 2000, ease: 'Stepped' },
         ]
       });
     
@@ -190,6 +204,7 @@ create(){
 update(){
     checkKeyboard();
     this.checkTurrets();
+    console.log(game.input.mousePointer.x + " , " + game.input.mousePointer.y);
       
     dissapeardelay ++;
     if (dissapeardelay >= 200){
@@ -272,11 +287,7 @@ update(){
         
         //checkWorldBounds
         if (player.body.checkWorldBounds() == true) {
-            this.registry.destroy(); // destroy registry
-            this.events.off(); // disable all active events
-            this.scene.restart(); // restart current scene
-            this.music.stop()
-            console.log("yoo");
+            this.reset();
         }
         
         //inactivate bullets after leaving screen
@@ -290,6 +301,14 @@ update(){
     
 }
     
+    checkPoint(){
+        console.log('checkpoint')
+        checkpointX = this.starArr[0].x;
+        checkpointY = this.starArr[0].y - 20;
+        this.starArr[0].disableBody(true,true);
+        this.starArr.shift();
+        console.log(this.starArr.length)
+    }
     
     checkTurrets() {
         //first two
@@ -297,11 +316,15 @@ update(){
         var y = player.y;
         
         if(this.tdelay > 60) {
-            console.log(this.tdelay);
-            //middle two
-            if(y < 1000 && x < 680 ) {
+            //bottom three
+            if(y > 2300 && x > 60 && x < 700 ) {
                 for(var i = 0; i < this.turrDown.length; i++) {
                 this.shootDown(this.turrDown[i].x, this.turrDown[i].y);
+                }
+            }
+            if(y < 2300 && y > 2100 && x > 150 && x < 600 ) {
+                for(var i = 0; i < this.turrUp.length; i++) {
+                this.shootUp(this.turrUp[i].x, this.turrUp[i].y);
                 }
             }
             this.tdelay = 0;
@@ -309,18 +332,17 @@ update(){
         this.tdelay++;
     }
     
-//    turretFire() {
-//        if(this.tdelay > 40) {
-//            console.log('check');
-//            for(var i = 0; i < this.turrUp.length; i++) {
-//                console.log('fff');
-//                this.shootUp(this.turrUp[i].x, this.turrUp[i].y);
-//                }
-//            this.tdelay = 0;
-//            }
-//        this.tdelay++;
-//        }
-    
+     shootUp(x, y)
+    {
+       var bullet = this.bullets.get(x, y-20);
+        if (bullet) {
+            bullet.setActive(true);
+            bullet.setVisible(true);
+            bullet.body.setAllowGravity(false);
+            bullet.body.velocity.x = 0;
+            bullet.body.velocity.y = -300;
+            }
+    }
 
      shootDown(x, y)
     {
@@ -335,11 +357,14 @@ update(){
     }
     
     
-    restart() {
-        this.registry.destroy(); // destroy registry
-        this.music.stop();
-        this.events.off(); // disable all active events
-        this.scene.restart(); // restart current scene
+    reset(){
+        this.sound.play('death_sound');
+        //var timer = scene.time.delayedCall(1000, null, null, this);
+        this.bullets.clear(true);
+        console.log(checkpointX + " " + checkpointY)
+        //this.bullets2.clear(true);
+        player.x = checkpointX;
+        player.y = checkpointY;
     }
         
 }

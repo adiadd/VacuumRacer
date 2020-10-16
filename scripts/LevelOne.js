@@ -341,18 +341,6 @@ update(){
         this.tdelay++;
     }
     
-//    turretFire() {
-//        if(this.tdelay > 40) {
-//            console.log('check');
-//            for(var i = 0; i < this.turrUp.length; i++) {
-//                console.log('fff');
-//                this.shootUp(this.turrUp[i].x, this.turrUp[i].y);
-//                }
-//            this.tdelay = 0;
-//            }
-//        this.tdelay++;
-//        }
-    
     shootUp(x, y)
     {
        var bullet = this.bullets.get(x, y-20);
