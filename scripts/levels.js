@@ -25,6 +25,7 @@ class LevelsScene extends Phaser.Scene {
         let levelOne = this.add.image(200,300, 'l1');
         let levelTwo = this.add.image(400,300,'l2');
         let levelThree = this.add.image(600, 300, 'l3');
+        let levelFour = this.add.image(200, 500, 'l4');
         let levelTutorial = this.add.image(600,100,'lt').setScale(.5);
 
         backButton.setInteractive()
@@ -70,6 +71,15 @@ class LevelsScene extends Phaser.Scene {
         levelThree.on('pointerup', ()=>{
             levelThree.setScale(1)
             this.scene.switch('levelthree')
+        })
+        
+        levelFour.setInteractive()
+        levelFour.on('pointerdown', ()=>{
+            levelFour.setScale(.5)
+        })
+        levelFour.on('pointerup', ()=>{
+            levelFour.setScale(1)
+            this.scene.switch('levelnew')
         })
 
     }//end create

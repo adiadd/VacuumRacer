@@ -10,6 +10,7 @@
         <script src="scripts/LevelOne.js"></script>
         <script src="scripts/LevelTwo.js"></script>
         <script src="scripts/LevelThree.js"></script>
+        <script src="scripts/LevelNew.js"></script>
         <script src="scripts/mainMenu.js"></script>
         <script src="scripts/instructions.js"></script>
         <script src="scripts/credits.js"></script>
@@ -31,7 +32,7 @@
                           debug: false
                       }
                   },
-                  scene: [TitleScene, InstructionsScene, CreditsScene, LevelsScene, GameScene, LevelOne, LevelTwo, LevelThree,
+                  scene: [TitleScene, InstructionsScene, CreditsScene, LevelsScene, GameScene, LevelOne, LevelTwo, LevelThree, LevelNew,
                          Tutorial]
               };
 
@@ -106,11 +107,11 @@
                        }
                    }
                    //resets player gravity once they stick for too long
-//                   else{
-//                       player.body.setAllowGravity(true);
-//                       canGrab = false;
-//                   
-//                   }
+                   else{
+                       player.body.setAllowGravity(true);
+                       canGrab = false;
+                   
+                   }
                    }
                
          
@@ -238,6 +239,13 @@
                        console.log(held);
                        player.setVelocityY(0);
                        player.y = moverTouching.y;
+                       //bugfix for whiteplatform leaving player behind when on the left side
+                       if (moverTouching.texture.key == "wplatform"){
+                           if (isOnRight){
+                          player.x = moverTouching.x -20; 
+                       }
+                       
+                       }
                        //once the player presses up he can't grab the wall again and he has an upward jump
                        if (cursors.up.isDown){
                            player.body.setAllowGravity(true);

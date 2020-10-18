@@ -1,6 +1,6 @@
-class LevelThree extends Phaser.Scene {
+class LevelNew extends Phaser.Scene {
     constructor(){
-        super('levelthree')
+        super('levelnew')
     }
 preload(){
         //audio
@@ -26,6 +26,7 @@ preload(){
         this.load.image('bullet2', '../assets/tracer2.png');
         this.load.image('bullet', 'assets/tracer.png');
         this.load.image('backdrop', 'backdrops/white.png');
+        this.load.image('spike', 'assets/spike.png');
 }
     
 create(){
@@ -71,36 +72,18 @@ create(){
     
         //add checkpoint bunny
         checkpoint = this.physics.add.staticGroup();
+        checkpoint.create(550, 800, 'dust_bunny').setScale(0.125).refreshBody();
         
 
         //add portals
         portal = this.physics.add.staticGroup();
         
         
-        //bottom turrets
-        this.turret1 = this.add.image(555, 2300, 'turret');
-        this.turret2 = this.add.image(390, 2300, 'turret');
-        this.turret3 = this.add.image(210, 2300, 'turret');
-        this.turret7 = this.add.image(690, 1400, 'turret');   
-        this.turret1.angle = 180;
-        this.turret2.angle = 180;
-        this.turret3.angle = 180;
-        this.turret7.angle = 180;
-    
-        this.turret4 = this.add.image(450, 2250, 'turret');
-        this.turret5 = this.add.image(210, 2250, 'turret');
-    
-        this.turret6 = this.add.image(800, 1970, 'turret');
-        this.turret6.angle = 270;
-    
-        this.turrDown = [this.turret1, this.turret2, this.turret3];
-        this.turrDown2 = [this.turret7];
-        this.turrUp = [this.turret4, this.turret5];
-        this.turrLeft = [this.turret6];
+        
         this.tdelay = 0;
 
         //add player and set physics
-        player = this.physics.add.sprite(60, 2480, 'player').setScale(0.25);
+        player = this.physics.add.sprite(60, 2500, 'player').setScale(0.25);
         player.setBounce(0.2);
         player.setCollideWorldBounds(false);
         player.body.setGravityY(300);
@@ -113,7 +96,7 @@ create(){
     
         //create star checkpoints
         var stars = this.physics.add.staticGroup();
-        this.star1 = stars.create(630, 2135, 'star').refreshBody();
+        this.star1 = stars.create(525, 1885, 'star').refreshBody();
         this.starArr = [this.star1]
     
         //star pickup overlap 
@@ -121,30 +104,45 @@ create(){
         
         //create and place static platforms
         var platforms = this.physics.add.staticGroup();
+        var spike = this.physics.add.staticGroup();
+    
         platforms.create(0,2550,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         
-        platforms.create(500,2150,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(250,2150,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(0,2150,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(300,2350,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        spike.create(300,2275, 'spike').setOrigin(0,0).setScale(0.30).refreshBody();
+        platforms.create(150,2225,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        spike.create(150,2150, 'spike').setOrigin(0,0).setScale(0.30).refreshBody();
+        platforms.create(300,2100,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        spike.create(300,2025, 'spike').setOrigin(0,0).setScale(0.30).refreshBody();
+        platforms.create(150,1975,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        spike.create(150,1900, 'spike').setOrigin(0,0).setScale(0.30).refreshBody();
         
-        platforms.create(0,2000,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-    
-        platforms.create(750,1800,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(600,1650,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(750,1500,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         
+        platforms.create(500,1900,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        
+        platforms.create(150,1550,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        spike.create(150,1475, 'spike').setOrigin(0,0).setScale(0.30).refreshBody();
         
         dissapearPlatforms = this.physics.add.staticGroup();
         
         
-        var moverLR = this.physics.add.image(550, 2550, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
+        var moverLR = this.physics.add.image(600, 1750, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
         moverLR.body.setAllowGravity(false);
         
-        var mover2LR = this.physics.add.image(530, 2000, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
+        var mover2LR = this.physics.add.image(550, 1500, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
         mover2LR.body.setAllowGravity(false);
     
-        var mover3LR = this.physics.add.image(550, 1500, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
+        var mover3LR = this.physics.add.image(550, 1350, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
         mover3LR.body.setAllowGravity(false);
+        
+        var mover4LR = this.physics.add.image(550, 1200, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
+        mover4LR.body.setAllowGravity(false);
+    
+        var mover5LR = this.physics.add.image(550, 1050, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
+        mover5LR.body.setAllowGravity(false);
+        
+        var mover6LR = this.physics.add.image(550, 900, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
+        mover6LR.body.setAllowGravity(false);
         
         platCollide = this.physics.add.collider(player, dissapearPlatforms);
         this.physics.add.collider(player, platforms);
@@ -174,23 +172,15 @@ create(){
 
         //restart scene if player overlaps portal 
         this.physics.add.overlap(player, portal, this.reset, null, this);
+        this.physics.add.overlap(player, spike, this.reset, null, this);
 
         //moving vertical platform
-        mover1 = this.physics.add.image(750, 2500, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
-        mover1.body.setAllowGravity(false);
+       
     
     
         //mover array
-        mover = [mover1, moverLR, mover2LR];
+        mover = [moverLR, mover2LR, mover3LR, mover4LR, mover5LR, mover6LR];
 
-        this.tweens.timeline({
-        targets: [mover1.body.velocity],
-        loop: -1,
-        tweens: [
-          { x:    0, y: -200, duration: 2000, ease: 'Stepped' },
-          { x:    0, y:   200, duration: 2000, ease: 'Stepped' },
-        ]
-      });
         
     this.tweens.timeline({
         targets: [moverLR.body.velocity],
@@ -202,13 +192,15 @@ create(){
       });
     
     this.tweens.timeline({
-        targets: [mover2LR.body.velocity, mover3LR.body.velocity],
+        targets: [mover2LR.body.velocity, mover4LR.body.velocity, mover6LR.body.velocity, mover3LR.body.velocity, mover5LR.body.velocity],
         loop: -1,
         tweens: [
-          { x:    -100, y: 0, duration: 4000, ease: 'Stepped' },
-          { x:    100, y:   0, duration: 4000, ease: 'Stepped' },
+          { x:    -100, y: 0, duration: 1800, ease: 'Stepped' },
+          { x:    100, y:   0, duration: 1800, ease: 'Stepped' },
         ]
       });
+    
+    
         //collider with moving platform
         this.physics.add.collider(player, mover1);
         this.physics.add.collider(player, mover2);
@@ -216,6 +208,9 @@ create(){
         this.physics.add.collider(player, moverLR);
         this.physics.add.collider(player, mover2LR);
         this.physics.add.collider(player, mover3LR);
+        this.physics.add.collider(player, mover4LR);
+        this.physics.add.collider(player, mover5LR);
+        this.physics.add.collider(player, mover6LR);
 
         canGrab = false;
         rotated = false;
@@ -229,9 +224,7 @@ create(){
     
 update(){
     checkKeyboard();
-    this.checkTurrets();
-    this.checkTurrets2();
-    console.log(game.input.mousePointer.x + " , " + game.input.mousePointer.y);
+    //console.log(game.input.mousePointer.x + " , " + game.input.mousePointer.y);
     
     //Updating timer
     this.elapsed = this.timer.getElapsedSeconds();
@@ -343,47 +336,8 @@ update(){
         console.log(this.starArr.length)
     }
     
-    checkTurrets() {
-        //first two
-        var x = player.x;
-        var y = player.y;
-        
-        if(this.tdelay > 60) {
-            //bottom three
-            if(y > 2300 && x > 60 && x < 700 ) {
-                for(var i = 0; i < this.turrDown.length; i++) {
-                this.shootDown(this.turrDown[i].x, this.turrDown[i].y);
-                }
-            }
-            if(y < 2300 && y > 2100 && x > 150 && x < 600 ) {
-                for(var i = 0; i < this.turrUp.length; i++) {
-                this.shootUp(this.turrUp[i].x, this.turrUp[i].y);
-                }
-            }
-            if(y < 2000 && y > 1800 && x > 150 && x < 500 ) {
-                for(var i = 0; i < this.turrLeft.length; i++) {
-                this.shootLeft(this.turrLeft[i].x, this.turrLeft[i].y);
-                }
-            }
-            this.tdelay = 0;
-        }
-        this.tdelay++;
-    }
     
-    checkTurrets2() {
-        var x = player.x;
-        var y = player.y;
-        
-        if(this.tdelay2 > 130) {
-            if(y < 2000 && y > 1600 && x > 600 && x < 800 ) {
-                for(var i = 0; i < this.turrDown2.length; i++) {
-                this.shootDown(this.turrDown2[i].x, this.turrDown2[i].y);
-                }
-            }
-           this.tdelay2 = 0; 
-        }
-        this.tdelay2++;
-    }
+
     
      shootUp(x, y)
     {
