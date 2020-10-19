@@ -114,7 +114,6 @@ create(){
         //make camera follow player
         this.cameras.main.startFollow(player);
         this.cameras.main.setZoom(1);
-
         
         //create and place static platforms
         var platforms = this.physics.add.staticGroup();
@@ -206,17 +205,17 @@ create(){
 }
 
 update(){
-
-    //Updating timer
-    this.elapsed = this.timer.getElapsedSeconds();
-    console.log(this.timer.getElapsedSeconds());
-    //add Math.floor or something here to round elapsed
-    this.timeText.setText(this.elapsed);
     
     if(this.start) {
         this.cameras.main.zoomTo(1.7, 1000);
         this.start = false;
     }
+    
+    //Updating timer
+    this.elapsed = this.timer.getElapsedSeconds();
+    console.log(this.timer.getElapsedSeconds());
+    //add Math.floor or something here to round elapsed
+    this.timeText.setText(this.elapsed);
     
     checkKeyboard();    
     this.checkTurrets();
