@@ -4,7 +4,7 @@ class LevelThree extends Phaser.Scene {
     }
 preload(){
         //audio
-        this.load.audio('song','../music/cities.mp3');
+        this.load.audio('song','music/cities.mp3');
         this.load.audio('jump_sound', 'sounds/jump_sound.wav')
         this.load.audio('death_sound', 'sounds/death_sound.mp3')
         
@@ -23,7 +23,7 @@ preload(){
         this.load.image('portal','assets/portal.png');
         this.load.image('player', 'assets/player.png');
         this.load.image('turret', 'assets/turret.png');
-        this.load.image('bullet2', '../assets/tracer2.png');
+        this.load.image('bullet2', 'assets/tracer2.png');
         this.load.image('bullet', 'assets/tracer.png');
         this.load.image('backdrop', 'backdrops/white.png');
 }
@@ -181,7 +181,7 @@ create(){
     
     
         //mover array
-        mover = [mover1, moverLR, mover2LR];
+        mover = [mover1, moverLR, mover2LR, mover3LR];
 
         this.tweens.timeline({
         targets: [mover1.body.velocity],
