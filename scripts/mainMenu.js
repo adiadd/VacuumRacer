@@ -28,7 +28,8 @@ class TitleScene extends Phaser.Scene {
         //let levelTwo = this.add.image(420,580,'star');
         //let tutorial = this.add.image(460, 580, 'star');
         let gMode = this.add.image(20, 20, 'star');
-
+        let bonus = this.add.image(20, 60, 'star');
+        let bounce = this.add.image(20, 100, 'star');
         
         //music config
 //        this.music = this.sound.add('song');
@@ -98,7 +99,27 @@ class TitleScene extends Phaser.Scene {
             godMode = !godMode;
         })
         
-
+        //bonus level access
+        bonus.setInteractive()
+        bonus.on('pointerdown', ()=>{
+            bonus.setScale(.5)
+        })
+        bonus.on('pointerup', ()=>{
+            bonus.setScale(1) 
+            this.scene.switch('bonus')
+        })
+        
+        //bouncetest access
+        bounce.setInteractive()
+        bounce.on('pointerdown', ()=>{
+            bounce.setScale(.5)
+        })
+        bounce.on('pointerup', ()=>{
+            bounce.setScale(1) 
+            this.scene.switch('bounceTest')
+        })
+        
+        
     }//end create
 
     update(){
