@@ -183,10 +183,10 @@ create(){
 
 update(){
     
-//    if(this.start) {
-//        this.cameras.main.zoomTo(1.7, 1000);
-//        this.start = false;
-//    }
+    if(this.start) {
+        this.cameras.main.zoomTo(1.4, 1000);
+        this.start = false;
+    }
     
     //Updating timer
     this.elapsed = this.timer.getElapsedSeconds();
