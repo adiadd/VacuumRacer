@@ -178,7 +178,8 @@ create(){
         //moving vertical platform
         mover1 = this.physics.add.image(750, 2500, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
         mover1.body.setAllowGravity(false);
-    
+        this.time.addEvent({delay: 1000, callback: function(){this.checkTurrets()}, callbackScope: this, loop: true});
+        this.time.addEvent({ delay: 1000, callback: function(){this.checkTurrets2()}, callbackScope: this, loop: true });
     
         //mover array
         mover = [mover1, moverLR, mover2LR, mover3LR];
@@ -229,8 +230,6 @@ create(){
     
 update(){
     checkKeyboard();
-    this.checkTurrets();
-    this.checkTurrets2();
     console.log(game.input.mousePointer.x + " , " + game.input.mousePointer.y);
     
     //Updating timer
@@ -345,11 +344,9 @@ update(){
     
     checkTurrets() {
         //first two
+        console.log("run")
         var x = player.x;
         var y = player.y;
-        
-        if(this.tdelay > 60) {
-            //bottom three
             if(y > 2300 && x > 60 && x < 700 ) {
                 for(var i = 0; i < this.turrDown.length; i++) {
                 this.shootDown(this.turrDown[i].x, this.turrDown[i].y);
@@ -365,9 +362,6 @@ update(){
                 this.shootLeft(this.turrLeft[i].x, this.turrLeft[i].y);
                 }
             }
-            this.tdelay = 0;
-        }
-        this.tdelay++;
     }
     
     checkTurrets2() {
