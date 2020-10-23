@@ -4,7 +4,7 @@ class BounceTest extends Phaser.Scene {
     }
 preload(){
         //audio
-        this.load.audio('song2','music/Art.mp3');
+        this.load.audio('song2','../music/Security.mp3');
         this.load.audio('jump_sound', 'sounds/jump_sound.wav')
         this.load.audio('death_sound', 'sounds/death_sound.mp3')
 
@@ -183,10 +183,10 @@ create(){
 
 update(){
     
-//    if(this.start) {
-//        this.cameras.main.zoomTo(1.7, 1000);
-//        this.start = false;
-//    }
+    if(this.start) {
+        this.cameras.main.zoomTo(1.4, 1000);
+        this.start = false;
+    }
     
     //Updating timer
     this.elapsed = this.timer.getElapsedSeconds();
