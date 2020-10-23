@@ -60,7 +60,7 @@ create(){
         });
     
         //these two lines change the size of the scene and camera bounds!!
-        this.physics.world.setBounds(0, 0, 800, 2600, true, true, true, true);
+        this.physics.world.setBounds(-25, 0, 850, 2600, true, true, true, true);
         this.cameras.main.setBounds(0, 0, 800, 2600);
         
         //set background
@@ -160,7 +160,7 @@ create(){
         mover2 = this.physics.add.image(750, 2200, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
         mover2.body.setAllowGravity(false);
         
-        mover3 = this.physics.add.image(750, 1250, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);
+        mover3 = this.physics.add.image(750, 1300, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);
         mover3.body.setAllowGravity(false);
     
         //mover array
@@ -203,6 +203,8 @@ create(){
         isOnLeft = false;
         findMover = false;
         dissapeardelay = 0;
+    
+        this.time.addEvent({ delay: 1000, callback: function(){this.checkTurrets()}, callbackScope: this, loop: true });
 }
     
 update(){
@@ -211,7 +213,6 @@ update(){
         this.start = false;
     }
     checkKeyboard();
-    this.checkTurrets();
     console.log(player.x + " , " + player.y);
     
     //Updating timer
@@ -328,8 +329,6 @@ update(){
         //first two
         var x = player.x;
         var y = player.y;
-        
-        if(this.tdelay > 60) {
             console.log(this.tdelay);
             //middle two
             if(y < 1000 && x < 680 ) {
@@ -337,9 +336,6 @@ update(){
                 this.shootDown(this.turrDown[i].x, this.turrDown[i].y);
                 }
             }
-            this.tdelay = 0;
-        }
-        this.tdelay++;
     }
 
      shootDown(x, y)

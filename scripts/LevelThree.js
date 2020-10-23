@@ -62,7 +62,7 @@ create(){
         });
     
         //these two lines change the size of the scene and camera bounds!!
-        this.physics.world.setBounds(0, 0, 800, 2600, true, true, true, true);
+        this.physics.world.setBounds(-25, 0, 850, 2600, true, true, true, true);
         this.cameras.main.setBounds(0, 0, 800, 2600);
         
         //set background

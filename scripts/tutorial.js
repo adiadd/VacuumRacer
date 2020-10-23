@@ -32,6 +32,7 @@ preload(){
         this.load.image('checkpointInstructions','assets/checkpointInstructions.png');
         this.load.image('portalInstructions','assets/portalInstructions.png');
         this.load.image('turretInstructions','assets/turretInstructions.png');
+        this.load.image('spike', 'assets/spike.png');
 }
     
 create(){
@@ -72,6 +73,7 @@ create(){
     backdrop.setScale(1);
 
     var platforms = this.physics.add.staticGroup();
+    var spikes = this.physics.add.staticGroup();
     
     //ground
     platforms.create(0,2550,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
@@ -101,6 +103,7 @@ create(){
     //left climb
     platforms.create(0,1920,'vplatform_xl').setOrigin(0,0).setScale(0.5).refreshBody();
     platforms.create(0,1580,'vplatform_xl').setOrigin(0,0).setScale(0.5).refreshBody();
+    
 
     //instruction labels throughout the level
     var instructions = this.physics.add.staticGroup();

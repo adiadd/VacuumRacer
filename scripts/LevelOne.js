@@ -61,7 +61,7 @@ create(){
         });
 
         //these two lines change the size of the scene and camera bounds!!
-        this.physics.world.setBounds(0, 0, 750, 2600, true, true, true, true);
+        this.physics.world.setBounds(-25, 0, 800, 2600, true, true, true, true);
         this.cameras.main.setBounds(0, 0, 750, 2600);
 
         //set background
@@ -202,6 +202,8 @@ create(){
         isOnRight = false;
         isOnLeft = false;
         findMover = false;
+    
+        this.time.addEvent({ delay: 1000, callback: function(){this.checkTurrets()}, callbackScope: this, loop: true });
 }
 
 update(){
@@ -218,7 +220,6 @@ update(){
     this.timeText.setText(this.elapsed);
     
     checkKeyboard();    
-    this.checkTurrets();
 
     //stickMechanic
     if(cursors.space.isDown && wallJumped == false){
@@ -332,9 +333,6 @@ update(){
         //first two
         var x = player.x;
         var y = player.y;
-        
-        if(this.tdelay > 60) {
-            console.log(this.tdelay);
             //bottom two
             if(y < 1850 && y > 1500 && x < 650 && x > 150) {
                 for(var i = 0; i < this.turrUp.length; i++) {
@@ -353,9 +351,6 @@ update(){
                 this.shootRight(this.turrRight[i].x, this.turrRight[i].y);
                 }
             }
-            this.tdelay = 0;
-        }
-        this.tdelay++;
     }
     
     shootUp(x, y)
