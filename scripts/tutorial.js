@@ -170,6 +170,8 @@ create(){
         this.scene.start("levelone");
         console.log('you win!');
     }, null, this);
+    
+    this.time.addEvent({ delay: 1000, callback: function(){this.checkTurrets()}, callbackScope: this, loop: true });
 }
     
 update(){
@@ -179,7 +181,6 @@ update(){
         this.start = false;
     }
     checkKeyboard();
-    this.checkTurrets();
 
     //Updating timer
     this.elapsed = this.timer.getElapsedSeconds();
