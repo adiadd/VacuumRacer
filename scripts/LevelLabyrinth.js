@@ -101,6 +101,8 @@ create(){
         
         var platSwitch1 = this.physics.add.staticGroup();
         this.switch1 = platSwitch1.create(200, 500, 'star').refreshBody();
+        var switchItems1 = this.physics.add.staticGroup();
+        var switchItems1Collide = this.physics.add.collider(player, switchItems1);
     
         //star pickup overlap 
         this.physics.add.overlap(player, stars, this.checkPoint, null, this);
@@ -108,9 +110,10 @@ create(){
         //create and place static platforms
         var platforms = this.physics.add.staticGroup();
         var spike = this.physics.add.staticGroup();
-        var switchItems1 = this.physics.add.staticGroup();
-        var switchItems1Collide = this.physics.add.collider(player, switchItems1);
-        //this.physics.add.overlap(player, platSwitch1, this.checkDissapear(this.switch1, switchItems1, switchItems1Collide), null, this);
+        
+        
+        
+        this.physics.add.overlap(player, platSwitch1, function(){this.checkDissapear(this.switch1, switchItems1, switchItems1Collide)}, null, this);
     
         //platfomrs go here
         platforms.create(0, 150, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
@@ -131,7 +134,64 @@ create(){
         platforms.create(0, 650, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(150, 650, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(700, 650, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(750, 650, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        //left spikes
+        spike.create(700,590, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        spike.create(730,590, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        spike.create(760,590, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        spike.create(790,590, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        spike.create(820,590, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        spike.create(850,590, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        spike.create(880,590, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        //right spikes
+        spike.create(-15,590, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        spike.create(15,590, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        spike.create(45,590, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        spike.create(75,590, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        spike.create(105,590, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        spike.create(135,590, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        spike.create(165,590, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
         
+        platforms.create(400, 500, "splatform").setOrigin(0,0).setScale(0.5).refreshBody();
+    
+        //wall spikes
+        var wallspike1 = spike.create(300,350, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        wallspike1.angle = 90;
+        wallspike1.setOffset(-50,0);
+        var wallspike2 = spike.create(300,380, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        wallspike2.angle = 90;
+        wallspike2.setOffset(-50,0);
+        var wallspike3 = spike.create(300,410, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        wallspike3.angle = 90;
+        wallspike3.setOffset(-50,0);
+        var wallspike0 = spike.create(300,440, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        wallspike0.angle = 90;
+        wallspike0.setOffset(-50,0);
+        var wallspike4 = spike.create(300,470, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        wallspike4.angle = 90;
+        wallspike4.setOffset(-50,0);
+        var wallspike5 = spike.create(300,500, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        wallspike5.angle = 90;
+        wallspike5.setOffset(-50,0);
+        var wallspike6 = spike.create(300,530, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        wallspike6.angle = 90;
+        wallspike6.setOffset(-50,0);
+        var wallspike7 = spike.create(300,560, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        wallspike7.angle = 90;
+        wallspike7.setOffset(-50,0);
+        var wallspike8 = spike.create(300,590, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        wallspike8.angle = 90;
+        wallspike8.setOffset(-50,0)
+        var wallspike9 = spike.create(300,620, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        wallspike9.angle = 90;
+        wallspike9.setOffset(-50,0)
+        
+        var wallspike10 = spike.create(600,380, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        wallspike10.angle = 270;
+        wallspike10.setOffset(40,0);
+        var wallspike11 = spike.create(600,470, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        wallspike11.angle = 270;
+        wallspike11.setOffset(40,0);
         
         this.physics.add.collider(player, platforms);
     
