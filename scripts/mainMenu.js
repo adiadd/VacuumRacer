@@ -106,7 +106,7 @@ class TitleScene extends Phaser.Scene {
         })
         bonus.on('pointerup', ()=>{
             bonus.setScale(1) 
-            this.scene.switch('bonus')
+            this.scene.switch('bonus2')
         })
         
         //bouncetest access
