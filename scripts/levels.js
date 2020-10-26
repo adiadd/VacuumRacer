@@ -16,12 +16,14 @@ class LevelsScene extends Phaser.Scene {
         this.load.image('l7', 'assets/levelSevenButton.png');
         this.load.image('lt', 'assets/levelTutorialButton.png');
         this.load.image('levelsButton', 'assets/levelsButton.png');
+        this.load.image('bonusButton', 'assets/bonusButton.png');
     }//end preload
 
     create(){
         let sb = this.add.image(400,300,'bg');
         let backButton = this.add.image(50,100,'back');
         let levelsButton = this.add.image(400,100,'levelsButton').setScale(1.5);
+        let bonusButton = this.add.image(700,100,'bonusButton').setScale(.5);
         let levelOne = this.add.image(200,300, 'l1');
         let levelTwo = this.add.image(400,300,'l2');
         let levelThree = this.add.image(600, 300, 'l3');
@@ -90,6 +92,15 @@ class LevelsScene extends Phaser.Scene {
         levelFive.on('pointerup', ()=>{
             levelFive.setScale(1)
             this.scene.switch('labyrinth')
+        })
+
+        bonusButton.setInteractive()
+        bonusButton.on('pointerdown', ()=>{
+            bonusButton.setScale(.5)
+        })
+        bonusButton.on('pointerup', ()=>{
+            bonusButton.setScale(1)
+            this.scene.switch('bonus')
         })
 
     }//end create
