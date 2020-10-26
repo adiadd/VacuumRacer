@@ -188,10 +188,31 @@ create(){
         
         var wallspike10 = spike.create(600,380, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
         wallspike10.angle = 270;
-        wallspike10.setOffset(40,0);
+        wallspike10.setOffset(40,-75);
         var wallspike11 = spike.create(600,470, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
         wallspike11.angle = 270;
-        wallspike11.setOffset(40,0);
+        wallspike11.setOffset(20,-20);
+        var wallspike12 = spike.create(600,500, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        wallspike12.angle = 270;
+        wallspike12.setOffset(20,-20);
+        var wallspike13 = spike.create(600,530, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        wallspike13.angle = 270;
+        wallspike13.setOffset(20,-20);
+        var wallspike14 = spike.create(600,560, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        wallspike14.angle = 270;
+        wallspike14.setOffset(20,-20);
+        var wallspike15 = spike.create(600,590, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        wallspike15.angle = 270;
+        wallspike15.setOffset(20,-20);
+        var wallspike16 = spike.create(600,720, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        wallspike16.angle = 270;
+        wallspike16.setOffset(20,-20);
+        var wallspike17 = spike.create(600,750, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        wallspike17.angle = 270;
+        wallspike17.setOffset(20,-20);
+        var wallspike18 = spike.create(600,810, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        wallspike18.angle = 270;
+        wallspike18.setOffset(20,-20);
         
         this.physics.add.collider(player, platforms);
     
