@@ -316,6 +316,7 @@ update(){
         checkpointY = this.starArr[0].y - 20;
         this.starArr[0].disableBody(true,true);
         this.starArr.shift();
+        godMode = false;
         console.log(this.starArr.length)
     }
     
