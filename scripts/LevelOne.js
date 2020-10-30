@@ -157,8 +157,8 @@ create(){
         mover = [mover1];
     
         //change y position to stay in window after pan
-        this.timeText = this.add.text(10, 300, this.elapsed)
-        this.timeText.setScrollFactor(1);
+        this.timeText = this.add.text(10, 10, this.elapsed)
+        this.timeText.setScrollFactor(0);
     
         //star pickup overlap 
         this.physics.add.overlap(player, stars, this.checkPoint, null, this);

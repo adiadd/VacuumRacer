@@ -92,6 +92,7 @@ create(){
         var platforms = this.physics.add.staticGroup();
         platforms.create(0,4550,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(475, 3600, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(200, 2350, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         
         this.physics.add.collider(player, platforms);
     
@@ -102,6 +103,19 @@ create(){
         bounce.create(250, 3850,'bounce');
         bounce.create(400, 3950, 'bounce');
         bounce.create(300, 3660,'bounce');
+    
+        bounce.create(350, 3550,'bounce');
+        bounce.create(250, 3450,'bounce');
+        bounce.create(150, 3350,'bounce');
+        bounce.create(150, 3250,'bounce');
+        bounce.create(150, 3150,'bounce');
+        bounce.create(300, 3050,'bounce');
+        bounce.create(400, 2950,'bounce');
+        bounce.create(550, 2850,'bounce');
+        bounce.create(550, 2750,'bounce');
+        bounce.create(550, 2650,'bounce');
+        bounce.create(550, 2550,'bounce');
+        bounce.create(450, 2450,'bounce');
     
         this.physics.add.overlap(player, bounce, this.bounce, null, this);
     
@@ -141,12 +155,9 @@ create(){
     
         //create star checkpoints
         var stars = this.physics.add.staticGroup();
-        this.star1 = stars.create(500, 3250, 'star').refreshBody();
-        this.star2 = stars.create(400, 3150, 'star').refreshBody();
-        this.star3 = stars.create(200, 3000, 'star').refreshBody();
-        this.star4 = stars.create(300, 2900, 'star').refreshBody();
-        this.star5 = stars.create(400, 2800, 'star').refreshBody();
-        this.starArr = [this.star1, this.star2, this.star3, this.star4, this.star5];
+        this.star1 = stars.create(520, 3570, 'star').refreshBody();
+        this.star2 = stars.create(250, 2320, 'star').refreshBody();
+        this.starArr = [this.star1, this.star2];
     
         //star pickup overlap 
         this.physics.add.overlap(player, stars, this.checkPoint, null, this);
@@ -169,7 +180,7 @@ update(){
 //    this.timeText.setText(this.elapsed);
     
     checkKeyboard();    
-    this.fireLazers();
+    //this.fireLazers();
     //this.bounce();
     //this.checkTurrets();
 
@@ -320,7 +331,7 @@ update(){
         }
     
     enablegMode() {
-        godMode = true;
+        godMode = false;
         this.gMode.disableBody(true, true);
     }
     
@@ -330,12 +341,12 @@ update(){
         
         if(y < 3300 && y > 3100) {
             if((Phaser.Math.Between(0, 800)) < 400) {
-                    this.shootRight(y);
+                    this.shootLeft(y);
             }
         }
         if(y < 3150 && y > 2950) {
             if((Phaser.Math.Between(0, 800)) < 400) {
-                    this.shootLeft(y);
+                    this.shootRight(y);
             }
         }
     }
