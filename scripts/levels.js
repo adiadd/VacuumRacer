@@ -100,7 +100,7 @@ class LevelsScene extends Phaser.Scene {
         })
         bonusButton.on('pointerup', ()=>{
             bonusButton.setScale(1)
-            this.scene.switch('bonus')
+            this.scene.switch('bounceTest')
         })
 
     }//end create

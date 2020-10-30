@@ -38,6 +38,7 @@ create(){
         var mover1;
         var mover2;
         var bounce;
+        var score = 0;
         this.start = true;
         cursors = this.input.keyboard.createCursorKeys();
         this.tdelay = 0;
@@ -94,7 +95,7 @@ create(){
         
         this.physics.add.collider(player, platforms);
     
-         //bounce
+        //bounce platforms
         bounce = this.physics.add.staticGroup();
         bounce.create(250, 4450,'bounce');
         bounce.create(400, 4350, 'bounce');
@@ -138,6 +139,18 @@ create(){
         var gmode = this.physics.add.staticGroup();
         this.gMode = gmode.create(520, 3570, 'gmode').refreshBody();
     
+        //create star checkpoints
+        var stars = this.physics.add.staticGroup();
+        this.star1 = stars.create(500, 3250, 'star').refreshBody();
+        this.star2 = stars.create(400, 3150, 'star').refreshBody();
+        this.star3 = stars.create(200, 3000, 'star').refreshBody();
+        this.star4 = stars.create(300, 2900, 'star').refreshBody();
+        this.star5 = stars.create(400, 2800, 'star').refreshBody();
+        this.starArr = [this.star1, this.star2, this.star3, this.star4, this.star5];
+    
+        //star pickup overlap 
+        this.physics.add.overlap(player, stars, this.checkPoint, null, this);
+    
         //gmode pickup overlap 
         this.physics.add.overlap(player, this.gMode, this.enablegMode, null, this);
 }
@@ -156,6 +169,7 @@ update(){
 //    this.timeText.setText(this.elapsed);
     
     checkKeyboard();    
+    this.fireLazers();
     //this.bounce();
     //this.checkTurrets();
 
@@ -239,6 +253,16 @@ update(){
     
 }//end update function
     
+    checkPoint(){
+        console.log('checkpoint')
+        checkpointX = this.starArr[0].x;
+        checkpointY = this.starArr[0].y - 20;
+        this.starArr[0].disableBody(true,true);
+        this.starArr.shift();
+        console.log(this.starArr.length)
+        this.score++;
+    }
+    
     reset(){
         this.sound.play('death_sound');
         //var timer = scene.time.delayedCall(1000, null, null, this);
@@ -297,6 +321,23 @@ update(){
     
     enablegMode() {
         godMode = true;
+        this.gMode.disableBody(true, true);
+    }
+    
+    fireLazers() {
+        var x = player.x;
+        var y = player.y;
+        
+        if(y < 3300 && y > 3100) {
+            if((Phaser.Math.Between(0, 800)) < 400) {
+                    this.shootRight(y);
+            }
+        }
+        if(y < 3150 && y > 2950) {
+            if((Phaser.Math.Between(0, 800)) < 400) {
+                    this.shootLeft(y);
+            }
+        }
     }
     
 }
