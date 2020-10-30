@@ -277,7 +277,7 @@ update(){
     reset(){
         this.sound.play('death_sound');
         //var timer = scene.time.delayedCall(1000, null, null, this);
-//        this.bullets.clear(true);
+       this.bullets.clear(true);
 //        this.bullets2.clear(true);
         player.x = checkpointX;
         player.y = checkpointY;
