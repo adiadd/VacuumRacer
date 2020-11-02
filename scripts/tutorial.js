@@ -192,7 +192,6 @@ update(){
         this.cameras.main.zoomTo(1.5, 1000);
         this.start = false;
     }
-    this.checkTurrets();
     checkKeyboard();
 
     //Updating timer
@@ -289,8 +288,6 @@ update(){
     checkTurrets() {
         var x = player.x;
         var y = player.y;
-        
-        if(this.tdelay > 60) {
             console.log(this.tdelay);
             //bottom two
             if(y < 1620 && y > 1300) {
@@ -298,9 +295,6 @@ update(){
                 this.shootUp(this.turrUp[i].x, this.turrUp[i].y);
                 }
             }
-            this.tdelay = 0;
-        }
-        this.tdelay++;
     }
     
     shootUp(x, y)

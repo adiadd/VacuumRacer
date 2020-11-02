@@ -108,7 +108,7 @@ create(){
         var switchItems2Collide = this.physics.add.collider(player, switchItems2);
     
         var platSwitch3 = this.physics.add.staticGroup();
-        this.switch3 = platSwitch3.create(765,920, 'star').refreshBody();
+        this.switch3 = platSwitch3.create(750,850, 'star').refreshBody();
         var switchItems3 = this.physics.add.staticGroup();
         var switchItems3Collide = this.physics.add.collider(player, switchItems3);
     
@@ -231,45 +231,67 @@ create(){
         platforms.create(200, 950, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(200, 1100, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(200, 1250, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(775, 900, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(775, 1050, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        //right side plats floor 2
+        platforms.create(500, 1300, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(700, 1200, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(500, 1100, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(700, 1000, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(500, 900, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        
     
-        spike.create(210,740, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
-        
-        //floor 2 spikes
-        
-        
-        //right wall 2
+        //floor 2
         platforms.create(0, 1500, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(150, 1500, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
         switchItems3.create(300, 1500, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(450, 1500, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(600, 1500, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(750, 1500, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        
         //left wall 3
-        platforms.create(200, 1550, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(200, 1600, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(200, 1750, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(200, 1800, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(200, 2050, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(775, 1700, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(775, 1950, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+    
+        spike.create(210,1540, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        
+        
+        
+        //floor 
+        platforms.create(0, 2300, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(150, 2300, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        switchItems3.create(300, 2300, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(450, 2300, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(600, 2300, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(750, 2300, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        //left wall 4
+        platforms.create(200, 2350, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        
         //sideways movers
-        var moverLR = this.physics.add.image(600, 1050, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
+        var moverLR = this.physics.add.image(600, 1850, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
         moverLR.body.setAllowGravity(false);
-        var spike18 = this.physics.add.image(630, 1000, 'spike').setOrigin(0,0).setScale(0.25).setImmovable(true).setVelocity(0, 100);
+        //spikes on movers
+        var spike18 = this.physics.add.image(630, 1800, 'spike').setOrigin(0,0).setScale(0.25).setImmovable(true).setVelocity(0, 100);
         spike18.body.setAllowGravity(false);
-        var spike19 = this.physics.add.image(660, 1000, 'spike').setOrigin(0,0).setScale(0.25).setImmovable(true).setVelocity(0, 100);
+        var spike19 = this.physics.add.image(660, 1800, 'spike').setOrigin(0,0).setScale(0.25).setImmovable(true).setVelocity(0, 100);
         spike19.body.setAllowGravity(false);
-        var spike20 = this.physics.add.image(690, 1000, 'spike').setOrigin(0,0).setScale(0.25).setImmovable(true).setVelocity(0, 100);
+        var spike20 = this.physics.add.image(690, 1800, 'spike').setOrigin(0,0).setScale(0.25).setImmovable(true).setVelocity(0, 100);
         spike20.body.setAllowGravity(false);
         
-        var mover2LR = this.physics.add.image(400, 950, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
+        var mover2LR = this.physics.add.image(400, 1750, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
         mover2LR.body.setAllowGravity(false);
-        
-        var spike21 = this.physics.add.image(430, 900, 'spike').setOrigin(0,0).setScale(0.25).setImmovable(true).setVelocity(0, 100);
+        //spikes on movers
+        var spike21 = this.physics.add.image(430, 1700, 'spike').setOrigin(0,0).setScale(0.25).setImmovable(true).setVelocity(0, 100);
         spike21.body.setAllowGravity(false);
-        var spike22 = this.physics.add.image(460, 900, 'spike').setOrigin(0,0).setScale(0.25).setImmovable(true).setVelocity(0, 100);
+        var spike22 = this.physics.add.image(460, 1700, 'spike').setOrigin(0,0).setScale(0.25).setImmovable(true).setVelocity(0, 100);
         spike22.body.setAllowGravity(false);
-        var spike23 = this.physics.add.image(490, 900, 'spike').setOrigin(0,0).setScale(0.25).setImmovable(true).setVelocity(0, 100);
+        var spike23 = this.physics.add.image(490, 1700, 'spike').setOrigin(0,0).setScale(0.25).setImmovable(true).setVelocity(0, 100);
         spike23.body.setAllowGravity(false);
         
     
-        var mover3LR = this.physics.add.image(600, 1800, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
+        var mover3LR = this.physics.add.image(600, 2600, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
         mover3LR.body.setAllowGravity(false);
     
         
