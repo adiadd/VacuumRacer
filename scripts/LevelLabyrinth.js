@@ -72,7 +72,7 @@ create(){
     
         //add checkpoint bunny
         checkpoint = this.physics.add.staticGroup();
-        checkpoint.create(550, 800, 'dust_bunny').setScale(0.125).refreshBody();
+        checkpoint.create(700, 1700, 'dust_bunny').setScale(0.125).refreshBody();
         
 
         //add portals
@@ -83,7 +83,7 @@ create(){
         this.tdelay = 0;
 
         //add player and set physics
-        player = this.physics.add.sprite(60, 100, 'player').setScale(0.25);
+        player = this.physics.add.sprite(560, 500, 'player').setScale(0.25);
         player.setBounce(0.2);
         player.setCollideWorldBounds(false);
         player.body.setGravityY(300);
@@ -95,25 +95,39 @@ create(){
         this.cameras.main.setZoom(0.9);
     
         //create star checkpoints
-        var stars = this.physics.add.staticGroup();
-        this.star1 = stars.create(525, 1885, 'star').refreshBody();
-        this.starArr = [this.star1]
+        
         
         var platSwitch1 = this.physics.add.staticGroup();
         this.switch1 = platSwitch1.create(200, 500, 'star').refreshBody();
         var switchItems1 = this.physics.add.staticGroup();
         var switchItems1Collide = this.physics.add.collider(player, switchItems1);
     
+        var platSwitch2 = this.physics.add.staticGroup();
+        this.switch2 = platSwitch2.create(635,400, 'star').refreshBody();
+        var switchItems2 = this.physics.add.staticGroup();
+        var switchItems2Collide = this.physics.add.collider(player, switchItems2);
+    
+        var platSwitch3 = this.physics.add.staticGroup();
+        this.switch3 = platSwitch3.create(765,920, 'star').refreshBody();
+        var switchItems3 = this.physics.add.staticGroup();
+        var switchItems3Collide = this.physics.add.collider(player, switchItems3);
+    
+        
+    
         //star pickup overlap 
-        this.physics.add.overlap(player, stars, this.checkPoint, null, this);
+        
         
         //create and place static platforms
         var platforms = this.physics.add.staticGroup();
         var spike = this.physics.add.staticGroup();
         
         
-        
+    
         this.physics.add.overlap(player, platSwitch1, function(){this.checkDissapear(this.switch1, switchItems1, switchItems1Collide)}, null, this);
+        
+        this.physics.add.overlap(player, platSwitch2, function(){this.checkDissapear(this.switch2, switchItems2, switchItems2Collide)}, null, this);
+    
+        this.physics.add.overlap(player, platSwitch3, function(){this.checkDissapear(this.switch3, switchItems3, switchItems3Collide)}, null, this);
     
         //platfomrs go here
         platforms.create(0, 150, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
@@ -127,7 +141,7 @@ create(){
         platforms.create(650, 350, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(650, 500, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         //box 1 floor
-        platforms.create(250, 650, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        switchItems2.create(250, 650, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(400, 650, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(550, 650, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
         //floor in general
@@ -154,7 +168,7 @@ create(){
         
         platforms.create(400, 500, "splatform").setOrigin(0,0).setScale(0.5).refreshBody();
     
-        //wall spikes
+        //wall spikes left wall
         var wallspike1 = spike.create(300,350, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
         wallspike1.angle = 90;
         wallspike1.setOffset(-50,0);
@@ -186,6 +200,7 @@ create(){
         wallspike9.angle = 90;
         wallspike9.setOffset(-50,0)
         
+        //wall spikes right wall
         var wallspike10 = spike.create(600,380, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
         wallspike10.angle = 270;
         wallspike10.setOffset(40,-75);
@@ -204,20 +219,66 @@ create(){
         var wallspike15 = spike.create(600,590, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
         wallspike15.angle = 270;
         wallspike15.setOffset(20,-20);
-        var wallspike16 = spike.create(600,720, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        var wallspike16 = spike.create(600,620, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
         wallspike16.angle = 270;
         wallspike16.setOffset(20,-20);
-        var wallspike17 = spike.create(600,750, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        var wallspike17 = spike.create(600,650, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
         wallspike17.angle = 270;
         wallspike17.setOffset(20,-20);
-        var wallspike18 = spike.create(600,810, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
-        wallspike18.angle = 270;
-        wallspike18.setOffset(20,-20);
+        
+        //left wall 2
+        platforms.create(200, 800, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(200, 950, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(200, 1100, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(200, 1250, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(775, 900, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(775, 1050, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+    
+        spike.create(210,740, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        
+        //floor 2 spikes
+        
+        
+        //right wall 2
+        platforms.create(0, 1500, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(150, 1500, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        switchItems3.create(300, 1500, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(450, 1500, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(600, 1500, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(750, 1500, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        //left wall 3
+        platforms.create(200, 1550, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        //sideways movers
+        var moverLR = this.physics.add.image(600, 1050, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
+        moverLR.body.setAllowGravity(false);
+        var spike18 = this.physics.add.image(630, 1000, 'spike').setOrigin(0,0).setScale(0.25).setImmovable(true).setVelocity(0, 100);
+        spike18.body.setAllowGravity(false);
+        var spike19 = this.physics.add.image(660, 1000, 'spike').setOrigin(0,0).setScale(0.25).setImmovable(true).setVelocity(0, 100);
+        spike19.body.setAllowGravity(false);
+        var spike20 = this.physics.add.image(690, 1000, 'spike').setOrigin(0,0).setScale(0.25).setImmovable(true).setVelocity(0, 100);
+        spike20.body.setAllowGravity(false);
+        
+        var mover2LR = this.physics.add.image(400, 950, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
+        mover2LR.body.setAllowGravity(false);
+        
+        var spike21 = this.physics.add.image(430, 900, 'spike').setOrigin(0,0).setScale(0.25).setImmovable(true).setVelocity(0, 100);
+        spike21.body.setAllowGravity(false);
+        var spike22 = this.physics.add.image(460, 900, 'spike').setOrigin(0,0).setScale(0.25).setImmovable(true).setVelocity(0, 100);
+        spike22.body.setAllowGravity(false);
+        var spike23 = this.physics.add.image(490, 900, 'spike').setOrigin(0,0).setScale(0.25).setImmovable(true).setVelocity(0, 100);
+        spike23.body.setAllowGravity(false);
+        
+    
+        var mover3LR = this.physics.add.image(600, 1800, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
+        mover3LR.body.setAllowGravity(false);
+    
+        
         
         this.physics.add.collider(player, platforms);
     
         this.timeText = this.add.text(10, 400, this.elapsed)
         this.timeText.setScrollFactor(0);
+    
 
         //add bullet group and collider
         this.bullets = this.physics.add.group({
@@ -242,21 +303,38 @@ create(){
         //restart scene if player overlaps portal 
         this.physics.add.overlap(player, portal, this.reset, null, this);
         this.physics.add.overlap(player, spike, this.reset, null, this);
+        this.physics.add.overlap(player, spike18, this.reset, null, this);
+        this.physics.add.overlap(player, spike19, this.reset, null, this);
+        this.physics.add.overlap(player, spike20, this.reset, null, this);
+        this.physics.add.overlap(player, spike21, this.reset, null, this);
+        this.physics.add.overlap(player, spike22, this.reset, null, this);
+        this.physics.add.overlap(player, spike23, this.reset, null, this);
 
         //moving vertical platform
-       
-    
+        
+        
     
         //mover array
-        mover = [];
-
+        mover = [moverLR, mover2LR, mover3LR];
+        this.physics.add.collider(player, moverLR);
+        this.physics.add.collider(player, mover2LR);
+        this.physics.add.collider(player, mover3LR);
         
     this.tweens.timeline({
-        targets: [],
+        targets: [moverLR.body.velocity, mover2LR.body.velocity, spike18.body.velocity, spike19.body.velocity, spike20.body.velocity, spike21.body.velocity, spike22.body.velocity, spike23.body.velocity],
         loop: -1,
         tweens: [
-          { x:    -200, y: 0, duration: 2000, ease: 'Stepped' },
-          { x:    200, y:   0, duration: 2000, ease: 'Stepped' },
+          { x:    -100, y: 0, duration: 1000, ease: 'Stepped' },
+          { x:    100, y:   0, duration: 1000, ease: 'Stepped' },
+        ]
+      });
+    
+    this.tweens.timeline({
+        targets: [mover3LR.body.velocity],
+        loop: -1,
+        tweens: [
+          { x:    -200, y: 0, duration: 1000, ease: 'Stepped' },
+          { x:    200, y:   0, duration: 1000, ease: 'Stepped' },
         ]
       });
     
