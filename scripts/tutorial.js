@@ -6,33 +6,37 @@ class Tutorial extends Phaser.Scene {
 preload(){
         //audio
         this.load.audio('song','music/Ecosystem.mp3');
-        this.load.audio('jump_sound', 'sounds/jump_sound.wav')
-        this.load.audio('death_sound', 'sounds/death_sound.mp3')
+        this.load.audio('jump_sound', 'sounds/jump_sound.wav');
+        this.load.audio('death_sound', 'sounds/death_sound.mp3');
         
         //platforms
         this.load.image('backdrop', 'backdrops/white.png');
-        this.load.image('splatform', 'assets/platform_hor.png')
-        this.load.image('bplatform', 'assets/platform_blue.png')
-        this.load.image('gplatform', 'assets/platform_green.png')
-        this.load.image('pplatform', 'assets/platform_purple.png')
-        this.load.image('mover', 'assets/platform_vert.png')
-        this.load.image('vplatform', 'assets/platform_vert.png')
-        this.load.image('vplatform_xl', 'assets/vert_xl.png')
+        this.load.image('splatform', 'assets/platform_hor.png');
+        this.load.image('bplatform', 'assets/platform_blue.png');
+        this.load.image('gplatform', 'assets/platform_green.png');
+        this.load.image('pplatform', 'assets/platform_purple.png');
+        this.load.image('mover', 'assets/platform_vert.png');
+        this.load.image('vplatform', 'assets/platform_vert.png');
+        this.load.image('vplatform_xl', 'assets/vert_xl.png');
         this.load.image('lvl', 'backdrops/tut.png');
         
         //etc
-        this.load.image('dust_bunny','assets/dust_bunny.png')
+        this.load.image('dust_bunny','assets/dust_bunny.png');
         this.load.image('portal','assets/portal.png');
         this.load.image('player', 'assets/player.png');
         this.load.image('turret', 'assets/turret.png');
         this.load.image('bullet', 'assets/tracer.png');
         this.load.image('instructions', 'assets/instructions.png');
-        this.load.image('stickInstructions','assets/stickInstructions.png');
+        this.load.image('spacebarIntro','assets/spacebarIntro.png');
         this.load.image('stickInstructionsLeft','assets/stickInstructionsLeft.png');
         this.load.image('checkpointInstructions','assets/checkpointInstructions.png');
         this.load.image('portalInstructions','assets/portalInstructions.png');
         this.load.image('turretInstructions','assets/turretInstructions.png');
         this.load.image('spike', 'assets/spike.png');
+        this.load.image('spacebarJump','assets/spacebarJump.png');
+        this.load.image('spacebarInstructionsRight','assets/spacebarInstructionsRight.png');
+        this.load.image('spacebarMoveUpInstructions','assets/spacebarMoveUpInstructions.png');
+        this.load.image('dustBunnyInstructions','assets/dustBunnyInstructions.png');
 }
     
 create(){
@@ -83,7 +87,7 @@ create(){
     platforms.create(600,2550,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
     
     //stairsteps
-    platforms.create(550,2000,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+    platforms.create(550,2200,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
     platforms.create(400,2100,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
     platforms.create(250,2200,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
     platforms.create(100,2300,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
@@ -96,8 +100,8 @@ create(){
     platforms.create(530,1240,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
     
     //right climb
-    platforms.create(750,2260,'vplatform_xl').setOrigin(0,0).setScale(0.5).refreshBody();
-    platforms.create(750,1920,'vplatform_xl').setOrigin(0,0).setScale(0.5).refreshBody();
+    platforms.create(750,2180,'vplatform_xl').setOrigin(0,0).setScale(0.5).refreshBody();
+    //platforms.create(750,1840,'vplatform_xl').setOrigin(0,0).setScale(0.5).refreshBody();
     platforms.create(750,1240,'vplatform_xl').setOrigin(0,0).setScale(0.5).refreshBody();
     
     //left climb
@@ -108,8 +112,8 @@ create(){
     //instruction labels throughout the level
     var instructions = this.physics.add.staticGroup();
     instructions.create(200,2430,'instructions').setScale(0.25);
-    var stickInstructions = this.physics.add.staticGroup();
-    stickInstructions.create(600,2320,'stickInstructions').setScale(0.2);
+    var spacebarIntro = this.physics.add.staticGroup();
+    spacebarIntro.create(375,2430,'spacebarIntro').setScale(0.25);
     var stickInstructionsLeft = this.physics.add.staticGroup();
     stickInstructionsLeft.create(250,1950,'stickInstructionsLeft').setScale(0.2);
     var checkpointInstructions = this.physics.add.staticGroup();
@@ -118,6 +122,14 @@ create(){
     portalInstructions.create(350,1500,'portalInstructions').setScale(0.2);
     var turretInstructions = this.physics.add.staticGroup();
     turretInstructions.create(620,1750,'turretInstructions').setScale(0.2);
+    var spacebarJump = this.physics.add.staticGroup();
+    spacebarJump.create(650,2500,'spacebarJump').setScale(0.2);
+    var spacebarInstructionsRight = this.physics.add.staticGroup();
+    spacebarInstructionsRight.create(675,2450,'spacebarInstructionsRight').setScale(0.15);
+    var spacebarMoveUpInstructions = this.physics.add.staticGroup();
+    spacebarMoveUpInstructions.create(625,2300,'spacebarMoveUpInstructions').setScale(0.15);
+    var dustBunnyInstructions = this.physics.add.staticGroup();
+    dustBunnyInstructions.create(475,1110,'dustBunnyInstructions').setScale(0.3);
     
     //add player and set physics
     player = this.physics.add.sprite(60, 2480, 'player').setScale(0.25);
