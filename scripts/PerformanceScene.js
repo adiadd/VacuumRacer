@@ -4,23 +4,32 @@ class PerformanceScene extends Phaser.Scene {
     }
 
     preload(){
-        console.log("credits scene");
+        console.log("Performance scene");
         this.load.image('bg', 'assets/spacebg.jpg');
-        this.load.image('back', 'assets/backButton.png');
-        this.load.image('creditsButton', 'assets/creditsButton.png');
+        this.load.image('menuButton', 'assets/menuButton.png');
+        this.load.image('nextLevel', 'assets/nextLevel.png');
     }//end preload
 
     create(){
         let sb = this.add.image(400,300,'bg');
-        let backButton = this.add.image(50,100,'back');
-        let creditsButton = this.add.image(400,100,'creditsButton').setScale(1.5);
+        let menuButton = this.add.image(50,100,'menuButton');
+        let nextLevel = this.add.image(400,100,'nextLevel').setScale(1.5);
 
-        backButton.setInteractive()
-        backButton.on('pointerdown', ()=>{
-            backButton.setScale(.5)
+        menuButton.setInteractive()
+        menuButton.on('pointerdown', ()=>{
+            menuButton.setScale(.5)
         })
-        backButton.on('pointerup', ()=>{
-            backButton.setScale(1)
+        menuButton.on('pointerup', ()=>{
+            menuButton.setScale(1)
+            this.scene.switch('titleScene')
+        })
+
+        nextLevel.setInteractive()
+        nextLevel.on('pointerdown', ()=>{
+            nextLevel.setScale(.5)
+        })
+        nextLevel.on('pointerup', ()=>{
+            nextLevel.setScale(1)
             this.scene.switch('titleScene')
         })
     }//end create
