@@ -117,7 +117,22 @@ create(){
         bounce.create(550, 2550,'bounce');
         bounce.create(450, 2450,'bounce');
     
+        bounce.create(200, 2250,'bounce');
+        bounce.create(100, 2150,'bounce');
+        bounce.create(200, 2050,'bounce');
+        
+        bounce.create(600, 1900,'bounce');
+        bounce.create(500, 1800,'bounce');
+    
+        bounce.create(200, 1700,'bounce');
+        bounce.create(300, 1600,'bounce');
+        bounce.create(400, 1500,'bounce');
+        bounce.create(500, 1400,'bounce');
+    
         this.physics.add.overlap(player, bounce, this.bounce, null, this);
+    
+        checkpoint = this.physics.add.staticGroup();
+        checkpoint.create(600, 1300, 'dust_bunny').setOrigin(0,0).setScale(.125).refreshBody();
     
     
         //add bullet group and collider for horizontal bullets
@@ -134,7 +149,13 @@ create(){
         mover2 = this.physics.add.image(500, 4350, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);  
         mover2.body.setAllowGravity(false);
     
-        mover = [mover1, mover2];
+        var moverLR1 = this.physics.add.image(450, 2000, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
+        moverLR1.body.setAllowGravity(false);
+    
+        var moverLR2 = this.physics.add.image(250, 1800, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, -100);
+        moverLR2.body.setAllowGravity(false);
+    
+        mover = [mover1, mover2, moverLR1, moverLR2];
     
         this.tweens.timeline({
         targets: [mover1.body.velocity, mover2.body.velocity],
@@ -145,9 +166,20 @@ create(){
         ]
       });
     
+        this.tweens.timeline({
+        targets: [moverLR1.body.velocity, moverLR2.body.velocity],
+        loop: -1,
+        tweens: [
+          { x:    -100, y: 0, duration: 2000, ease: 'Stepped' },
+          { x:    100, y:   0, duration: 2000, ease: 'Stepped' },
+        ]
+      });
+    
         //collider with moving platform
         this.physics.add.collider(player, mover1);
         this.physics.add.collider(player, mover2);
+        this.physics.add.collider(player, moverLR1);
+        this.physics.add.collider(player, moverLR2);
     
         //gmode enabler
         var gmode = this.physics.add.staticGroup();
@@ -164,6 +196,12 @@ create(){
     
         //gmode pickup overlap 
         this.physics.add.overlap(player, this.gMode, this.enablegMode, null, this);
+    
+        //if player overlaps with bunny, level is complete
+        this.physics.add.overlap(player, checkpoint, function(){
+            this.music.stop();
+            this.scene.start("");
+        }, null, this);
 }
     
 update(){
@@ -272,6 +310,7 @@ update(){
         this.starArr.shift();
         console.log(this.starArr.length)
         this.score++;
+        godMode = false;
     }
     
     reset(){
