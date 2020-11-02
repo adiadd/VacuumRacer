@@ -31,6 +31,7 @@ preload(){
         this.load.image('backdrop', 'backdrops/white.png');
         this.load.image('bounce', '../assets/bounce.png');
         this.load.image('gmode', '../assets/star.png');
+        this.load.image('backdropxl', '../assets/bg_long.png');
 }
     
 create(){
@@ -73,7 +74,7 @@ create(){
         this.cameras.main.setBounds(0, 0, 750, 4600);
 
         //set background
-        var backdrop = this.add.image(400,3300,'backdrop');
+        var backdrop = this.add.image(400,2300,'backdropxl');
         backdrop.setScale(1);
 
         //add player and set physics
