@@ -34,6 +34,7 @@ create(){
         var mover3;
         var score = 0;
         this.elapsed = 0;
+        this.start = true;
         
     
         cursors = this.input.keyboard.createCursorKeys();
@@ -82,10 +83,12 @@ create(){
         this.turret2 = this.add.image(390, 2300, 'turret');
         this.turret3 = this.add.image(210, 2300, 'turret');
         this.turret7 = this.add.image(690, 1400, 'turret');   
+        this.turret8 = this.add.image(50, 1485, 'turret'); 
         this.turret1.angle = 180;
         this.turret2.angle = 180;
         this.turret3.angle = 180;
         this.turret7.angle = 180;
+        this.turret8.angle = 90;
     
         this.turret4 = this.add.image(450, 2250, 'turret');
         this.turret5 = this.add.image(210, 2250, 'turret');
@@ -97,6 +100,7 @@ create(){
         this.turrDown2 = [this.turret7];
         this.turrUp = [this.turret4, this.turret5];
         this.turrLeft = [this.turret6];
+        this.turrRight = [this.turret8];
         this.tdelay = 0;
 
         //add player and set physics
@@ -114,10 +118,22 @@ create(){
         //create star checkpoints
         var stars = this.physics.add.staticGroup();
         this.star1 = stars.create(630, 2135, 'star').refreshBody();
-        this.starArr = [this.star1]
+        this.star2 = stars.create(760, 1485, 'star').refreshBody();
+        this.starArr = [this.star1, this.star2]
     
         //star pickup overlap 
         this.physics.add.overlap(player, stars, this.checkPoint, null, this);
+    
+        //add checkpoint bunny
+        checkpoint = this.physics.add.staticGroup();
+        checkpoint.create(700, 1050, 'dust_bunny').setOrigin(0,0).setScale(.125).refreshBody();
+    
+        //if player overlaps with bunny, level is complete
+        this.physics.add.overlap(player, checkpoint, function(){
+            this.music.stop();
+            this.scene.start("levelthree");
+            console.log('you win!');
+        }, null, this);
         
         //create and place static platforms
         var platforms = this.physics.add.staticGroup();
@@ -132,10 +148,7 @@ create(){
         platforms.create(750,1800,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(600,1650,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(750,1500,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        
-        
-        dissapearPlatforms = this.physics.add.staticGroup();
-        
+        platforms.create(150,1300,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();        
         
         var moverLR = this.physics.add.image(550, 2550, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
         moverLR.body.setAllowGravity(false);
@@ -151,6 +164,13 @@ create(){
     
         this.timeText = this.add.text(10, 400, this.elapsed)
         this.timeText.setScrollFactor(0);
+    
+        dissapearPlatforms = this.physics.add.staticGroup();
+        dissapearPlatforms.create(300, 1300, 'gplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        dissapearPlatforms.create(440, 1220, 'gplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        dissapearPlatforms.create(560, 1140, 'gplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+    
+        platCollide = this.physics.add.collider(player, dissapearPlatforms);
 
         //add bullet group and collider
         this.bullets = this.physics.add.group({
@@ -229,6 +249,11 @@ create(){
 }
     
 update(){
+    
+    if(this.start) {
+        this.cameras.main.zoomTo(1.35, 1000);
+        this.start = false;
+    }
     checkKeyboard();
     console.log(game.input.mousePointer.x + " , " + game.input.mousePointer.y);
     
@@ -316,6 +341,20 @@ update(){
                 player.angle = 0;
             }
         }
+    
+        dissapeardelay ++;
+    if (dissapeardelay >= 380){
+        dissapeardelay = 0;
+        console.log("vanish");
+        if (dissapearPlatforms.active == true){
+            dissapearPlatforms.setActive(false).toggleVisible(false);
+            platCollide.active = false;
+        }
+        else{
+            dissapearPlatforms.setActive(true).setVisible(true);
+            platCollide.active = true;
+        }
+    }
         
         //checkWorldBounds
         if (player.body.checkWorldBounds() == true) {
@@ -344,7 +383,7 @@ update(){
     
     checkTurrets() {
         //first two
-        console.log("run")
+        console.log(player.x, player.y)
         var x = player.x;
         var y = player.y;
             if(y > 2300 && x > 60 && x < 700 ) {
@@ -360,6 +399,11 @@ update(){
             if(y < 2000 && y > 1800 && x > 150 && x < 500 ) {
                 for(var i = 0; i < this.turrLeft.length; i++) {
                 this.shootLeft(this.turrLeft[i].x, this.turrLeft[i].y);
+                }
+            }
+            if(y < 1500 && y > 1430 && x > 220) {
+                for(var i = 0; i < this.turrRight.length; i++) {
+                this.shootRight(this.turrRight[i].x, this.turrRight[i].y);
                 }
             }
     }
@@ -412,6 +456,19 @@ update(){
             bullet.setVisible(true);
             bullet.body.setAllowGravity(false);
             bullet.body.velocity.x = -300;
+            bullet.body.velocity.y = 0;
+            }
+    }
+    
+    shootRight(x, y)
+    {
+       var bullet = this.bullets2.get(x+20, y);
+        
+        if (bullet) {
+            bullet.setActive(true);
+            bullet.setVisible(true);
+            bullet.body.setAllowGravity(false);
+            bullet.body.velocity.x = 300;
             bullet.body.velocity.y = 0;
             }
     }
