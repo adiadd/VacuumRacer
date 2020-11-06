@@ -48,18 +48,18 @@ create(){
         var hasTouched;
         hasTouched = false;
 
-        //music config
-        this.music = this.sound.add('song2');
-        var musicConfig = {
-            mute: false,
-            volume: 1,
-            rate: 1,
-            detune: 0,
-            seek: 0,
-            loop: true,
-            delay: 0
-        }
-        this.music.play(musicConfig);
+//        //music config
+//        this.music = this.sound.add('song2');
+//        var musicConfig = {
+//            mute: false,
+//            volume: 1,
+//            rate: 1,
+//            detune: 0,
+//            seek: 0,
+//            loop: true,
+//            delay: 0
+//        }
+//        this.music.play(musicConfig);
 
         //Adding timer
         this.timer = this.time.addEvent({              
@@ -133,7 +133,7 @@ create(){
         this.physics.add.overlap(player, bounce, this.bounce, null, this);
     
         checkpoint = this.physics.add.staticGroup();
-        checkpoint.create(600, 1300, 'dust_bunny').setOrigin(0,0).setScale(.125).refreshBody();
+        checkpoint.create(600, 1280, 'dust_bunny').setOrigin(0,0).setScale(.125).refreshBody();
     
     
         //add bullet group and collider for horizontal bullets
@@ -200,7 +200,6 @@ create(){
     
         //if player overlaps with bunny, level is complete
         this.physics.add.overlap(player, checkpoint, function(){
-            this.music.stop();
             this.scene.start("");
         }, null, this);
 }

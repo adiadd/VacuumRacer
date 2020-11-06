@@ -4,7 +4,7 @@ class LevelLabyrinth extends Phaser.Scene {
     }
 preload(){
         //audio
-        this.load.audio('song','music/cities.mp3');
+        this.load.audio('song','music/Ecosystem.mp3');
         this.load.audio('jump_sound', 'sounds/jump_sound.wav')
         this.load.audio('death_sound', 'sounds/death_sound.mp3')
         
