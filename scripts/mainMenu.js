@@ -5,7 +5,7 @@ class TitleScene extends Phaser.Scene {
 
     preload(){
         console.log('preload title');
-        //this.load.audio('song','../music/Finance.mp3');
+        this.load.audio('song','../music/Finance.mp3');
         this.load.image('bg', 'assets/spacebg.jpg');
         this.load.image('star','assets/star.png');
         this.load.image('logo', 'assets/VacuumRacerTitle.png');
@@ -32,18 +32,18 @@ class TitleScene extends Phaser.Scene {
         let bounce = this.add.image(20, 100, 'star');
         
         //music config
-//        this.music = this.sound.add('song');
-//        var musicConfig = {
-//            mute: false,
-//            volume: 1,
-//            rate: 1,
-//            detune: 0,
-//            seek: 0,
-//            loop: true,
-//            delay: 0
-//        }
-//        
-//        this.music.play(musicConfig);
+        this.music = this.sound.add('song');
+        var musicConfig = {
+            mute: false,
+            volume: 1,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0
+        }
+        
+        this.music.play(musicConfig);
 //        
 //        window.setTimeout(() => {
 //        this.music.play();
