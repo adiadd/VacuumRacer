@@ -12,28 +12,28 @@ class PerformanceScene extends Phaser.Scene {
 
     create(){
         let sb = this.add.image(400,300,'bg');
-        let menuButton = this.add.image(50,100,'menuButton');
-        let nextLevel = this.add.image(400,100,'nextLevel').setScale(1.5);
+        let menuButton = this.add.image(200,450,'menuButton').setScale(.35);
+        let nextLevel = this.add.image(550,445,'nextLevel').setScale(.35);
 
         menuButton.setInteractive()
         menuButton.on('pointerdown', ()=>{
-            menuButton.setScale(.5)
+            //menuButton.setScale(.5)
         })
         menuButton.on('pointerup', ()=>{
-            menuButton.setScale(1)
+            //menuButton.setScale(1)
             this.scene.switch('titleScene')
         })
 
         nextLevel.setInteractive()
         nextLevel.on('pointerdown', ()=>{
-            nextLevel.setScale(.5)
+            //nextLevel.setScale(.5)
         })
         nextLevel.on('pointerup', ()=>{
-            nextLevel.setScale(1)
+            //nextLevel.setScale(1)
             this.scene.switch('titleScene')
         })
 
-        this.add.text(500, 500, 'Hello World');
+        this.add.text(200, 100, 'Some quick stats:', {fontSize: "40px"});
 
     }//end create
 

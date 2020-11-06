@@ -52,70 +52,70 @@ class TitleScene extends Phaser.Scene {
         //Button that sends them to the first level
         playButton.setInteractive()
         playButton.on('pointerdown', ()=>{
-            playButton.setScale(.5)
+            //playButton.setScale(.5)
         })
         playButton.on('pointerup', ()=>{
-            playButton.setScale(1)
+            //playButton.setScale(1)
             this.scene.switch('levelone')
         })
 
         //Button to send them to the instructions page
         tutorialButton.setInteractive()
         tutorialButton.on('pointerdown', ()=>{
-            tutorialButton.setScale(.5)
+            //tutorialButton.setScale(.5)
         })
         tutorialButton.on('pointerup', ()=>{
-            tutorialButton.setScale(1)
+            //tutorialButton.setScale(1)
             this.scene.switch('tutorial')
         })
 
         //Button to send them to the credits page
         creditsButton.setInteractive()
         creditsButton.on('pointerdown', ()=>{
-            creditsButton.setScale(.5)
+            //creditsButton.setScale(.5)
         })
         creditsButton.on('pointerup', ()=>{
-            creditsButton.setScale(1)
+            //creditsButton.setScale(1)
             this.scene.switch('credits')
         })
         
         //Button to send them to select levels on level page
         levelsButton.setInteractive()
         levelsButton.on('pointerdown', ()=>{
-            levelsButton.setScale(.5)
+            //levelsButton.setScale(.5)
         })
         levelsButton.on('pointerup', ()=>{
-            levelsButton.setScale(1) 
+            //levelsButton.setScale(1) 
             this.scene.switch('levels')
         })
 
         
         gMode.setInteractive()
         gMode.on('pointerdown', ()=>{
-            gMode.setScale(.5)
+            //gMode.setScale(.5)
         })
         gMode.on('pointerup', ()=>{
-            gMode.setScale(1)
+            //gMode.setScale(1)
             godMode = !godMode;
         })
         
         //bonus level access
         bonus.setInteractive()
         bonus.on('pointerdown', ()=>{
-            bonus.setScale(.5)
+            //bonus.setScale(.5)
         })
         bonus.on('pointerup', ()=>{
-            bonus.setScale(1) 
+            //bonus.setScale(1) 
             this.scene.switch('bonus2')
         })
         
         //bouncetest access
         bounce.setInteractive()
         bounce.on('pointerdown', ()=>{
-            bounce.setScale(.5)
+            //bounce.setScale(.5)
         })
         bounce.on('pointerup', ()=>{
-            bounce.setScale(1) 
+            //bounce.setScale(1) 
             this.scene.switch('bounceTest')
         })
         

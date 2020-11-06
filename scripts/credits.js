@@ -17,10 +17,10 @@ class CreditsScene extends Phaser.Scene {
 
         backButton.setInteractive()
         backButton.on('pointerdown', ()=>{
-            backButton.setScale(.5)
+            //backButton.setScale(.5)
         })
         backButton.on('pointerup', ()=>{
-            backButton.setScale(1)
+            //backButton.setScale(1)
             this.scene.switch('titleScene')
         })
     }//end create

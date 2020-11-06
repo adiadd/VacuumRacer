@@ -29,87 +29,87 @@ class LevelsScene extends Phaser.Scene {
         let levelThree = this.add.image(600, 300, 'l3');
         let levelFour = this.add.image(300, 470, 'l4');
         let levelFive = this.add.image(500, 470, 'l5');
-        let levelSix = this.add.image(600, 500, 'l6');
+        let levelSix = this.add.image(650, 470, 'l6');
         let levelTutorial = this.add.image(600,100,'lt').setScale(.5);
 
         backButton.setInteractive()
         backButton.on('pointerdown', ()=>{
-            backButton.setScale(.5)
+            //backButton.setScale(.5)
         })
         backButton.on('pointerup', ()=>{
-            backButton.setScale(1)
+            //backButton.setScale(1)
             this.scene.switch('titleScene')
         })
 
         levelTutorial.setInteractive()
         levelTutorial.on('pointerdown', ()=>{
-            levelTutorial.setScale(.5)
+            //levelTutorial.setScale(.5)
         })
         levelTutorial.on('pointerup', ()=>{
-            levelTutorial.setScale(1)
+            //levelTutorial.setScale(1)
             this.scene.switch('tutorial')
         })
 
         levelOne.setInteractive()
         levelOne.on('pointerdown', ()=>{
-            levelOne.setScale(.5)
+            //levelOne.setScale(.5)
         })
         levelOne.on('pointerup', ()=>{
-            levelOne.setScale(1)
+            //levelOne.setScale(1)
             this.scene.switch('levelone')
         })
         
         levelTwo.setInteractive()
         levelTwo.on('pointerdown', ()=>{
-            levelTwo.setScale(.5)
+            //levelTwo.setScale(.5)
         })
         levelTwo.on('pointerup', ()=>{
-            levelTwo.setScale(1)
+            //levelTwo.setScale(1)
             this.scene.switch('leveltwo')
         })
         
         levelThree.setInteractive()
         levelThree.on('pointerdown', ()=>{
-            levelThree.setScale(.5)
+            //levelThree.setScale(.5)
         })
         levelThree.on('pointerup', ()=>{
-            levelThree.setScale(1)
+            //levelThree.setScale(1)
             this.scene.switch('levelthree')
         })
         
         levelFour.setInteractive()
         levelFour.on('pointerdown', ()=>{
-            levelFour.setScale(.5)
+            //levelFour.setScale(.5)
         })
         levelFour.on('pointerup', ()=>{
-            levelFour.setScale(1)
+            //levelFour.setScale(1)
             this.scene.switch('levelnew')
         })
         
         levelFive.setInteractive()
         levelFive.on('pointerdown', ()=>{
-            levelFive.setScale(.5)
+            //levelFive.setScale(.5)
         })
         levelFive.on('pointerup', ()=>{
-            levelFive.setScale(1)
+            //levelFive.setScale(1)
             this.scene.switch('labyrinth')
         })
 
         bonusButton.setInteractive()
         bonusButton.on('pointerdown', ()=>{
-            bonusButton.setScale(.5)
+            //bonusButton.setScale(.5)
         })
         bonusButton.on('pointerup', ()=>{
-            bonusButton.setScale(1)
+            //bonusButton.setScale(1)
             this.scene.switch('bounceTest')
         })
 
         levelSix.setInteractive()
         levelSix.on('pointerdown', ()=>{
-            levelFive.setScale(.5)
+            //levelFive.setScale(.5)
         })
         levelSix.on('pointerup', ()=>{
-            levelSix.setScale(1)
+            //levelSix.setScale(1)
             this.scene.switch('performance')
         })
 
