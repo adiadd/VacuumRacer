@@ -32,6 +32,9 @@ class PerformanceScene extends Phaser.Scene {
             nextLevel.setScale(1)
             this.scene.switch('titleScene')
         })
+
+        this.add.text(500, 500, 'Hello World');
+
     }//end create
 
     update(){
