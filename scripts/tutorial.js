@@ -158,6 +158,8 @@ create(){
     num8.create(385,1430,'num8').setScale(0.3);
     var num9 = this.physics.add.staticGroup();
     num9.create(635,1765,'num9').setScale(0.3);
+    var num10 = this.physics.add.staticGroup();
+    num10.create(475,1140,'num10').setScale(0.315);
     
     //add player and set physics
     player = this.physics.add.sprite(60, 2480, 'player').setScale(0.25);
@@ -205,7 +207,7 @@ create(){
 
     checkpoint = this.physics.add.staticGroup();
 
-    checkpoint.create(585,1160, 'dust_bunny').setScale(.15).refreshBody();
+    checkpoint.create(585,1195, 'dust_bunny').setScale(.15).refreshBody();
     this.physics.add.overlap(player, checkpoint, function(){
         this.music.stop();
         this.scene.start("levelone");
