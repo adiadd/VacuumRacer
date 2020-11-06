@@ -125,7 +125,7 @@ create(){
         bounce.create(575, 250, 'bounce');
     
         checkpoint = this.physics.add.staticGroup();
-        checkpoint.create(700, 150, 'dust_bunny').setOrigin(0,0).setScale(.125).refreshBody();
+        checkpoint.create(630, 130, 'dust_bunny').setOrigin(0,0).setScale(.125).refreshBody();
     
         //right turrets
 //        this.turret1 = this.add.image(555, 2300, 'turret');
