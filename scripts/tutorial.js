@@ -18,6 +18,7 @@ preload(){
         this.load.image('mover', 'assets/platform_vert.png');
         this.load.image('vplatform', 'assets/platform_vert.png');
         this.load.image('vplatform_xl', 'assets/vert_xl.png');
+        this.load.image('vplatform_xxl', 'assets/vert_xxl.png');
         this.load.image('lvl', 'backdrops/tut.png');
         
         //etc
@@ -110,14 +111,12 @@ create(){
     platforms.create(530,1240,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
     
     //right climb
-    platforms.create(750,2180,'vplatform_xl').setOrigin(0,0).setScale(0.5).refreshBody();
+    platforms.create(750,1920,'vplatform_xxl').setOrigin(0,0).setScale(0.5).refreshBody();
     //platforms.create(750,1840,'vplatform_xl').setOrigin(0,0).setScale(0.5).refreshBody();
     platforms.create(750,1240,'vplatform_xl').setOrigin(0,0).setScale(0.5).refreshBody();
     
     //left climb
-    platforms.create(0,1920,'vplatform_xl').setOrigin(0,0).setScale(0.5).refreshBody();
-    platforms.create(0,1585,'vplatform_xl').setOrigin(0,0).setScale(0.5).refreshBody();
-    
+    platforms.create(0,1620,'vplatform_xxl').setOrigin(0,0).setScale(0.5).refreshBody();    
 
     //instruction labels throughout the level
     var instructions = this.physics.add.staticGroup();
