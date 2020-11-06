@@ -37,6 +37,16 @@ preload(){
         this.load.image('spacebarInstructionsRight','assets/spacebarInstructionsRight.png');
         this.load.image('spacebarMoveUpInstructions','assets/spacebarMoveUpInstructions.png');
         this.load.image('dustBunnyInstructions','assets/dustBunnyInstructions.png');
+        this.load.image('num1','assets/num1.png');
+        this.load.image('num2','assets/num2.png');
+        this.load.image('num3','assets/num3.png');
+        this.load.image('num4','assets/num4.png');
+        this.load.image('num5','assets/num5.png');
+        this.load.image('num6','assets/num6.png');
+        this.load.image('num7','assets/num7.png');
+        this.load.image('num8','assets/num8.png');
+        this.load.image('num9','assets/num9.png');
+        this.load.image('num10','assets/num10.png');
 }
     
 create(){
@@ -106,7 +116,7 @@ create(){
     
     //left climb
     platforms.create(0,1920,'vplatform_xl').setOrigin(0,0).setScale(0.5).refreshBody();
-    platforms.create(0,1580,'vplatform_xl').setOrigin(0,0).setScale(0.5).refreshBody();
+    platforms.create(0,1585,'vplatform_xl').setOrigin(0,0).setScale(0.5).refreshBody();
     
 
     //instruction labels throughout the level
@@ -115,7 +125,7 @@ create(){
     var spacebarIntro = this.physics.add.staticGroup();
     spacebarIntro.create(375,2430,'spacebarIntro').setScale(0.25);
     var stickInstructionsLeft = this.physics.add.staticGroup();
-    stickInstructionsLeft.create(250,1950,'stickInstructionsLeft').setScale(0.2);
+    stickInstructionsLeft.create(265,1950,'stickInstructionsLeft').setScale(0.2);
     var checkpointInstructions = this.physics.add.staticGroup();
     checkpointInstructions.create(110,1500,'checkpointInstructions').setScale(0.2);
     var portalInstructions = this.physics.add.staticGroup();
@@ -130,6 +140,25 @@ create(){
     spacebarMoveUpInstructions.create(625,2300,'spacebarMoveUpInstructions').setScale(0.15);
     var dustBunnyInstructions = this.physics.add.staticGroup();
     dustBunnyInstructions.create(475,1110,'dustBunnyInstructions').setScale(0.3);
+
+    var num1 = this.physics.add.staticGroup();
+    num1.create(140,2400,'num1').setScale(0.3);
+    var num2 = this.physics.add.staticGroup();
+    num2.create(375,2365,'num2').setScale(0.3);
+    var num3 = this.physics.add.staticGroup();
+    num3.create(552,2492,'num3').setScale(0.3);
+    var num4 = this.physics.add.staticGroup();
+    num4.create(555,2395,'num4').setScale(0.3);
+    var num5 = this.physics.add.staticGroup();
+    num5.create(470,2300,'num5').setScale(0.3);
+    var num6 = this.physics.add.staticGroup();
+    num6.create(380,1885,'num6').setScale(0.3);
+    var num7 = this.physics.add.staticGroup();
+    num7.create(45,1440,'num7').setScale(0.3);
+    var num8 = this.physics.add.staticGroup();
+    num8.create(385,1430,'num8').setScale(0.3);
+    var num9 = this.physics.add.staticGroup();
+    num9.create(635,1765,'num9').setScale(0.3);
     
     //add player and set physics
     player = this.physics.add.sprite(60, 2480, 'player').setScale(0.25);
