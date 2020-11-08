@@ -15,8 +15,8 @@ class PerformanceScene extends Phaser.Scene {
 
     create(){
         let sb = this.add.image(400,300,'bg');
-        let menuButton = this.add.image(200,450,'menuButton').setScale(.35);
-        let nextLevel = this.add.image(550,445,'nextLevel').setScale(.35);
+        let menuButton = this.add.image(200,475,'menuButton').setScale(.35);
+        let nextLevel = this.add.image(550,470,'nextLevel').setScale(.35);
 
         menuButton.setInteractive()
         menuButton.on('pointerdown', ()=>{
@@ -36,9 +36,9 @@ class PerformanceScene extends Phaser.Scene {
             this.scene.switch('titleScene')
         })
 
-        this.add.text(250, 100, 'Some quick stats:', {fontSize: "40px", color: "gray", fontFamily: "Edge Of The Galaxy Regular"});
-        this.add.text(150, 250, 'Time to complete: ', {fontSize: "25px", color: "#00dcff", fontFamily: "Edge Of The Galaxy Regular"});
-        this.add.text(150, 300, 'Number of deaths: ', {fontSize: "25px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy Regular"});
+        this.add.text(250, 100, 'Some quick stats:', {fontSize: "50px", color: "gray", fontFamily: "Edge Of The Galaxy"});
+        this.add.text(150, 250, 'Time to complete: ', {fontSize: "35px", color: "#00dcff", fontFamily: "Edge Of The Galaxy"});
+        this.add.text(150, 320, 'Number of deaths: ', {fontSize: "35px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
 
     }//end create
 
