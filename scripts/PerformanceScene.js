@@ -5,6 +5,9 @@ class PerformanceScene extends Phaser.Scene {
 
     preload(){
         console.log("Performance scene");
+        
+
+        //images
         this.load.image('bg', 'assets/spacebg.jpg');
         this.load.image('menuButton', 'assets/menuButton.png');
         this.load.image('nextLevel', 'assets/nextLevel.png');
@@ -33,7 +36,9 @@ class PerformanceScene extends Phaser.Scene {
             this.scene.switch('titleScene')
         })
 
-        this.add.text(200, 100, 'Some quick stats:', {fontSize: "40px"});
+        this.add.text(250, 100, 'Some quick stats:', {fontSize: "40px", color: "gray", fontFamily: "Edge Of The Galaxy Regular"});
+        this.add.text(150, 250, 'Time to complete: ', {fontSize: "25px", color: "#00dcff", fontFamily: "Edge Of The Galaxy Regular"});
+        this.add.text(150, 300, 'Number of deaths: ', {fontSize: "25px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy Regular"});
 
     }//end create
 
