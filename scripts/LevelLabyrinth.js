@@ -72,7 +72,7 @@ create(){
     
         //add checkpoint bunny
         checkpoint = this.physics.add.staticGroup();
-        checkpoint.create(700, 1700, 'dust_bunny').setScale(0.125).refreshBody();
+        checkpoint.create(700, 2500, 'dust_bunny').setScale(0.125).refreshBody();
         
 
         //add portals
@@ -83,7 +83,7 @@ create(){
         this.tdelay = 0;
 
         //add player and set physics
-        player = this.physics.add.sprite(560, 500, 'player').setScale(0.25);
+        player = this.physics.add.sprite(100, 100, 'player').setScale(0.25);
         player.setBounce(0.2);
         player.setCollideWorldBounds(false);
         player.body.setGravityY(300);
@@ -112,6 +112,11 @@ create(){
         var switchItems3 = this.physics.add.staticGroup();
         var switchItems3Collide = this.physics.add.collider(player, switchItems3);
     
+        var platSwitch4 = this.physics.add.staticGroup();
+        this.switch4 = platSwitch4.create(750,1700, 'star').refreshBody();
+        var switchItems4 = this.physics.add.staticGroup();
+        var switchItems4Collide = this.physics.add.collider(player, switchItems4);
+    
         
     
         //star pickup overlap 
@@ -128,6 +133,8 @@ create(){
         this.physics.add.overlap(player, platSwitch2, function(){this.checkDissapear(this.switch2, switchItems2, switchItems2Collide)}, null, this);
     
         this.physics.add.overlap(player, platSwitch3, function(){this.checkDissapear(this.switch3, switchItems3, switchItems3Collide)}, null, this);
+    
+        this.physics.add.overlap(player, platSwitch4, function(){this.checkDissapear(this.switch4, switchItems4, switchItems4Collide)}, null, this);
     
         //platfomrs go here
         platforms.create(0, 150, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
@@ -232,11 +239,21 @@ create(){
         platforms.create(200, 1100, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(200, 1250, 'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         //right side plats floor 2
-        platforms.create(500, 1300, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(490, 1300, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(700, 1200, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(500, 1100, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        spike.create(730, 1140, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        spike.create(760, 1140, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        platforms.create(490, 1100, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        spike.create(530, 1040, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        spike.create(560, 1040, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        spike.create(590, 1040, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
         platforms.create(700, 1000, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(500, 900, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        spike.create(730, 940, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        spike.create(760, 940, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        platforms.create(490, 900, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        spike.create(530, 840, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        spike.create(560, 840, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
+        spike.create(590, 840, 'spike').setOrigin(0,0).setScale(0.25).refreshBody();
         
     
         //floor 2
@@ -262,7 +279,7 @@ create(){
         //floor 
         platforms.create(0, 2350, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(150, 2350, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        switchItems3.create(300, 2350, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        switchItems4.create(300, 2350, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(450, 2350, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(600, 2350, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(750, 2350, 'splatform').setOrigin(0,0).setScale(0.5).refreshBody();
