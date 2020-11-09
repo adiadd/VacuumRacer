@@ -177,6 +177,8 @@ create(){
     player.setBounce(0.2);
     player.setCollideWorldBounds(false);
     player.body.setGravityY(300);
+    checkpointX = 60;
+    checkpointY = 2480;
     
     //make camera follow player
     this.cameras.main.startFollow(player);
