@@ -5,7 +5,7 @@ class TitleScene extends Phaser.Scene {
 
     preload(){
         console.log('preload title');
-        this.load.audio('song','../music/Finance.mp3');
+        this.load.audio('song','music/Finance.mp3');
         this.load.image('bg', 'assets/spacebg.jpg');
         this.load.image('star','assets/star.png');
         this.load.image('logo', 'assets/VacuumRacerTitle.png');
