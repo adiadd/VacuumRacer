@@ -40,6 +40,9 @@ class PerformanceScene extends Phaser.Scene {
         this.add.text(150, 250, 'Time to complete: ', {fontSize: "35px", color: "#00dcff", fontFamily: "Edge Of The Galaxy"});
         this.add.text(150, 320, 'Number of deaths: ', {fontSize: "35px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
 
+        this.add.text(500, 320, deathCount, {fontSize: "35px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
+        this.add.text(500, 250, elapsed, {fontSize: "35px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
+
     }//end create
 
     update(){

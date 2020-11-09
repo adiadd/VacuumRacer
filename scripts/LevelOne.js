@@ -2,6 +2,12 @@ class LevelOne extends Phaser.Scene {
     constructor(){
         super('levelone')
     }
+
+    init(props) {
+        const { level = 1 } = props
+        this.currentLevel = level
+    }
+
 preload(){
         //audio
         this.load.audio('song2','music/Art.mp3');

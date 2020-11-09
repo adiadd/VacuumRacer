@@ -56,7 +56,8 @@ class TitleScene extends Phaser.Scene {
         })
         playButton.on('pointerup', ()=>{
             //playButton.setScale(1)
-            this.scene.switch('levelone')
+            this.scene.switch('levelone');
+            this.music.stop();
         })
 
         //Button to send them to the instructions page
@@ -66,7 +67,8 @@ class TitleScene extends Phaser.Scene {
         })
         tutorialButton.on('pointerup', ()=>{
             //tutorialButton.setScale(1)
-            this.scene.switch('tutorial')
+            this.scene.switch('tutorial');
+            this.music.stop();
         })
 
         //Button to send them to the credits page
@@ -76,7 +78,8 @@ class TitleScene extends Phaser.Scene {
         })
         creditsButton.on('pointerup', ()=>{
             //creditsButton.setScale(1)
-            this.scene.switch('credits')
+            this.scene.switch('credits');
+            this.music.stop();
         })
         
         //Button to send them to select levels on level page
@@ -86,7 +89,8 @@ class TitleScene extends Phaser.Scene {
         })
         levelsButton.on('pointerup', ()=>{
             //levelsButton.setScale(1) 
-            this.scene.switch('levels')
+            this.scene.switch('levels');
+            this.music.stop();
         })
 
         
@@ -106,7 +110,8 @@ class TitleScene extends Phaser.Scene {
         })
         bonus.on('pointerup', ()=>{
             //bonus.setScale(1) 
-            this.scene.switch('bonus2')
+            this.scene.switch('bonus2');
+            this.music.stop();
         })
         
         //bouncetest access
@@ -116,7 +121,8 @@ class TitleScene extends Phaser.Scene {
         })
         bounce.on('pointerup', ()=>{
             //bounce.setScale(1) 
-            this.scene.switch('bounceTest')
+            this.scene.switch('bounceTest');
+            this.music.stop();
         })
         
         

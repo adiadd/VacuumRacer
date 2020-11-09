@@ -2,6 +2,11 @@ class Tutorial extends Phaser.Scene {
     constructor(){
         super('tutorial')
     }
+
+    /*init(props) {
+        const { level = 0 } = props
+        this.currentLevel = level
+    } */
     
 preload(){
         //audio
@@ -51,9 +56,14 @@ preload(){
 }
     
 create(){
+    //console.log(this.currentLevel)
+
+    /*this.time.addEvent({
+        callback: () => this.scene.restart({ level: this.currentLevel + 1 })
+    }) */
     
-    this.deathCount = 0;
-    this.elapsed = 0;
+    //this.deathCount = 0;
+    //this.elapsed = 0;
 
     cursors = this.input.keyboard.createCursorKeys();
     this.start = false;
@@ -140,6 +150,7 @@ create(){
     var dustBunnyInstructions = this.physics.add.staticGroup();
     dustBunnyInstructions.create(475,1110,'dustBunnyInstructions').setScale(0.3);
 
+    //Adding in steps
     var num1 = this.physics.add.staticGroup();
     num1.create(140,2400,'num1').setScale(0.3);
     var num2 = this.physics.add.staticGroup();
@@ -171,8 +182,19 @@ create(){
     this.cameras.main.startFollow(player);
     this.cameras.main.setZoom(1);
     
-    this.timeText = this.add.text(10, 10, this.elapsed)
+    //Adding time text at the top
+    this.timetextnormal = this.add.text(10,10, 'Time: ');
+    this.timetextnormal.setScrollFactor(0);
+
+    this.timeText = this.add.text(70, 10, this.elapsed)
     this.timeText.setScrollFactor(0);
+
+    //Adding deathcount to top left
+    this.deathcounttextnormal = this.add.text(600,10, 'Death Count: ');
+    this.deathcounttextnormal.setScrollFactor(0);
+
+    this.deathcountText = this.add.text(725, 10, deathCount)
+    this.deathcountText.setScrollFactor(0);
    // this.timeText.cameraOffset.setTo(100,100);
     
     //create star checkpoints
@@ -210,8 +232,9 @@ create(){
     checkpoint.create(585,1195, 'dust_bunny').setScale(.15).refreshBody();
     this.physics.add.overlap(player, checkpoint, function(){
         this.music.stop();
-        this.scene.start("levelone");
+        this.scene.start("performance");
         console.log('you win!');
+        //this.scene.restart({ level: this.currentLevel + 1 })
     }, null, this);
     
     this.time.addEvent({ delay: 1000, callback: function(){this.checkTurrets()}, callbackScope: this, loop: true });
@@ -227,9 +250,13 @@ update(){
 
     //Updating timer
     this.elapsed = this.timer.getElapsedSeconds();
-    console.log(this.timer.getElapsedSeconds());
-    //add Math.floor or something here to round elapsed
-    this.timeText.setText(this.elapsed);
+    //console.log(this.timer.getElapsedSeconds());
+    
+    //Displays time with 2 decimal places
+    this.timeText.setText((this.elapsed).toFixed(2));
+
+    //Displays deathcount
+    this.deathcountText.setText(deathCount);
     
     //stickMechanic
     if(cursors.space.isDown && wallJumped == false){
@@ -292,17 +319,21 @@ update(){
         
         //checkWorldBounds
         if (player.body.checkWorldBounds() == true) {
-            this.registry.destroy(); // destroy registry
-            this.events.off(); // disable all active events
-            this.scene.restart(); // restart current scene
-            this.music.stop()
+            this.sound.play('death_sound');
+            this.reset();
+            //this.registry.destroy(); // destroy registry
+            //this.events.off(); // disable all active events
+            //this.scene.restart(); // restart current scene
+            //this.music.stop();
             console.log("yoo");
+            deathCount+=1;
+            console.log(deathCount);
         }
     
 }
     reset(){
         this.sound.play('death_sound');
-        this.deathCount++;
+        deathCount++;
         //var timer = scene.time.delayedCall(1000, null, null, this);
         this.bullets.clear(true);
         player.x = checkpointX;
