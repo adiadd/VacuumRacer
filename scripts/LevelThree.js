@@ -131,6 +131,7 @@ create(){
         //if player overlaps with bunny, level is complete
         this.physics.add.overlap(player, checkpoint, function(){
             this.music.stop();
+            this.scene.stop('levelthree')
             this.scene.start("levelthree");
             console.log('you win!');
         }, null, this);
@@ -185,12 +186,6 @@ create(){
             maxSize: 100
         });
         this.physics.add.collider(player, this.bullets2, this.reset, null, this);
-        
-        //if player overlaps with bunny, level is complete
-        this.physics.add.overlap(player, checkpoint, function(){
-            this.scene.start("next_level");
-            console.log('you win!');
-        }, null, this);
 
         //restart scene if player overlaps portal 
         this.physics.add.overlap(player, portal, this.reset, null, this);

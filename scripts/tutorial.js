@@ -234,6 +234,7 @@ create(){
     checkpoint.create(585,1195, 'dust_bunny').setScale(.15).refreshBody();
     this.physics.add.overlap(player, checkpoint, function(){
         this.music.stop();
+        this.scene.stop('tutorial')
         this.scene.start("performance");
         console.log('you win!');
         //this.scene.restart({ level: this.currentLevel + 1 })
