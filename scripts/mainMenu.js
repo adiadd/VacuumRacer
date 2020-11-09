@@ -28,8 +28,11 @@ class TitleScene extends Phaser.Scene {
         //let levelTwo = this.add.image(420,580,'star');
         //let tutorial = this.add.image(460, 580, 'star');
         let gMode = this.add.image(20, 20, 'star');
+        this.add.text(35, 15, 'God Mode', {fontSize: "15px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
         let bonus = this.add.image(20, 60, 'star');
+        this.add.text(35, 55, 'Bonus 1', {fontSize: "15px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
         let bounce = this.add.image(20, 100, 'star');
+        this.add.text(35, 95, 'Bonus 2', {fontSize: "15px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
         
         //music config
         this.music = this.sound.add('song');
