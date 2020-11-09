@@ -326,7 +326,7 @@ update(){
             //this.scene.restart(); // restart current scene
             //this.music.stop();
             console.log("yoo");
-            deathCount+=1;
+            //deathCount+=1;
             console.log(deathCount);
         }
     

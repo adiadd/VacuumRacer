@@ -33,7 +33,7 @@ class PerformanceScene extends Phaser.Scene {
         })
         nextLevel.on('pointerup', ()=>{
             //nextLevel.setScale(1)
-            this.scene.switch('titleScene')
+            this.scene.switch('levelone')
         })
 
         this.add.text(250, 100, 'Some quick stats:', {fontSize: "50px", color: "gray", fontFamily: "Edge Of The Galaxy"});
