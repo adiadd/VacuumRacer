@@ -188,7 +188,7 @@ create(){
     this.timetextnormal = this.add.text(10,10, 'Time: ');
     this.timetextnormal.setScrollFactor(0);
 
-    this.timeText = this.add.text(70, 10, this.elapsed)
+    this.timeText = this.add.text(70, 10, elapsed)
     this.timeText.setScrollFactor(0);
 
     //Adding deathcount to top left
@@ -251,11 +251,11 @@ update(){
     checkKeyboard();
 
     //Updating timer
-    this.elapsed = this.timer.getElapsedSeconds();
+    elapsed = this.timer.getElapsedSeconds();
     //console.log(this.timer.getElapsedSeconds());
     
     //Displays time with 2 decimal places
-    this.timeText.setText((this.elapsed).toFixed(2));
+    this.timeText.setText((elapsed).toFixed(2));
 
     //Displays deathcount
     this.deathcountText.setText(deathCount);
@@ -328,7 +328,7 @@ update(){
             //this.scene.restart(); // restart current scene
             //this.music.stop();
             console.log("yoo");
-            deathCount+=1;
+            //deathCount+=1;
             console.log(deathCount);
         }
     

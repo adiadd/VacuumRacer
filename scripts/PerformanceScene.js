@@ -33,15 +33,15 @@ class PerformanceScene extends Phaser.Scene {
         })
         nextLevel.on('pointerup', ()=>{
             //nextLevel.setScale(1)
-            this.scene.switch('titleScene')
+            this.scene.switch('levelone')
         })
 
         this.add.text(250, 100, 'Some quick stats:', {fontSize: "50px", color: "gray", fontFamily: "Edge Of The Galaxy"});
-        this.add.text(150, 250, 'Time to complete: ', {fontSize: "35px", color: "#00dcff", fontFamily: "Edge Of The Galaxy"});
+        this.add.text(150, 250, 'Time to complete (sec): ', {fontSize: "35px", color: "#00dcff", fontFamily: "Edge Of The Galaxy"});
         this.add.text(150, 320, 'Number of deaths: ', {fontSize: "35px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
 
         this.add.text(500, 320, deathCount, {fontSize: "35px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
-        this.add.text(500, 250, elapsed, {fontSize: "35px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
+        this.add.text(500, 250, elapsed.toFixed(2), {fontSize: "35px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
 
     }//end create
 

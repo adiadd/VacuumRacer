@@ -4,7 +4,7 @@ class BounceTest extends Phaser.Scene {
     }
 preload(){
         //audio
-        this.load.audio('song2','../music/Security.mp3');
+        this.load.audio('song2','music/Security.mp3');
         this.load.audio('jump_sound', 'sounds/jump_sound.wav')
         this.load.audio('death_sound', 'sounds/death_sound.mp3')
 
@@ -27,7 +27,7 @@ preload(){
         this.load.image('bullet2', 'assets/tracer2.png');
         this.load.image('star', 'assets/star.png');
         this.load.image('backdrop', 'backdrops/white.png');
-        this.load.image('bounce', '../assets/bounce.png');
+        this.load.image('bounce', 'assets/bounce.png');
 }
     
 create(){

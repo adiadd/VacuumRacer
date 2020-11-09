@@ -5,7 +5,7 @@ class TitleScene extends Phaser.Scene {
 
     preload(){
         console.log('preload title');
-        this.load.audio('song','../music/Finance.mp3');
+        this.load.audio('song','music/Finance.mp3');
         this.load.image('bg', 'assets/spacebg.jpg');
         this.load.image('star','assets/star.png');
         this.load.image('logo', 'assets/VacuumRacerTitle.png');
@@ -28,8 +28,11 @@ class TitleScene extends Phaser.Scene {
         //let levelTwo = this.add.image(420,580,'star');
         //let tutorial = this.add.image(460, 580, 'star');
         let gMode = this.add.image(20, 20, 'star');
+        this.add.text(35, 15, 'God Mode', {fontSize: "15px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
         let bonus = this.add.image(20, 60, 'star');
+        this.add.text(35, 55, 'Bonus 2', {fontSize: "15px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
         let bounce = this.add.image(20, 100, 'star');
+        this.add.text(35, 95, 'Bonus 3', {fontSize: "15px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
         
         //music config
         this.music = this.sound.add('song');
@@ -79,7 +82,7 @@ class TitleScene extends Phaser.Scene {
         creditsButton.on('pointerup', ()=>{
             //creditsButton.setScale(1)
             this.scene.switch('credits');
-            this.music.stop();
+            //this.music.stop();
         })
         
         //Button to send them to select levels on level page
@@ -90,7 +93,7 @@ class TitleScene extends Phaser.Scene {
         levelsButton.on('pointerup', ()=>{
             //levelsButton.setScale(1) 
             this.scene.switch('levels');
-            this.music.stop();
+            //this.music.stop();
         })
 
         
