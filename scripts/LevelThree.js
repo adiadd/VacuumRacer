@@ -131,7 +131,6 @@ create(){
             this.music.stop();
             this.scene.stop('levelthree')
             this.scene.start("levelnew");
-            console.log('you win!');
         }, null, this);
         
         //create and place static platforms
@@ -248,7 +247,6 @@ update(){
         this.start = false;
     }
     checkKeyboard();
-    console.log(game.input.mousePointer.x + " , " + game.input.mousePointer.y);
     
     //Updating timer
     this.elapsed = this.timer.getElapsedSeconds();
@@ -259,7 +257,7 @@ update(){
     dissapeardelay ++;
     if (dissapeardelay >= 200){
         dissapeardelay = 0;
-        console.log("vanish");
+        //console.log("vanish");
         if (dissapearPlatforms.active == true){
             dissapearPlatforms.setActive(false).toggleVisible(false);
             platCollide.active = false;
@@ -338,7 +336,7 @@ update(){
         dissapeardelay ++;
     if (dissapeardelay >= 380){
         dissapeardelay = 0;
-        console.log("vanish");
+        //console.log("vanish");
         if (dissapearPlatforms.active == true){
             dissapearPlatforms.setActive(false).toggleVisible(false);
             platCollide.active = false;
@@ -376,7 +374,7 @@ update(){
     
     checkTurrets() {
         //first two
-        console.log(player.x, player.y)
+        //console.log(player.x, player.y)
         var x = player.x;
         var y = player.y;
             if(y > 2300 && x > 60 && x < 700 ) {
@@ -471,7 +469,7 @@ update(){
         //var timer = scene.time.delayedCall(1000, null, null, this);
         this.bullets.clear(true);
         this.bullets2.clear(true);
-        console.log(checkpointX + " " + checkpointY)
+        //console.log(checkpointX + " " + checkpointY)
         //this.bullets2.clear(true);
         player.x = checkpointX;
         player.y = checkpointY;
