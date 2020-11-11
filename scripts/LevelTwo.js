@@ -76,16 +76,14 @@ create(){
         //portal.create(200,2500, 'portal').setScale(.125).refreshBody();
         
         //add turret
-        this.turret1 = this.add.image(675, 800, 'turret');
-        this.turret1.angle = 180;
+       
         this.turret2 = this.add.image(525, 800, 'turret');
         this.turret2.angle = 180;
-        this.turret3 = this.add.image(375, 800, 'turret');
-        this.turret3.angle = 180;
-        this.turret4 = this.add.image(225, 800, 'turret');
+        
+        this.turret4 = this.add.image(275, 800, 'turret');
         this.turret4.angle = 180;
     
-        this.turrDown = [this.turret1, this.turret2, this.turret3, this.turret4];
+        this.turrDown = [this.turret2, this.turret4];
         this.turrUp = [];
         this.turrRight = [];
         this.tdelay = 0;
@@ -121,7 +119,7 @@ create(){
         platforms.create(350, 1550, 'mover').setOrigin(0,0).setScale(0.5).refreshBody();
         platforms.create(200, 1400, 'mover').setOrigin(0,0).setScale(0.5).refreshBody();
     
-        platforms.create(675, 1400, 'pplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms.create(650, 1400, 'pplatform').setOrigin(0,0).setScale(0.5).refreshBody();
     
         platforms.create(0, 1000, 'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         
@@ -129,7 +127,7 @@ create(){
         dissapearPlatforms.create(325, 1900, 'gplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         dissapearPlatforms.create(400, 1400, 'gplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         
-        var moverLR = this.physics.add.image(450, 1000, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
+        var moverLR = this.physics.add.image(520, 1000, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
         moverLR.body.setAllowGravity(false);
         
         platCollide = this.physics.add.collider(player, dissapearPlatforms);
@@ -161,7 +159,7 @@ create(){
         mover2 = this.physics.add.image(750, 2200, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
         mover2.body.setAllowGravity(false);
         
-        mover3 = this.physics.add.image(750, 1300, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);
+        mover3 = this.physics.add.image(775, 1300, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);
         mover3.body.setAllowGravity(false);
     
         //mover array
@@ -183,8 +181,8 @@ create(){
         targets: [moverLR.body.velocity],
         loop: -1,
         tweens: [
-          { x:    -100, y: 0, duration: 2000, ease: 'Stepped' },
-          { x:    100, y:   0, duration: 2000, ease: 'Stepped' },
+          { x:    -100, y: 0, duration: 3000, ease: 'Stepped' },
+          { x:    100, y:   0, duration: 3000, ease: 'Stepped' },
         ]
       });
         //collider with moving platform

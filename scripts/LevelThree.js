@@ -79,14 +79,12 @@ create(){
         
         
         //bottom turrets
-        this.turret1 = this.add.image(555, 2300, 'turret');
-        this.turret2 = this.add.image(390, 2300, 'turret');
-        this.turret3 = this.add.image(210, 2300, 'turret');
+        this.turret1 = this.add.image(480, 2300, 'turret');
+        this.turret2 = this.add.image(260, 2300, 'turret');
         this.turret7 = this.add.image(690, 1400, 'turret');   
         this.turret8 = this.add.image(50, 1485, 'turret'); 
         this.turret1.angle = 180;
         this.turret2.angle = 180;
-        this.turret3.angle = 180;
         this.turret7.angle = 180;
         this.turret8.angle = 90;
     
@@ -96,7 +94,7 @@ create(){
         this.turret6 = this.add.image(800, 1970, 'turret');
         this.turret6.angle = 270;
     
-        this.turrDown = [this.turret1, this.turret2, this.turret3];
+        this.turrDown = [this.turret1, this.turret2];
         this.turrDown2 = [this.turret7];
         this.turrUp = [this.turret4, this.turret5];
         this.turrLeft = [this.turret6];
@@ -132,7 +130,7 @@ create(){
         this.physics.add.overlap(player, checkpoint, function(){
             this.music.stop();
             this.scene.stop('levelthree')
-            this.scene.start("levelthree");
+            this.scene.start("levelnew");
             console.log('you win!');
         }, null, this);
         
