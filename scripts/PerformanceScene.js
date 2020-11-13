@@ -17,6 +17,10 @@ class PerformanceScene extends Phaser.Scene {
         let sb = this.add.image(400,300,'bg');
         let menuButton = this.add.image(200,475,'menuButton').setScale(.35);
         let nextLevel = this.add.image(550,470,'nextLevel').setScale(.35);
+        keyNumber++;
+        console.log(keyNumber);
+        let val = dict[keyNumber];
+        console.log(val);
 
         menuButton.setInteractive()
         menuButton.on('pointerdown', ()=>{
@@ -33,7 +37,7 @@ class PerformanceScene extends Phaser.Scene {
         })
         nextLevel.on('pointerup', ()=>{
             //nextLevel.setScale(1)
-            this.scene.switch('levelone')
+            this.scene.switch(val);
         })
 
         this.add.text(250, 100, 'Some quick stats:', {fontSize: "50px", color: "gray", fontFamily: "Edge Of The Galaxy"});
