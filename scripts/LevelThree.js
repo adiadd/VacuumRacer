@@ -81,11 +81,9 @@ create(){
         //bottom turrets
         this.turret1 = this.add.image(480, 2300, 'turret');
         this.turret2 = this.add.image(260, 2300, 'turret');
-        this.turret7 = this.add.image(690, 1400, 'turret');   
         this.turret8 = this.add.image(50, 1485, 'turret'); 
         this.turret1.angle = 180;
         this.turret2.angle = 180;
-        this.turret7.angle = 180;
         this.turret8.angle = 90;
     
         this.turret4 = this.add.image(450, 2250, 'turret');
@@ -95,7 +93,6 @@ create(){
         this.turret6.angle = 270;
     
         this.turrDown = [this.turret1, this.turret2];
-        this.turrDown2 = [this.turret7];
         this.turrUp = [this.turret4, this.turret5];
         this.turrLeft = [this.turret6];
         this.turrRight = [this.turret8];
@@ -190,8 +187,7 @@ create(){
         //moving vertical platform
         mover1 = this.physics.add.image(750, 2500, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
         mover1.body.setAllowGravity(false);
-        this.time.addEvent({delay: 1000, callback: function(){this.checkTurrets()}, callbackScope: this, loop: true});
-        this.time.addEvent({ delay: 1000, callback: function(){this.checkTurrets2()}, callbackScope: this, loop: true });
+        this.time.addEvent({delay: 1500, callback: function(){this.checkTurrets()}, callbackScope: this, loop: true});
     
         //mover array
         mover = [mover1, moverLR, mover2LR, mover3LR];
@@ -397,21 +393,6 @@ update(){
                 this.shootRight(this.turrRight[i].x, this.turrRight[i].y);
                 }
             }
-    }
-    
-    checkTurrets2() {
-        var x = player.x;
-        var y = player.y;
-        
-        if(this.tdelay2 > 130) {
-            if(y < 2000 && y > 1600 && x > 600 && x < 800 ) {
-                for(var i = 0; i < this.turrDown2.length; i++) {
-                this.shootDown(this.turrDown2[i].x, this.turrDown2[i].y);
-                }
-            }
-           this.tdelay2 = 0; 
-        }
-        this.tdelay2++;
     }
     
      shootUp(x, y)

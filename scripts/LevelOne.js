@@ -222,7 +222,6 @@ update(){
     
     //Updating timer
     this.elapsed = this.timer.getElapsedSeconds();
-    console.log(this.timer.getElapsedSeconds());
     //add Math.floor or something here to round elapsed
     this.timeText.setText(this.elapsed);
     

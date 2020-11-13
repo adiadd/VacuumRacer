@@ -146,7 +146,6 @@ create(){
             this.music.stop();
             this.scene.stop('leveltwo');
             this.scene.start('levelthree');
-            console.log('you win!');
         }, null, this);
 
         //restart scene if player overlaps portal 
@@ -212,18 +211,15 @@ update(){
         this.start = false;
     }
     checkKeyboard();
-    console.log(player.x + " , " + player.y);
     
     //Updating timer
     this.elapsed = this.timer.getElapsedSeconds();
-    console.log(this.timer.getElapsedSeconds());
     //add Math.floor or something here to round elapsed
     this.timeText.setText(this.elapsed);
       
     dissapeardelay ++;
     if (dissapeardelay >= 200){
         dissapeardelay = 0;
-        console.log("vanish");
         if (dissapearPlatforms.active == true){
             dissapearPlatforms.setActive(false).toggleVisible(false);
             platCollide.active = false;
@@ -316,19 +312,16 @@ update(){
 }
     
     checkPoint(){
-        console.log('checkpoint')
         checkpointX = this.starArr[0].x;
         checkpointY = this.starArr[0].y - 20;
         this.starArr[0].disableBody(true,true);
         this.starArr.shift();
-        console.log(this.starArr.length)
     }
     
     checkTurrets() {
         //first two
         var x = player.x;
         var y = player.y;
-            console.log(this.tdelay);
             //middle two
             if(y < 1000 && x < 680 ) {
                 for(var i = 0; i < this.turrDown.length; i++) {

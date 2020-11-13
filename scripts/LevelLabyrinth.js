@@ -27,6 +27,8 @@ preload(){
         this.load.image('bullet', 'assets/tracer.png');
         this.load.image('backdrop', 'backdrops/white.png');
         this.load.image('spike', 'assets/spike.png');
+        this.load.image('backdropxl', 'assets/bg_long.png');
+
 }
     
 create(){
@@ -67,7 +69,7 @@ create(){
         this.cameras.main.setBounds(0, 0, 800, 3000);
         
         //set background
-        var backdrop = this.add.image(400,1300,'backdrop'); 
+        var backdrop = this.add.image(400,1300,'backdropxl'); 
         backdrop.setScale(1);
     
         //add checkpoint bunny
