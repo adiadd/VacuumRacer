@@ -6,7 +6,6 @@ class PerformanceScene extends Phaser.Scene {
     preload(){
         console.log("Performance scene");
         
-
         //images
         this.load.image('bg', 'assets/spacebg.jpg');
         this.load.image('menuButton', 'assets/menuButton.png');
@@ -41,12 +40,14 @@ class PerformanceScene extends Phaser.Scene {
             deathCount = 0;
         })
 
-        this.add.text(250, 100, 'Some quick stats:', {fontSize: "50px", color: "gray", fontFamily: "Edge Of The Galaxy"});
-        this.add.text(150, 250, 'Time to complete (sec): ', {fontSize: "35px", color: "#00dcff", fontFamily: "Edge Of The Galaxy"});
-        this.add.text(150, 320, 'Number of deaths: ', {fontSize: "35px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
+        this.add.text(250, 50, 'Some quick stats:', {fontSize: "50px", color: "gray", fontFamily: "Edge Of The Galaxy"});
+        this.add.text(150, 150, 'Time to complete (sec): ', {fontSize: "35px", color: "#00dcff", fontFamily: "Edge Of The Galaxy"});
+        this.add.text(150, 220, 'Number of deaths: ', {fontSize: "35px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
+        this.add.text(150, 290, 'Total number of deaths: ', {fontSize: "35px", color: "#808080", fontFamily: "Edge Of The Galaxy"});
 
-        this.add.text(500, 320, deathCount, {fontSize: "35px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
-        this.add.text(500, 250, elapsed.toFixed(2), {fontSize: "35px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
+        this.add.text(550, 150, elapsed.toFixed(2), {fontSize: "35px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
+        this.add.text(550, 220, deathCount, {fontSize: "35px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
+        this.add.text(550, 290, deathCountTotal, {fontSize: "35px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
 
     }//end create
 

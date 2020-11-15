@@ -340,6 +340,7 @@ update(){
     reset(){
         this.sound.play('death_sound');
         deathCount++;
+        deathCountTotal++;
         //var timer = scene.time.delayedCall(1000, null, null, this);
         this.bullets.clear(true);
         player.x = checkpointX;

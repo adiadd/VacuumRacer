@@ -110,7 +110,7 @@ class LevelsScene extends Phaser.Scene {
         })
         levelSix.on('pointerup', ()=>{
             //levelSix.setScale(1)
-            this.scene.switch('overlay')
+            this.scene.switch('performance')
         })
 
     }//end create
