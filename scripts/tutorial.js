@@ -56,6 +56,8 @@ preload(){
 }
     
 create(){
+    this.scene.launch('overlay');
+    keyNumber = 0;
     //console.log(this.currentLevel)
 
     /*this.time.addEvent({
@@ -82,12 +84,12 @@ create(){
         this.music.play(musicConfig);
     
     //Adding timer
-    this.timer = this.time.addEvent({              
-    loop: false,
-    repeat: 1000000,
-    startAt: 0,
-    paused: false
-    });
+    // this.timer = this.time.addEvent({              
+    // loop: false,
+    // repeat: 1000000,
+    // startAt: 0,
+    // paused: false
+    // });
     
     //these two lines change the size of the scene and camera bounds!!
     this.physics.world.setBounds(0, 0, 800, 2600, true, true, true, true);
@@ -185,18 +187,18 @@ create(){
     this.cameras.main.setZoom(1);
     
     //Adding time text at the top
-    this.timetextnormal = this.add.text(10,10, 'Time: ');
-    this.timetextnormal.setScrollFactor(0);
+    // this.timetextnormal = this.add.text(10,10, 'Time: ');
+    // this.timetextnormal.setScrollFactor(0);
 
-    this.timeText = this.add.text(70, 10, elapsed)
-    this.timeText.setScrollFactor(0);
+    // this.timeText = this.add.text(70, 10, elapsed)
+    // this.timeText.setScrollFactor(0);
 
     //Adding deathcount to top left
-    this.deathcounttextnormal = this.add.text(600,10, 'Death Count: ');
-    this.deathcounttextnormal.setScrollFactor(0);
+    // this.deathcounttextnormal = this.add.text(600,10, 'Death Count: ');
+    // this.deathcounttextnormal.setScrollFactor(0);
 
-    this.deathcountText = this.add.text(725, 10, deathCount)
-    this.deathcountText.setScrollFactor(0);
+    // this.deathcountText = this.add.text(725, 10, deathCount)
+    // this.deathcountText.setScrollFactor(0);
    // this.timeText.cameraOffset.setTo(100,100);
     
     //create star checkpoints
@@ -234,7 +236,8 @@ create(){
     checkpoint.create(585,1195, 'dust_bunny').setScale(.15).refreshBody();
     this.physics.add.overlap(player, checkpoint, function(){
         this.music.stop();
-        this.scene.stop('tutorial')
+        this.scene.stop('tutorial');
+        this.scene.stop('overlay');
         this.scene.start("performance");
         console.log('you win!');
         //this.scene.restart({ level: this.currentLevel + 1 })
@@ -252,14 +255,14 @@ update(){
     checkKeyboard();
 
     //Updating timer
-    elapsed = this.timer.getElapsedSeconds();
+    // elapsed = this.timer.getElapsedSeconds();
     //console.log(this.timer.getElapsedSeconds());
     
     //Displays time with 2 decimal places
-    this.timeText.setText((elapsed).toFixed(2));
+    // this.timeText.setText((elapsed).toFixed(2));
 
     //Displays deathcount
-    this.deathcountText.setText(deathCount);
+    // this.deathcountText.setText(deathCount);
     
     //stickMechanic
     if(cursors.space.isDown && wallJumped == false){

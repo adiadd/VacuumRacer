@@ -35,6 +35,8 @@ preload(){
 }
     
 create(){
+    this.scene.launch('overlay');
+    keyNumber = 5;
     
         var mover1;
         var mover2;
@@ -61,13 +63,13 @@ create(){
 //        }
 //        this.music.play(musicConfig);
 
-        //Adding timer
-        this.timer = this.time.addEvent({              
-        loop: false,
-        repeat: 1000000,
-        startAt: 0,
-        paused: false
-        });
+        // //Adding timer
+        // this.timer = this.time.addEvent({              
+        // loop: false,
+        // repeat: 1000000,
+        // startAt: 0,
+        // paused: false
+        // });
 
         //these two lines change the size of the scene and camera bounds!!
         this.physics.world.setBounds(0, 0, 750, 4600, true, true, true, true);
@@ -200,7 +202,9 @@ create(){
     
         //if player overlaps with bunny, level is complete
         this.physics.add.overlap(player, checkpoint, function(){
-            this.scene.start("");
+            this.scene.stop('bonus2');
+            this.scene.stop('overlay');
+            this.scene.start("performance");
         }, null, this);
 }
     
@@ -315,6 +319,7 @@ update(){
     
     reset(){
         this.sound.play('death_sound');
+        deathCount++;
         //var timer = scene.time.delayedCall(1000, null, null, this);
        this.bullets.clear(true);
 //        this.bullets2.clear(true);

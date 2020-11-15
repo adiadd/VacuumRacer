@@ -29,6 +29,8 @@ preload(){
 }
     
 create(){
+    this.scene.launch('overlay');
+    keyNumber = 3;
         var mover1;
         var mover2;
         var mover3;
@@ -55,12 +57,12 @@ create(){
         this.music.play(musicConfig);
     
         //Adding timer
-        this.timer = this.time.addEvent({              
-        loop: false,
-        repeat: 1000000,
-        startAt: 0,
-        paused: false
-        });
+        // this.timer = this.time.addEvent({              
+        // loop: false,
+        // repeat: 1000000,
+        // startAt: 0,
+        // paused: false
+        // });
     
         //these two lines change the size of the scene and camera bounds!!
         this.physics.world.setBounds(-25, 0, 850, 2600, true, true, true, true);
@@ -126,8 +128,9 @@ create(){
         //if player overlaps with bunny, level is complete
         this.physics.add.overlap(player, checkpoint, function(){
             this.music.stop();
-            this.scene.stop('levelthree')
-            this.scene.start("levelnew");
+            this.scene.stop('levelthree');
+            this.scene.stop('overlay');
+            this.scene.start("performance");
         }, null, this);
         
         //create and place static platforms
@@ -157,8 +160,8 @@ create(){
         platCollide = this.physics.add.collider(player, dissapearPlatforms);
         this.physics.add.collider(player, platforms);
     
-        this.timeText = this.add.text(10, 400, this.elapsed)
-        this.timeText.setScrollFactor(0);
+        // this.timeText = this.add.text(10, 400, this.elapsed)
+        // this.timeText.setScrollFactor(0);
     
         dissapearPlatforms = this.physics.add.staticGroup();
         dissapearPlatforms.create(300, 1300, 'gplatform').setOrigin(0,0).setScale(0.5).refreshBody();
@@ -245,10 +248,10 @@ update(){
     checkKeyboard();
     
     //Updating timer
-    this.elapsed = this.timer.getElapsedSeconds();
+    // this.elapsed = this.timer.getElapsedSeconds();
     //console.log(this.timer.getElapsedSeconds());
     //add Math.floor or something here to round elapsed
-    this.timeText.setText(this.elapsed);
+    // this.timeText.setText(this.elapsed);
       
     dissapeardelay ++;
     if (dissapeardelay >= 200){
@@ -447,6 +450,7 @@ update(){
     
     reset(){
         this.sound.play('death_sound');
+        deathCount++;
         //var timer = scene.time.delayedCall(1000, null, null, this);
         this.bullets.clear(true);
         this.bullets2.clear(true);

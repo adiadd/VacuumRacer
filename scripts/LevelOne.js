@@ -3,11 +3,6 @@ class LevelOne extends Phaser.Scene {
         super('levelone')
     }
 
-    init(props) {
-        const { level = 1 } = props
-        this.currentLevel = level
-    }
-
 preload(){
         //audio
         this.load.audio('song2','music/Art.mp3');
@@ -36,6 +31,8 @@ preload(){
 }
     
 create(){
+    this.scene.launch('overlay');
+    keyNumber = 1;
     
         var mover1;
         var mover2;
@@ -43,7 +40,7 @@ create(){
         cursors = this.input.keyboard.createCursorKeys();
         this.tdelay = 0;
         this.clearBullets = false;
-        this.elapsed = 0;
+        //this.elapsed = 0;
 
         //music config
         this.music = this.sound.add('song2');
@@ -59,19 +56,19 @@ create(){
         this.music.play(musicConfig);
 
         //Adding timer
-        this.timer = this.time.addEvent({              
-        loop: false,
-        repeat: 1000000,
-        startAt: 0,
-        paused: false
-        });
+        // this.timer = this.time.addEvent({              
+        // loop: false,
+        // repeat: 1000000,
+        // startAt: 0,
+        // paused: false
+        // });
 
         //Adding time text at the top
-        this.timetextnormal = this.add.text(10,10, 'Time: ');
-        this.timetextnormal.setScrollFactor(0);
+        // this.timetextnormal = this.add.text(10,10, 'Time: ');
+        // this.timetextnormal.setScrollFactor(0);
 
-        this.timeText = this.add.text(70, 10, elapsed)
-        this.timeText.setScrollFactor(0);
+        // this.timeText = this.add.text(70, 10, elapsed)
+        // this.timeText.setScrollFactor(0);
 
         //these two lines change the size of the scene and camera bounds!!
         this.physics.world.setBounds(-25, 0, 800, 2600, true, true, true, true);
@@ -202,8 +199,9 @@ create(){
         //if player overlaps with bunny, level is complete
         this.physics.add.overlap(player, checkpoint, function(){
             this.music.stop();
-            this.scene.stop('levelone')
-            this.scene.start("leveltwo");
+            this.scene.stop('levelone');
+            this.scene.stop('overlay');
+            this.scene.start("performance");
         }, null, this);
 
         //reset player to checkpoint if player overlaps portal
@@ -228,9 +226,9 @@ update(){
     }
     
     //Updating timer
-    this.elapsed = this.timer.getElapsedSeconds();
+    // this.elapsed = this.timer.getElapsedSeconds();
     //add Math.floor or something here to round elapsed
-    this.timeText.setText(this.elapsed);
+    // this.timeText.setText(this.elapsed);
     
     checkKeyboard();    
 
@@ -336,6 +334,7 @@ update(){
     
     reset(){
         this.sound.play('death_sound');
+        deathCount++;
         //var timer = scene.time.delayedCall(1000, null, null, this);
         this.bullets.clear(true);
         this.bullets2.clear(true);

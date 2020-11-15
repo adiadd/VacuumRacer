@@ -8,6 +8,7 @@ class OverlayScene extends Phaser.Scene {
     }//end preload
 
     create(){
+
         //Adding timer
         this.timer = this.time.addEvent({              
             loop: false,

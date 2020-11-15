@@ -38,6 +38,7 @@ class PerformanceScene extends Phaser.Scene {
         nextLevel.on('pointerup', ()=>{
             //nextLevel.setScale(1)
             this.scene.switch(val);
+            deathCount = 0;
         })
 
         this.add.text(250, 100, 'Some quick stats:', {fontSize: "50px", color: "gray", fontFamily: "Edge Of The Galaxy"});
