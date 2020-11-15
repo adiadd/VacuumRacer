@@ -66,6 +66,13 @@ create(){
         paused: false
         });
 
+        //Adding time text at the top
+        this.timetextnormal = this.add.text(10,10, 'Time: ');
+        this.timetextnormal.setScrollFactor(0);
+
+        this.timeText = this.add.text(70, 10, elapsed)
+        this.timeText.setScrollFactor(0);
+
         //these two lines change the size of the scene and camera bounds!!
         this.physics.world.setBounds(-25, 0, 800, 2600, true, true, true, true);
         this.cameras.main.setBounds(0, 0, 750, 2600);
