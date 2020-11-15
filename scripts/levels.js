@@ -6,6 +6,7 @@ class LevelsScene extends Phaser.Scene {
     preload(){
         console.log("levels scene");
         this.load.image('bg', 'assets/spacebg.jpg');
+        this.load.audio('song','music/Finance.mp3');
         this.load.image('back', 'assets/backButton.png');
         this.load.image('l1', 'assets/levelOneButton.png');
         this.load.image('l2', 'assets/levelTwoButton.png');
@@ -20,6 +21,19 @@ class LevelsScene extends Phaser.Scene {
     }//end preload
 
     create(){
+        //music config
+        this.music = this.sound.add('song');
+        var musicConfig = {
+            mute: false,
+            volume: 1,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0
+        }
+
+
         let sb = this.add.image(400,300,'bg');
         let backButton = this.add.image(50,100,'back');
         let levelsButton = this.add.image(400,100,'levelsButton').setScale(1.5);
@@ -38,7 +52,8 @@ class LevelsScene extends Phaser.Scene {
         })
         backButton.on('pointerup', ()=>{
             //backButton.setScale(1)
-            this.scene.switch('titleScene')
+            this.scene.switch('titleScene');
+            this.music.stop();
         })
 
         levelTutorial.setInteractive()
@@ -47,7 +62,8 @@ class LevelsScene extends Phaser.Scene {
         })
         levelTutorial.on('pointerup', ()=>{
             //levelTutorial.setScale(1)
-            this.scene.switch('tutorial')
+            this.music.stop();
+            this.scene.switch('tutorial');
         })
 
         levelOne.setInteractive()
@@ -56,7 +72,8 @@ class LevelsScene extends Phaser.Scene {
         })
         levelOne.on('pointerup', ()=>{
             //levelOne.setScale(1)
-            this.scene.switch('levelone')
+            this.scene.switch('levelone');
+            this.music.stop();
         })
         
         levelTwo.setInteractive()
@@ -65,7 +82,8 @@ class LevelsScene extends Phaser.Scene {
         })
         levelTwo.on('pointerup', ()=>{
             //levelTwo.setScale(1)
-            this.scene.switch('leveltwo')
+            this.scene.switch('leveltwo');
+            this.music.stop();
         })
         
         levelThree.setInteractive()
@@ -74,7 +92,8 @@ class LevelsScene extends Phaser.Scene {
         })
         levelThree.on('pointerup', ()=>{
             //levelThree.setScale(1)
-            this.scene.switch('levelthree')
+            this.scene.switch('levelthree');
+            this.music.stop();
         })
         
         levelFour.setInteractive()
@@ -83,7 +102,8 @@ class LevelsScene extends Phaser.Scene {
         })
         levelFour.on('pointerup', ()=>{
             //levelFour.setScale(1)
-            this.scene.switch('levelnew')
+            this.scene.switch('levelnew');
+            this.music.stop();
         })
         
         levelFive.setInteractive()
@@ -92,7 +112,8 @@ class LevelsScene extends Phaser.Scene {
         })
         levelFive.on('pointerup', ()=>{
             //levelFive.setScale(1)
-            this.scene.switch('labyrinth')
+            this.scene.switch('labyrinth');
+            this.music.stop();
         })
 
         bonusButton.setInteractive()
@@ -101,7 +122,8 @@ class LevelsScene extends Phaser.Scene {
         })
         bonusButton.on('pointerup', ()=>{
             //bonusButton.setScale(1)
-            this.scene.switch('bounceTest')
+            this.scene.switch('bounceTest');
+            this.music.stop();
         })
 
         levelSix.setInteractive()
@@ -110,7 +132,8 @@ class LevelsScene extends Phaser.Scene {
         })
         levelSix.on('pointerup', ()=>{
             //levelSix.setScale(1)
-            this.scene.switch('performance')
+            this.scene.switch('performance');
+            this.music.stop();
         })
 
     }//end create

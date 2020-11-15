@@ -27,7 +27,8 @@ class PerformanceScene extends Phaser.Scene {
         })
         menuButton.on('pointerup', ()=>{
             //menuButton.setScale(1)
-            this.scene.switch('titleScene')
+            this.scene.stop('performance');
+            this.scene.switch('titleScene');
         })
 
         nextLevel.setInteractive()
@@ -36,6 +37,7 @@ class PerformanceScene extends Phaser.Scene {
         })
         nextLevel.on('pointerup', ()=>{
             //nextLevel.setScale(1)
+            this.scene.stop('performance');
             this.scene.switch(val);
             deathCount = 0;
         })

@@ -59,8 +59,9 @@ class TitleScene extends Phaser.Scene {
         })
         playButton.on('pointerup', ()=>{
             //playButton.setScale(1)
-            this.scene.switch('levelone');
             this.music.stop();
+            this.scene.switch('levelone');
+            
         })
 
         //Button to send them to the instructions page
@@ -92,8 +93,8 @@ class TitleScene extends Phaser.Scene {
         })
         levelsButton.on('pointerup', ()=>{
             //levelsButton.setScale(1) 
+            this.music.stop();
             this.scene.switch('levels');
-            //this.music.stop();
         })
 
         
