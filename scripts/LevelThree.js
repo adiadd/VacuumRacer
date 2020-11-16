@@ -267,20 +267,7 @@ update(){
     //console.log(this.timer.getElapsedSeconds());
     //add Math.floor or something here to round elapsed
     // this.timeText.setText(this.elapsed);
-      
-    dissapeardelay ++;
-    if (dissapeardelay >= 200){
-        dissapeardelay = 0;
-        //console.log("vanish");
-        if (dissapearPlatforms.active == true){
-            dissapearPlatforms.setActive(false).toggleVisible(false);
-            platCollide.active = false;
-        }
-        else{
-            dissapearPlatforms.setActive(true).setVisible(true);
-            platCollide.active = true;
-        }
-    }
+       
     
     //stickMechanic
     if(cursors.space.isDown && wallJumped == false){
@@ -384,6 +371,17 @@ update(){
         this.starArr[0].disableBody(true,true);
         this.starArr.shift();
         console.log(this.starArr.length)
+    }
+    
+    dissapearPlat(){
+        if (dissapearPlatforms.active == true){
+            dissapearPlatforms.setActive(false).toggleVisible(false);
+            platCollide.active = false;
+        }
+        else{
+            dissapearPlatforms.setActive(true).setVisible(true);
+            platCollide.active = true;
+        }
     }
     
     checkTurrets() {
