@@ -29,6 +29,7 @@ class PerformanceScene extends Phaser.Scene {
             //menuButton.setScale(1)
             this.scene.stop('performance');
             this.scene.switch('titleScene');
+            deathCount = 0;
         })
 
         nextLevel.setInteractive()
