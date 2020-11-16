@@ -34,6 +34,7 @@ create(){
         var mover1;
         var mover2;
         var mover3;
+        var platforms2;
         var score = 0;
         this.elapsed = 0;
         this.start = true;
@@ -73,7 +74,7 @@ create(){
         backdrop.setScale(1);
     
         //add checkpoint bunny
-        checkpoint = this.physics.add.staticGroup();
+        //checkpoint = this.physics.add.staticGroup();
         
 
         //add portals
@@ -101,7 +102,7 @@ create(){
         this.tdelay = 0;
 
         //add player and set physics
-        player = this.physics.add.sprite(60, 2480, 'player').setScale(0.25);
+        player = this.physics.add.sprite(60, 2450, 'player').setScale(0.25);
         player.setBounce(0.2);
         player.setCollideWorldBounds(false);
         player.body.setGravityY(300);
@@ -134,19 +135,22 @@ create(){
         }, null, this);
         
         //create and place static platforms
-        var platforms = this.physics.add.staticGroup();
-        platforms.create(0,2550,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        var platforms2 = this.physics.add.staticGroup();
+        //platforms2.create(0,2550,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         
-        platforms.create(500,2150,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(250,2150,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(0,2150,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms2.create(500,2150,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms2.create(250,2150,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms2.create(0,2150,'bplatform').setOrigin(0,0).setScale(0.5).refreshBody();
         
-        platforms.create(0,2000,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms2.create(0,2000,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
     
-        platforms.create(750,1800,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(600,1650,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(750,1500,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
-        platforms.create(150,1300,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();        
+        platforms2.create(750,1800,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms2.create(600,1650,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms2.create(750,1500,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();
+        platforms2.create(150,1300,'vplatform').setOrigin(0,0).setScale(0.5).refreshBody();        
+
+        var plat1 = this.physics.add.image(0, 2550, 'bplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
+        plat1.body.setAllowGravity(false);
         
         var moverLR = this.physics.add.image(550, 2550, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
         moverLR.body.setAllowGravity(false);
@@ -158,7 +162,7 @@ create(){
         mover3LR.body.setAllowGravity(false);
         
         platCollide = this.physics.add.collider(player, dissapearPlatforms);
-        this.physics.add.collider(player, platforms);
+        // this.physics.add.collider(player, platforms2);
     
         // this.timeText = this.add.text(10, 400, this.elapsed)
         // this.timeText.setScrollFactor(0);
@@ -196,6 +200,15 @@ create(){
         mover = [mover1, moverLR, mover2LR, mover3LR];
 
         this.tweens.timeline({
+            targets: [plat1.body.velocity],
+            loop: -1,
+            tweens: [
+              { x:    0, y: 0, duration: 2000, ease: 'Stepped' },
+              { x:    0, y:   0, duration: 2000, ease: 'Stepped' },
+            ]
+          });
+
+        this.tweens.timeline({
         targets: [mover1.body.velocity],
         loop: -1,
         tweens: [
@@ -228,6 +241,8 @@ create(){
         this.physics.add.collider(player, moverLR);
         this.physics.add.collider(player, mover2LR);
         this.physics.add.collider(player, mover3LR);
+
+        this.physics.add.collider(player, plat1);
 
         canGrab = false;
         rotated = false;
