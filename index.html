@@ -68,6 +68,7 @@
               var elapsed;
               var dict = {};
               var keyNumber;
+              var turnOff = false;
 
               var keyNumber = 0;
               var elapsed = 0;
@@ -96,6 +97,9 @@
               var game = new Phaser.Game(config);
 
                function stickmechanic(){
+                   if (turnOff){
+                       return false;
+                   }
                    //gets how long the object is held for
                    //var held = cursors.space.getDuration();
                    //console.log(held);
@@ -235,6 +239,7 @@
             return mover[i];
         }
     }
+        return player;
 }
    
     
@@ -247,6 +252,9 @@
         this.tdelay++;
     }
     function stickmechanicMoving(){
+                    if (turnOff){
+                        return;
+                    }
                     //gets how long the object is held for
                     var held = cursors.space.getDuration();
                     console.log(held);

@@ -283,6 +283,21 @@ update(){
             //allows it to only get the mover object once
             findMover = false;
         }
+        if (turnOff){
+            player.body.setAllowGravity(true);
+            canGrab = false;
+            //resets wall booleans when letting go of space
+            isOnWall = false;
+            isOnLeft = false;
+            isOnRight = false;
+            //allows player to stick again as long as they let go of space first
+            wallJumped = false;
+            //resets player rotation
+            if (rotated == true){
+                player.angle = 0;
+            }
+            turnOff = false;
+        }
         if (cursors.space.isUp){
             player.body.setAllowGravity(true);
             canGrab = false;
@@ -355,6 +370,7 @@ update(){
         //this.bullets2.clear(true);
         player.x = checkpointX;
         player.y = checkpointY;
+        turnOff = true;
     }
         
 }
