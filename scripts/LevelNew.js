@@ -37,6 +37,7 @@ create(){
         var mover3;
         var score = 0;
         this.elapsed = 0;
+        this.start = true;
         
     
         cursors = this.input.keyboard.createCursorKeys();
@@ -227,6 +228,10 @@ create(){
 }
     
 update(){
+    if(this.start) {
+        this.cameras.main.zoomTo(1.35, 1000);
+        this.start = false;
+    }
     checkKeyboard();
     //console.log(game.input.mousePointer.x + " , " + game.input.mousePointer.y);
     

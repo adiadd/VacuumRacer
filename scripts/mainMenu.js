@@ -29,10 +29,10 @@ class TitleScene extends Phaser.Scene {
         //let tutorial = this.add.image(460, 580, 'star');
         let gMode = this.add.image(20, 20, 'star');
         this.add.text(35, 15, 'God Mode', {fontSize: "15px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
-        let bonus = this.add.image(20, 60, 'star');
-        this.add.text(35, 55, 'Bonus 2', {fontSize: "15px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
-        let bounce = this.add.image(20, 100, 'star');
-        this.add.text(35, 95, 'Bonus 3', {fontSize: "15px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
+//        let bonus = this.add.image(20, 60, 'star');
+//        this.add.text(35, 55, 'Bonus 2', {fontSize: "15px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
+//        let bounce = this.add.image(20, 100, 'star');
+//        this.add.text(35, 95, 'Bonus 3', {fontSize: "15px", color: "#00f4f3", fontFamily: "Edge Of The Galaxy"});
         
         //music config
         this.music = this.sound.add('song');
@@ -108,26 +108,26 @@ class TitleScene extends Phaser.Scene {
         })
         
         //bonus level access
-        bonus.setInteractive()
-        bonus.on('pointerdown', ()=>{
-            //bonus.setScale(.5)
-        })
-        bonus.on('pointerup', ()=>{
-            //bonus.setScale(1) 
-            this.scene.switch('bonus2');
-            this.music.stop();
-        })
+//        bonus.setInteractive()
+//        bonus.on('pointerdown', ()=>{
+//            //bonus.setScale(.5)
+//        })
+//        bonus.on('pointerup', ()=>{
+//            //bonus.setScale(1) 
+//            this.scene.switch('bonus2');
+//            this.music.stop();
+//        })
         
         //bouncetest access
-        bounce.setInteractive()
-        bounce.on('pointerdown', ()=>{
-            //bounce.setScale(.5)
-        })
-        bounce.on('pointerup', ()=>{
-            //bounce.setScale(1) 
-            this.scene.switch('bounceTest');
-            this.music.stop();
-        })
+//        bounce.setInteractive()
+//        bounce.on('pointerdown', ()=>{
+//            //bounce.setScale(.5)
+//        })
+//        bounce.on('pointerup', ()=>{
+//            //bounce.setScale(1) 
+//            this.scene.switch('bounceTest');
+//            this.music.stop();
+//        })
         
         
     }//end create
