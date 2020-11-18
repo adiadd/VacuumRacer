@@ -172,16 +172,16 @@ create(){
             this.scene.start("performance");
         }, null, this);
 
-        //reset player to checkpoint if player overlaps portal
-        this.physics.add.overlap(player, portal, this.reset, null, this);
-
-        canGrab = false;
-        rotated = false;
-        wallJumped = false;
-        isOnWall = false;
-        isOnRight = false;
-        isOnLeft = false;
-        findMover = false;
+//        //reset player to checkpoint if player overlaps portal
+//        this.physics.add.overlap(player, portal, this.reset, null, this);
+//
+//        canGrab = false;
+//        rotated = false;
+//        wallJumped = false;
+//        isOnWall = false;
+//        isOnRight = false;
+//        isOnLeft = false;
+//        findMover = false;
 }
 
 update(){
@@ -202,30 +202,30 @@ update(){
     //this.checkTurrets();
 
     //stickMechanic
-    if(cursors.space.isDown && wallJumped == false){
-        //if the player is touching the wall or a moving body, it is made note of here
-        if (player.body.onWall() || player.body.touching.right || player.body.touching.left){
-            if (player.body.onWall()){
-                isOnWall = true;
-            }
-            if (player.body.touching.right){
-                isOnRight = true;
-            }
-            if (player.body.touching.left){
-                isOnLeft = true;
-            }
-        }
-        if (!(isOnWall)&& (isOnLeft || isOnRight)){
-            if (findMover == false){
-             moverTouching = whichMover(mover);   
-            }
-            stickmechanicMoving();
-            findMover = true;
-        }
-        else if(isOnWall){
-        stickmechanic();
-          }
-    }
+//    if(cursors.space.isDown && wallJumped == false){
+//        //if the player is touching the wall or a moving body, it is made note of here
+//        if (player.body.onWall() || player.body.touching.right || player.body.touching.left){
+//            if (player.body.onWall()){
+//                isOnWall = true;
+//            }
+//            if (player.body.touching.right){
+//                isOnRight = true;
+//            }
+//            if (player.body.touching.left){
+//                isOnLeft = true;
+//            }
+//        }
+//        if (!(isOnWall)&& (isOnLeft || isOnRight)){
+//            if (findMover == false){
+//             moverTouching = whichMover(mover);   
+//            }
+//            stickmechanicMoving();
+//            findMover = true;
+//        }
+//        else if(isOnWall){
+//        stickmechanic();
+//          }
+//    }
 
       //jumping
       if (cursors.up.isDown && godMode)
@@ -239,30 +239,30 @@ update(){
           this.sound.play('jump_sound');
       }
 
-        if (player.body.touching.down){
-            canGrab = true;
-            wallJumped = false;
-            bodyTouchingLeft = null;
-            //resets wall booleans upon touching floor
-            isOnWall = false;
-            isOnLeft = false;
-            isOnRight = false;
-            findMover = false;
-        }
-        if (cursors.space.isUp){
-            player.body.setAllowGravity(true);
-            canGrab = false;
-            //resets wall booleans when letting go of space
-            isOnWall = false;
-            isOnLeft = false;
-            isOnRight = false;
-            //allows player to stick again as long as they let go of space first
-            wallJumped = false;
-            //resets player rotation
-            if (rotated == true){
-                player.angle = 0;
-            }
-        }
+//        if (player.body.touching.down){
+//            canGrab = true;
+//            wallJumped = false;
+//            bodyTouchingLeft = null;
+//            //resets wall booleans upon touching floor
+//            isOnWall = false;
+//            isOnLeft = false;
+//            isOnRight = false;
+//            findMover = false;
+//        }
+//        if (cursors.space.isUp){
+//            player.body.setAllowGravity(true);
+//            canGrab = false;
+//            //resets wall booleans when letting go of space
+//            isOnWall = false;
+//            isOnLeft = false;
+//            isOnRight = false;
+//            //allows player to stick again as long as they let go of space first
+//            wallJumped = false;
+//            //resets player rotation
+//            if (rotated == true){
+//                player.angle = 0;
+//            }
+//        }
 
         //checkWorldBounds
         if (player.body.checkWorldBounds() == true) {
@@ -350,8 +350,6 @@ update(){
         }else{
             if(cursors.up.isDown) 
             {
-                player.setVelocityY(-400);
-                this.hasTouched = 
                 player.setVelocityY(-400);
                 this.hasTouched = false;
                 this.sound.play('jump_sound');
