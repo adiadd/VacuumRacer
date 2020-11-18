@@ -195,6 +195,7 @@ create(){
         mover1 = this.physics.add.image(750, 2500, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
         mover1.body.setAllowGravity(false);
         this.time.addEvent({delay: 1500, callback: function(){this.checkTurrets()}, callbackScope: this, loop: true});
+        this.time.addEvent({delay: 1500, callback: function(){this.dissapearPlat()}, callbackScope: this, loop: true});
     
         //mover array
         mover = [mover1, moverLR, mover2LR, mover3LR];
@@ -333,20 +334,6 @@ update(){
                 player.angle = 0;
             }
         }
-    
-        dissapeardelay ++;
-    if (dissapeardelay >= 380){
-        dissapeardelay = 0;
-        //console.log("vanish");
-        if (dissapearPlatforms.active == true){
-            dissapearPlatforms.setActive(false).toggleVisible(false);
-            platCollide.active = false;
-        }
-        else{
-            dissapearPlatforms.setActive(true).setVisible(true);
-            platCollide.active = true;
-        }
-    }
         
         //checkWorldBounds
         if (player.body.checkWorldBounds() == true) {
