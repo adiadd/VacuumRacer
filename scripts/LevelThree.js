@@ -161,8 +161,8 @@ create(){
         var mover3LR = this.physics.add.image(550, 1500, 'wplatform').setOrigin(0,0).setScale(0.5).setImmovable(true).setVelocity(0, 100);
         mover3LR.body.setAllowGravity(false);
         
-        platCollide = this.physics.add.collider(player, dissapearPlatforms);
-        // this.physics.add.collider(player, platforms2);
+        //platCollide = this.physics.add.collider(player, dissapearPlatforms);
+        this.physics.add.collider(player, platforms2);
     
         // this.timeText = this.add.text(10, 400, this.elapsed)
         // this.timeText.setScrollFactor(0);
