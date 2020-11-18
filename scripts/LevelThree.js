@@ -195,7 +195,7 @@ create(){
         mover1 = this.physics.add.image(750, 2500, 'mover').setScale(0.5).setImmovable(true).setVelocity(0, 100);     
         mover1.body.setAllowGravity(false);
         this.time.addEvent({delay: 1500, callback: function(){this.checkTurrets()}, callbackScope: this, loop: true});
-        this.time.addEvent({delay: 1500, callback: function(){this.dissapearPlat()}, callbackScope: this, loop: true});
+        this.time.addEvent({delay: 3000, callback: function(){this.dissapearPlat()}, callbackScope: this, loop: true});
     
         //mover array
         mover = [mover1, moverLR, mover2LR, mover3LR];
