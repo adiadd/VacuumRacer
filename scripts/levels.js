@@ -43,7 +43,7 @@ class LevelsScene extends Phaser.Scene {
         let levelThree = this.add.image(600, 300, 'l3');
         let levelFour = this.add.image(300, 470, 'l4');
         let levelFive = this.add.image(500, 470, 'l5');
-        let levelSix = this.add.image(650, 470, 'l6');
+        // let levelSix = this.add.image(650, 470, 'l6');
         let levelTutorial = this.add.image(600,100,'lt').setScale(.5);
 
         backButton.setInteractive()
@@ -126,15 +126,15 @@ class LevelsScene extends Phaser.Scene {
             this.music.stop();
         })
 
-        levelSix.setInteractive()
-        levelSix.on('pointerdown', ()=>{
-            //levelFive.setScale(.5)
-        })
-        levelSix.on('pointerup', ()=>{
-            //levelSix.setScale(1)
-            this.scene.switch('performance');
-            this.music.stop();
-        })
+        // levelSix.setInteractive()
+        // levelSix.on('pointerdown', ()=>{
+        //     //levelFive.setScale(.5)
+        // })
+        // levelSix.on('pointerup', ()=>{
+        //     //levelSix.setScale(1)
+        //     this.scene.switch('performance');
+        //     this.music.stop();
+        // })
 
     }//end create
 
