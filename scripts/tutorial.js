@@ -75,7 +75,7 @@ create(){
         var musicConfig = {
             mute: false,
             volume: 1,
-            rate: 1,
+            rate: 0.75,
             detune: 0,
             seek: 0,
             loop: true,

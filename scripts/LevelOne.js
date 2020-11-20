@@ -46,7 +46,7 @@ create(){
         this.music = this.sound.add('song2');
         var musicConfig = {
             mute: false,
-            volume: 1,
+            volume: 0.75,
             rate: 1,
             detune: 0,
             seek: 0,
