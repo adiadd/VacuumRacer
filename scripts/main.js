@@ -31,13 +31,12 @@ class GameScene extends Phaser.Scene {
     create(){
         cursors = this.input.keyboard.createCursorKeys();
         this.tdelay = 0;
-        this.start = true;
 
         //music config
         this.music = this.sound.add('song');
         var musicConfig = {
             mute: false,
-            volume: 1,
+            volume: 0.75,
             rate: 1,
             detune: 0,
             seek: 0,
