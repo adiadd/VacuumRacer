@@ -22,6 +22,7 @@
         <script src="scripts/bounceTest.js"></script>
         <script src="scripts/bonus2.js"></script>
         <script src="scripts/overlay.js"></script>
+        <script src="scripts/congrats.js"></script>
         <link rel="stylesheet" href="main.css">
     </head>
     <body>
@@ -39,7 +40,7 @@
                       }
                   },
                   scene: [TitleScene, InstructionsScene, CreditsScene, LevelsScene, GameScene, LevelOne, LevelTwo, LevelThree, LevelNew, LevelLabyrinth,
-                         Tutorial, Bonus, Bonus2, BounceTest, PerformanceScene, OverlayScene]
+                         Tutorial, Bonus, Bonus2, BounceTest, PerformanceScene, OverlayScene, CongratsScene]
               };
 
               var player;
@@ -85,7 +86,7 @@
               dict[5] = "bonus2";
               dict[6] = "levelnew";
               dict[7] = "labyrinth";
-              dict[8] = "titleScene";
+              dict[8] = "congrats";
               
               
               console.log(dict);

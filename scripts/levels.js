@@ -132,7 +132,7 @@ class LevelsScene extends Phaser.Scene {
         // })
         // levelSix.on('pointerup', ()=>{
         //     //levelSix.setScale(1)
-        //     this.scene.switch('performance');
+        //     this.scene.switch('congrats');
         //     this.music.stop();
         // })
 
