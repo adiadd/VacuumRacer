@@ -102,7 +102,7 @@ class LevelsScene extends Phaser.Scene {
         })
         levelFour.on('pointerup', ()=>{
             //levelFour.setScale(1)
-            this.scene.switch('levelnew');
+            this.scene.switch('bounceTest');
             this.music.stop();
         })
         
@@ -112,7 +112,7 @@ class LevelsScene extends Phaser.Scene {
         })
         levelFive.on('pointerup', ()=>{
             //levelFive.setScale(1)
-            this.scene.switch('labyrinth');
+            this.scene.switch('bonus2');
             this.music.stop();
         })
 
@@ -122,7 +122,7 @@ class LevelsScene extends Phaser.Scene {
         })
         bonusButton.on('pointerup', ()=>{
             //bonusButton.setScale(1)
-            this.scene.switch('bounceTest');
+            this.scene.switch('levelnew');
             this.music.stop();
         })
 
