@@ -167,6 +167,7 @@ create(){
 
         //if player overlaps with bunny, level is complete
         this.physics.add.overlap(player, checkpoint, function(){
+            this.music.stop();
             this.scene.stop('bounceTest');
             this.scene.stop('overlay');
             this.scene.start("performance");
