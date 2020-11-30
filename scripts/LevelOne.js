@@ -86,7 +86,6 @@ create(){
         portal = this.physics.add.staticGroup();
         portal.create(725,1560, 'portal').setScale(.15).refreshBody();
         portal.create(70,1740, 'portal').setScale(.15).refreshBody();
-        portal.create(275,875, 'portal').setScale(.15).refreshBody();
         
         //add turret
         this.turret1 = this.add.image(475, 1800, 'turret');
@@ -341,7 +340,6 @@ update(){
         checkpointY = this.starArr[0].y - 20;
         this.starArr[0].disableBody(true,true);
         this.starArr.shift();
-        godMode = false;
         console.log(this.starArr.length)
     }
     
