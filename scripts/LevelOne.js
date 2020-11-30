@@ -87,7 +87,6 @@ create(){
         portal.create(725,1560, 'portal').setScale(.15).refreshBody();
         portal.create(70,1740, 'portal').setScale(.15).refreshBody();
         portal.create(275,875, 'portal').setScale(.15).refreshBody();
-        portal.create(475,875, 'portal').setScale(.15).refreshBody();
         
         //add turret
         this.turret1 = this.add.image(475, 1800, 'turret');
@@ -215,7 +214,7 @@ create(){
         isOnLeft = false;
         findMover = false;
     
-        this.time.addEvent({ delay: 1000, callback: function(){this.checkTurrets()}, callbackScope: this, loop: true });
+        this.time.addEvent({ delay: 1200, callback: function(){this.checkTurrets()}, callbackScope: this, loop: true });
 }
 
 update(){
