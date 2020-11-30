@@ -41,6 +41,7 @@ create(){
         var mover1;
         var mover2;
         var bounce;
+        var bounce2;
         var score = 0;
         this.start = true;
         cursors = this.input.keyboard.createCursorKeys();
@@ -101,13 +102,14 @@ create(){
     
         //bounce platforms
         bounce = this.physics.add.staticGroup();
+        bounce2 = this.physics.add.staticGroup();
         bounce.create(250, 4450,'bounce');
         bounce.create(400, 4350, 'bounce');
-        bounce.create(250, 3850,'bounce');
+        bounce2.create(250, 3850,'bounce');
         bounce.create(400, 3950, 'bounce');
         bounce.create(300, 3660,'bounce');
     
-        bounce.create(350, 3550,'bounce');
+        bounce2.create(350, 3550,'bounce');
         bounce.create(250, 3450,'bounce');
         bounce.create(150, 3350,'bounce');
         bounce.create(150, 3250,'bounce');
@@ -133,6 +135,7 @@ create(){
         bounce.create(500, 1400,'bounce');
     
         this.physics.add.overlap(player, bounce, this.bounce, null, this);
+        this.physics.add.overlap(player, bounce2, this.bounce2, null, this);
     
         checkpoint = this.physics.add.staticGroup();
         checkpoint.create(600, 1280, 'dust_bunny').setOrigin(0,0).setScale(.125).refreshBody();
@@ -370,6 +373,20 @@ update(){
                 }else{
                     this.shootLeft(player.y+50);
                 }
+            }
+            }
+            
+        }
+    
+    bounce2() {
+        if(this.hasTouched == false && cursors.up.isUp) {
+            this.hasTouched = true;
+        }else{
+            if(cursors.up.isDown) 
+            {
+                player.setVelocityY(-400);
+                this.hasTouched = false;
+                this.sound.play('jump_sound');
             }
             }
             
