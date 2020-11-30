@@ -51,18 +51,18 @@ create(){
         var hasTouched;
         hasTouched = false;
 
-//        //music config
-//        this.music = this.sound.add('song2');
-//        var musicConfig = {
-//            mute: false,
-//            volume: 1,
-//            rate: 1,
-//            detune: 0,
-//            seek: 0,
-//            loop: true,
-//            delay: 0
-//        }
-//        this.music.play(musicConfig);
+        //music config
+        this.music = this.sound.add('song2');
+        var musicConfig = {
+            mute: false,
+            volume: 0.75,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0
+        }
+        this.music.play(musicConfig);
 
         // //Adding timer
         // this.timer = this.time.addEvent({              
@@ -205,6 +205,7 @@ create(){
     
         //if player overlaps with bunny, level is complete
         this.physics.add.overlap(player, checkpoint, function(){
+            this.music.stop();
             this.scene.stop('bonus2');
             this.scene.stop('overlay');
             this.scene.start("performance");
